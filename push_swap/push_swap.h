@@ -1,9 +1,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <limits.h>
+# include "./libft/libft.h"
+# include "./ft_printf/ft_printf.h"
 # define MAX_SIZE 10
 # define TRUE 1
 # define FALSE 0
@@ -18,7 +16,7 @@ typedef struct s_deque
     int rear;
 }	t_deque;
 
-void    init_deque(t_deque *dq, size_t size);
+void    init_deque(t_deque *dq);
 boolean is_empty(t_deque *dq);
 boolean is_full(t_deque *dq, size_t size);
 element get_front(t_deque *dq);
