@@ -6,15 +6,15 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:13:12 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/01/09 20:06:00 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:01:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_deque.h"
 
-void	init_deque(t_deque *dq)
+void	init_deque(t_deque *dq, size_t size)
 {
-	dq->data = (element*)malloc(sizeof(element));
+	dq->data = (element*)malloc(sizeof(element) * size);
 	dq->front = 0;
 	dq->rear = 0;
 }
@@ -46,6 +46,6 @@ void	push_front(t_deque *dq, int num, size_t size)
 		ft_printf("que is full");
 		return ;
 	}
-	dq->front = (dq->front - 1 + MAX_SIZE) % MAX_SIZE;
 	dq->data[dq->front] = num;
+	dq->front = (dq->front - 1 + size) % size;
 }

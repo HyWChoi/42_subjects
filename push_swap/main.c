@@ -1,36 +1,23 @@
 #include "push_swap.h"
 
-void init_malloc(t_deque *dq, int argc)
-{
-    int i;
-
-    i = 0;
-    while (i < argc)
-        init_deque(dq);
-}
-
-void init_push(t_deque *dq, int argc, char *argv[])
+void    init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 {
     int i;
 
     i = 1;
+    init_deque(dq_a, argc); //큐의 가장 앞은 항상 검사를 위해 비어있어야 함
+    init_deque(dq_b, argc);
     while (i < argc)
-        push_front(dq, *argv[i], argc);
-
+    {
+        push_rear(dq_a, ft_atoi(*(argv + i++)), argc);
+    }
 }
 
 int main(int argc, char *argv[])
 {
-    t_deque *q_a;
-    t_deque *q_b;
-    int     i;
+    t_deque q_a;
+    t_deque q_b;
 
-    i = 0;
-    q_a = NULL;
-    q_b = NULL;
-    init_malloc(q_a, argc);
-    init_malloc(q_b, argc);
-    init_push(q_a, argc, argv);
-
-    print_dq(q_a);
+    init_dq_a_b(&q_a, &q_b, argc, argv);
 }
+
