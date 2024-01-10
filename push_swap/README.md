@@ -37,3 +37,8 @@ The last element becomes the first one.
 The last element becomes the first one.
 
 - rrr : rra and rrb at the same time.
+
+## 구현 방식
+- deque 사용
+  - 원형 큐에서 front에서 삽입, rear에서 삭제가 추가된 형태
+  - ra, rra 등의 reverse구현이 쉽게 가능해서 채택
