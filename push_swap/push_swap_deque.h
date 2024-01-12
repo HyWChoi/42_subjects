@@ -20,12 +20,11 @@ typedef struct s_deque
 void    init_deque(t_deque *dq, size_t size);
 boolean is_empty(t_deque *dq);
 boolean is_full(t_deque *dq, size_t size);
-element get_front(t_deque *dq, size_t size);
-element get_rear(t_deque *dq, size_t size);
 void    push_front(t_deque *dq, int num, size_t size);
 void    push_rear(t_deque *dq, int num, size_t size);
 element    pop_rear(t_deque *dq, size_t size);
 element    pop_front(t_deque *dq, size_t size);
 void    print_dq(t_deque *dq, size_t size);
 int	count_dq(t_deque *dq, size_t size);
+
 #endif

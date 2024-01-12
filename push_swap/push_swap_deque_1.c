@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:13:12 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/01/11 19:58:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/01/12 23:27:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,6 @@ boolean	is_full(t_deque *dq, size_t size)
 	return ((dq->rear + 1) % size == dq->front);
 }
 
-element get_rear(t_deque *dq, size_t size)
-{
-	if (is_empty(dq))
-	{
-		ft_printf("This t_deque is full\n");
-		return (ERROR);
-	}
-	return (dq->data[(dq->rear) % size]);
-}
-
-element get_front(t_deque *dq, size_t size)
-{
-	if (is_empty(dq))
-	{
-		ft_printf("This t_deque is full\n");
-		return (ERROR);
-	}
-	return (dq->data[(dq->front + 1) % size]);
-}
-
 void	push_front(t_deque *dq, int num, size_t size)
 {
 	if (is_full(dq, size))
@@ -58,4 +38,15 @@ void	push_front(t_deque *dq, int num, size_t size)
 	}
 	dq->data[dq->front] = num;
 	dq->front = (dq->front - 1 + size) % size;
+}
+
+void	push_rear(t_deque *dq, int num, size_t size)
+{
+	if (is_full(dq, size))
+	{
+		ft_printf("que is full\n");
+		return ;
+	}
+	dq->rear = (dq->rear + 1) % size;
+	dq->data[dq->rear] = num;
 }

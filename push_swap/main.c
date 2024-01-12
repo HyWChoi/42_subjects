@@ -18,18 +18,5 @@ void    init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    t_deque q_a;
-    t_deque q_b;
-
-    init_dq_a_b(&q_a, &q_b, argc, argv);
-    watch_dq_a_b_state(&q_a, &q_b, argc);
-    checker(&q_a, &q_b, argc);
-    // rra(&q_a, argc);
-    // watch_dq_a_b_state(&q_a, &q_b, argc);
-    // checker(&q_a, &q_b, argc);
-    // sa(&q_a, argc);
-    // watch_dq_a_b_state(&q_a, &q_b, argc);
-    // checker(&q_a, &q_b, argc);
-
 }
 
