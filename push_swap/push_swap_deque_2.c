@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:14:20 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/01/10 20:09:51 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:21:04 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	push_rear(t_deque *dq, int num, size_t size)
 {
 	if (is_full(dq, size))
 	{
-		ft_printf("que is full");
+		ft_printf("que is full\n");
 		return ;
 	}
 	dq->rear = (dq->rear + 1) % size;
@@ -29,7 +29,7 @@ element	pop_front(t_deque *dq, size_t size)
 
 	if (is_empty(dq))
 	{
-		ft_printf("que is empty");
+		ft_printf("que is empty\n");
 		return (ERROR);
 	}
 	tmp = dq->data[(dq->front + 1) % size];
@@ -43,7 +43,7 @@ element	pop_rear(t_deque *dq, size_t size)
 
 	if (is_empty(dq))
 	{
-		ft_printf("que is empty");
+		ft_printf("que is empty\n");
 		return (ERROR);
 	}
 	tmp = dq->data[dq->rear];
@@ -59,7 +59,7 @@ void	print_dq(t_deque *dq, size_t size)
 	ft_printf("t_deque(fornt = %d rear= %d)=", dq->front, dq->rear);
 	if (is_empty(dq))
 	{
-		ft_printf("que is empty");
+		ft_printf("que is empty\n");
 		return ;
 	}
 	while (i != dq->rear)
@@ -79,7 +79,7 @@ int	count_dq(t_deque *dq, size_t size)
 	count = 0;
 	if (is_empty(dq))
 	{
-		ft_printf("que is empty");
+		ft_printf("que is empty\n");
 		return (0);
 	}
 	while (i != dq->rear)

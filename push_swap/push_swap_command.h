@@ -1,7 +1,6 @@
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_COMMAND_H
+# define PUSH_SWAP_COMMAND_H
 # include "push_swap_deque.h"
-# include "watch_deque.h"
 
 void	sa(t_deque *dq_a, size_t size);
 void	sb(t_deque *dq_b, size_t size);
