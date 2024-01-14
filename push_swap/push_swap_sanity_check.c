@@ -26,23 +26,23 @@ int	ft_atoi_push_swap(char *str, t_deque *dq_a, t_deque *dq_b)
 
 int	ft_is_number(char *str)
 {
-    if (*str == '\0')
-        return (ERROR);
-    if (*str == '-' || *str == '+')
-        str++;
-    if (*str == '\0')
-        return (ERROR);
-    while (*str)
-    {
-        if (!ft_isdigit(*str++))
-            return (ERROR);
-    }
-    return (TRUE);
+	if (*str == '\0')
+		return (ERROR);
+	if (*str == '-' || *str == '+')
+		str++;
+	if (*str == '\0')
+		return (ERROR);
+	while (*str)
+	{
+		if (!ft_isdigit(*str++))
+			return (ERROR);
+	}
+	return (TRUE);
 }
-void    error_exit(t_deque *dq_a, t_deque *dq_b)
+void	error_exit(t_deque *dq_a, t_deque *dq_b)
 {
-    free(dq_a->data);
-    free(dq_b->data);
-    ft_printf("Error\n");
-    exit(1);
+	free(dq_a->data);
+	free(dq_b->data);
+	ft_printf("Error\n");
+	exit(1);
 }
