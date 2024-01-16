@@ -9,9 +9,9 @@ void	sa(t_deque *dq_a, size_t size)
 		ft_printf("\nSa do nothing if there is only one or no elements.\n");
 		return ;
 	}
-	temp = dq_a->data[(dq_a->front + 2) % size];
-	dq_a->data[(dq_a->front + 2) % size] = dq_a->data[(dq_a->front + 1) % size];
-	dq_a->data[(dq_a->front + 1) % size] = temp;
+	temp = dq_a->data[(dq_a->rear) % size];
+	dq_a->data[(dq_a->rear) % size] = dq_a->data[(dq_a->rear - 1 + size) % size];
+	dq_a->data[(dq_a->rear - 1 + size) % size] = temp;
 }
 void	sb(t_deque *dq_b, size_t size)
 {
@@ -22,9 +22,9 @@ void	sb(t_deque *dq_b, size_t size)
 		ft_printf("\nSb do nothing if there is only one or no elements.\n");
 		return ;
 	}
-	temp = dq_b->data[(dq_b->front + 2) % size];
-	dq_b->data[(dq_b->front + 2) % size] = dq_b->data[(dq_b->front + 1) % size];
-	dq_b->data[(dq_b->front + 1) % size] = temp;
+	temp = dq_b->data[(dq_b->rear) % size];
+	dq_b->data[(dq_b->rear) % size] = dq_b->data[(dq_b->rear - 1 + size) % size];
+	dq_b->data[(dq_b->rear - 1 + size) % size] = temp;
 }
 void	ss(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
@@ -35,12 +35,12 @@ void	pa(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	if (is_empty(dq_b))
 		return ;
-	push_rear(dq_a, pop_front(dq_b, size), size);
+	push_rear(dq_a, pop_rear(dq_b, size), size);
 }
 
 void	pb(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	if (is_empty(dq_a))
 		return ;
-	push_rear(dq_b, pop_front(dq_a, size), size);
+	push_rear(dq_b, pop_rear(dq_a, size), size);
 }

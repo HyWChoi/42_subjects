@@ -5,6 +5,7 @@
 		"string_view": "c",
 		"vector": "c",
 		"push_swap_deque.h": "c",
-		"__split_buffer": "c"
+		"__split_buffer": "c",
+		"ft_printf.h": "c"
 	}
 }
