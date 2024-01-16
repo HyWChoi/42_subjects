@@ -30,12 +30,23 @@ int main(int argc, char *argv[])
 	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_a, argc));
 	//printf("is_first_bigger_second: %d\n", is_first_bigger_second(&dq_b, argc));
 	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_b, argc));
-	//push_asc_a2b(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	push_asc_a2b(&dq_a, &dq_b, argc, 9); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//push_desc_a2b(&dq_a, &dq_b, argc, 3);
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//push_desc_a2b(&dq_a, &dq_b, argc, 3);
 	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
 	//push_desc_b2a(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 내림차순으로 push하는 함수 완성!!
 	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	push_desc_a2b(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 내림차순으로 push하는 함수 완성!!
-	watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	push_asc_b2a(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//push_desc_a2b(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 내림차순으로 push하는 함수 완성!!
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//push_asc_b2a(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//make_triangles_a2b(&dq_a, &dq_b, argc - 1); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//make_triangles_b2a(&dq_a, &dq_b, argc); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//divide_triangle(&dq_a, &dq_b, argc, 0); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	return (0);
 }
