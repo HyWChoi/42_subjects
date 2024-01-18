@@ -35,12 +35,12 @@ void	pa(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	if (is_empty(dq_b))
 		return ;
-	push_rear(dq_a, pop_rear(dq_b, size), size);
+	push_front(dq_a, pop_rear(dq_b, size), size);
 }
 
 void	pb(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	if (is_empty(dq_a))
 		return ;
-	push_rear(dq_b, pop_rear(dq_a, size), size);
+	push_front(dq_b, pop_rear(dq_a, size), size);
 }

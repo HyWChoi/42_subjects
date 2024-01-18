@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:14:20 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/01/12 23:27:36 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/01/19 04:33:38 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,10 @@ void	print_dq(t_deque *dq, size_t size)
 
 int	count_dq(t_deque *dq, size_t size)
 {
-	int i;
-	int	count;
-
-	i = (dq->front + 1) % size;
-	count = 0;
 	if (is_empty(dq))
 	{
 		ft_printf("que is empty\n");
-		return (0);
+		return (ERROR);
 	}
-	while (i != dq->rear)
-	{
-		i = (i + 1) % size;
-		count++;
-	}
-	return (count + 1);
+	return ((dq->rear - dq->front + size) % size);
 }

@@ -13,6 +13,7 @@ void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 		if (ft_is_number(*(argv + i)) == ERROR)
 			error_exit(dq_a, dq_b);
 		push_rear(dq_a, ft_atoi_push_swap(*(argv + i++), dq_a, dq_b), argc);
+		printf("dq_a->data[dq_a->rear]: %d\n", dq_a->data[dq_a->rear]);
 	}
 }
 
@@ -25,13 +26,16 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//printf("count_dq: %d\n", count_dq(&dq_a, argc));
+	//ft_printf("\n%d\n", find_max(&dq_a, argc));
+	//ft_printf("dq_a.front: %d\n", dq_a.front);
+	//ft_printf("dq_a.rear: %d\n", dq_a.data[dq_a.rear - 1 % argc]);
 	//printf("is_first_bigger_second: %d\n", is_first_bigger_second(&dq_a, argc));
 	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_a, argc));
 	//printf("is_first_bigger_second: %d\n", is_first_bigger_second(&dq_b, argc));
 	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_b, argc));
-	push_asc_a2b(&dq_a, &dq_b, argc, 9); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	//push_asc_a2b(&dq_a, &dq_b, argc, 6); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
+	//push_asc_a2b(&dq_a, &dq_b, argc, 3);
+	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
 	//push_desc_a2b(&dq_a, &dq_b, argc, 3);
 	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
 	//push_desc_a2b(&dq_a, &dq_b, argc, 3);

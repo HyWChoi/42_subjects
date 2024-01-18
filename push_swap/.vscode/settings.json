@@ -6,6 +6,12 @@
 		"vector": "c",
 		"push_swap_deque.h": "c",
 		"__split_buffer": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"__bit_reference": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"unordered_map": "c",
+		"push_swap_merge.h": "c"
 	}
 }
