@@ -54,4 +54,5 @@ void	push_asc_a_to_b(t_deque *dq_a, t_deque *dq_b, int size)
 	max = find_max;
 	//size만큼 순회를 돌면서 최대값을 찾은 뒤 올림
 	//size만큼 다 순회를 돌면서 배열에 넘기면 GOOD!
+	//size 3을 가지고 정렬이 되어야하는 모든 경우의 수를 따져서 하드 코딩을 해보자!
 }
