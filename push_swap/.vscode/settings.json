@@ -1,17 +1,22 @@
 {
-	"files.associations": {
-		"array": "c",
-		"string": "c",
-		"string_view": "c",
-		"vector": "c",
-		"push_swap_deque.h": "c",
-		"__split_buffer": "c",
-		"ft_printf.h": "c",
-		"__bit_reference": "c",
-		"algorithm": "c",
-		"bitset": "c",
-		"chrono": "c",
-		"unordered_map": "c",
-		"push_swap_merge.h": "c"
-	}
+  "files.associations": {
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "vector": "c",
+    "push_swap_deque.h": "c",
+    "__split_buffer": "c",
+    "ft_printf.h": "c",
+    "__bit_reference": "c",
+    "algorithm": "c",
+    "bitset": "c",
+    "chrono": "c",
+    "unordered_map": "c",
+    "push_swap_merge.h": "c",
+    "push_swap_element_status.h": "c",
+    "__hash_table": "c",
+    "initializer_list": "c",
+    "utility": "c",
+    "memory": "c"
+  }
 }

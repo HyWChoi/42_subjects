@@ -26,6 +26,11 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	i=is_sorted(&dq_a, argc);
+	if (is_sorted(&dq_a, 4) == TRUE)
+		ft_printf("sorted TRUE");
+	else
+		ft_printf("sorted FALSE");
 	//ft_printf("\n%d\n", find_max(&dq_a, argc));
 	//ft_printf("dq_a.front: %d\n", dq_a.front);
 	//ft_printf("dq_a.rear: %d\n", dq_a.data[dq_a.rear - 1 % argc]);

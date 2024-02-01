@@ -1,15 +1,30 @@
 #include "push_swap_checker.h"
 
-boolean	is_sorted(t_deque *dq, size_t size)
+boolean	is_sorted_asc(t_deque *dq, size_t size)
 {
 	int i;
+	size_t k;
 
 	i = (dq->front + 1) % size;
-	ft_printf("fi: %d\n", i);
-	while (i != dq->rear)
+	k = 0;
+	while ((i != dq->rear) && (k++ < size - 1))
 	{
-		ft_printf("i: %d\n", i);
-		if (dq->data[i] > dq->data[(i + 1) % size])
+		if (dq->data[i] > dq->data[(i + 1)])
+			return (FALSE);
+		i = (i + 1) % size;
+	}
+	return (TRUE);
+}
+boolean	is_sorted_desc(t_deque *dq, size_t size)
+{
+	int i;
+	size_t k;
+
+	i = (dq->front + 1) % size;
+	k = 0;
+	while ((i != dq->rear) && (k++ < size - 1))
+	{
+		if (dq->data[i] > dq->data[(i + 1)])
 			return (FALSE);
 		i = (i + 1) % size;
 	}
