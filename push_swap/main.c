@@ -17,6 +17,50 @@ void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 	}
 }
 
+int	ft_pow(int base, int exp)
+{
+	int result = 1;
+
+	while (exp > 0)
+	{
+		result *= base;
+		exp--;
+	}
+	return (result);
+}
+
+int	calc_depth(size_t i)
+{
+	int depth = 1;
+
+	while (ft_pow(3, depth) <= i)
+		depth++;
+	return (depth - 1);
+}
+
+int	calc_dir(int depth, size_t i)
+{
+	if (depth == 0)
+		return (1);
+	if (i < ft_pow(3, depth - 1))
+		return (calc_dir(depth - 1, i));
+	if (i < ft_pow(3, depth - 1) * 2)
+		return (!calc_dir(depth - 1, ft_pow(3, depth - 1) * 2 - 1 - i));
+	else
+		return (!calc_dir(depth - 1, ft_pow(3, depth - 1) * 3 - 1 - i));
+}
+
+size_t	calc_amt(int depth, size_t i, size_t n)
+{
+	if (depth == 0)
+    	return (n);
+    else if (i < ft_pow(3, depth - 1))
+    	return (calc_amt(depth - 1, i, n) / 3);
+    else if (i < ft_pow(3, depth - 1) * 2)
+    	return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
+    else
+    	return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
+}
 int main(int argc, char *argv[])
 {
 	t_deque dq_a;
@@ -26,11 +70,30 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	i=is_sorted(&dq_a, argc);
-	if (is_sorted(&dq_a, 4) == TRUE)
-		ft_printf("sorted TRUE");
-	else
-		ft_printf("sorted FALSE");
+	int depth = 0;
+	// while (depth < 3)
+	// {
+	// 	i = 0;
+	// 	while (i < ft_pow(3, depth))
+	// 	{
+	// 		ft_printf("depth: %d, i: %d, calc_dir: %d\n", depth, i, calc_dir(depth, i));
+	// 		i++;
+	// 	}
+	// 	depth++;
+	// }
+	// depth = 0;
+	size_t amt = 1000;
+	ft_printf("calc_depth: %d\n", calc_depth(amt));
+	while (depth < calc_depth(amt))
+	{
+		i = 0;
+		while (i < ft_pow(3, depth))
+		{
+			ft_printf("depth: %d, i: %d, calc_amt: %d\n", depth, i, calc_amt(depth, i, amt));
+			i++;
+		}
+		depth++;
+	}
 	//ft_printf("\n%d\n", find_max(&dq_a, argc));
 	//ft_printf("dq_a.front: %d\n", dq_a.front);
 	//ft_printf("dq_a.rear: %d\n", dq_a.data[dq_a.rear - 1 % argc]);
