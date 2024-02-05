@@ -1,4 +1,4 @@
-#include "push_swap_merge.h"
+#include "push_swap_checker.h"
 #include <stdio.h>
 
 void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
@@ -13,10 +13,26 @@ void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 		if (ft_is_number(*(argv + i)) == ERROR)
 			error_exit(dq_a, dq_b);
 		push_rear(dq_a, ft_atoi_push_swap(*(argv + i++), dq_a, dq_b), argc);
-		printf("dq_a->data[dq_a->rear]: %d\n", dq_a->data[dq_a->rear]);
 	}
 }
-
+int	is_first_bigger_second(t_deque *dq, size_t size)
+{
+	if (dq->data[(dq->front + 1) % size] < dq->data[(dq->front + 2) % size])
+		return (FALSE);
+	return (TRUE);
+}
+int	is_first_bigger_last(t_deque *dq, size_t size)
+{
+	if (dq->data[(dq->front + 1) % size] < dq->data[(dq->rear) % size])
+		return (FALSE);
+	return (TRUE);
+}
+int	is_second_bigger_last(t_deque *dq, size_t size)
+{
+	if (dq->data[(dq->front + 2) % size] < dq->data[(dq->rear) % size])
+		return (FALSE);
+	return (TRUE);
+}
 int	ft_pow(int base, int exp)
 {
 	int result = 1;
@@ -29,16 +45,21 @@ int	ft_pow(int base, int exp)
 	return (result);
 }
 
-int	calc_depth(size_t i)
+int	calc_depth(int i)
 {
 	int depth = 1;
-
+	int count = 0;
 	while (ft_pow(3, depth) <= i)
+	{
 		depth++;
-	return (depth - 1);
+		count++;
+	}
+	if (depth == 2)
+		return (1);
+	return (count - 1);
 }
 
-int	calc_dir(int depth, size_t i)
+int	calc_dir(int depth, int i)
 {
 	if (depth == 0)
 		return (1);
@@ -50,17 +71,137 @@ int	calc_dir(int depth, size_t i)
 		return (!calc_dir(depth - 1, ft_pow(3, depth - 1) * 3 - 1 - i));
 }
 
-size_t	calc_amt(int depth, size_t i, size_t n)
+int	calc_amt(int depth, int i, int n)
 {
 	if (depth == 0)
     	return (n);
     else if (i < ft_pow(3, depth - 1))
     	return (calc_amt(depth - 1, i, n) / 3);
     else if (i < ft_pow(3, depth - 1) * 2)
-    	return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
+		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
     else
     	return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
 }
+
+void	make_triangle_asc(t_deque *dq_a, t_deque *dq_b, int amt)
+{
+	int i;
+
+	i = 0;
+	while (i++ < amt)
+	{
+		if (is_empty(dq_a))
+			return;
+		if (i == 1)
+		{
+			if (is_first_bigger_second(dq_a, dq_a->size))
+			{
+				if (!is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+			else
+			{
+				sa(dq_a, dq_a->size);
+				if (!is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+		}
+		else
+		{
+			if (is_first_bigger_second(dq_a, dq_a->size))
+			{
+				if (!is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] > dq_b->data[(dq_b->front + 1) % dq_b->size])
+					ra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+			else
+			{
+				sa(dq_a, dq_a->size);
+				if (!is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] > dq_b->data[(dq_b->front + 1) % dq_b->size])
+					ra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+		}
+	}
+}
+
+void	make_triangle_desc(t_deque *dq_a, t_deque *dq_b, int amt)
+{
+	int i;
+
+	i = 0;
+	while (i++ < amt)
+	{
+		if (is_empty(dq_a))
+			return;
+		if (i == 1)
+		{
+			if (!is_first_bigger_second(dq_a, dq_a->size))
+			{
+				if (is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+			else
+			{
+				sa(dq_a, dq_a->size);
+				if (is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+		}
+		else
+		{
+			if (!is_first_bigger_second(dq_a, dq_a->size))
+			{
+				if (is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
+					ra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+			else
+			{
+				sa(dq_a, dq_a->size);
+				if (is_first_bigger_last(dq_a, dq_a->size))
+					rra(dq_a, dq_a->size);
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
+					ra(dq_a, dq_a->size);
+				pb(dq_a, dq_b, dq_a->size);
+			}
+		}
+	}
+}
+
+void	make_triangular(t_deque *dq_a, t_deque *dq_b)
+{
+	int	i;
+	int	depth;
+	int	dir;
+	int	amt;
+
+	if (dq_a->size == 0)
+		return ;
+	depth = calc_depth(dq_a->size - 1);
+	i = 0;
+	while (i < ft_pow(3, depth))
+	{
+		dir = calc_dir(depth, i);
+		amt = calc_amt(depth, i, dq_a->size - 1);
+		if (dir == 1)
+			make_triangle_asc(dq_a, dq_b, amt);
+		else
+			make_triangle_desc(dq_a, dq_b, amt);
+		i++;
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	t_deque dq_a;
@@ -70,55 +211,7 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	int depth = 0;
-	// while (depth < 3)
-	// {
-	// 	i = 0;
-	// 	while (i < ft_pow(3, depth))
-	// 	{
-	// 		ft_printf("depth: %d, i: %d, calc_dir: %d\n", depth, i, calc_dir(depth, i));
-	// 		i++;
-	// 	}
-	// 	depth++;
-	// }
-	// depth = 0;
-	size_t amt = 1000;
-	ft_printf("calc_depth: %d\n", calc_depth(amt));
-	while (depth < calc_depth(amt))
-	{
-		i = 0;
-		while (i < ft_pow(3, depth))
-		{
-			ft_printf("depth: %d, i: %d, calc_amt: %d\n", depth, i, calc_amt(depth, i, amt));
-			i++;
-		}
-		depth++;
-	}
-	//ft_printf("\n%d\n", find_max(&dq_a, argc));
-	//ft_printf("dq_a.front: %d\n", dq_a.front);
-	//ft_printf("dq_a.rear: %d\n", dq_a.data[dq_a.rear - 1 % argc]);
-	//printf("is_first_bigger_second: %d\n", is_first_bigger_second(&dq_a, argc));
-	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_a, argc));
-	//printf("is_first_bigger_second: %d\n", is_first_bigger_second(&dq_b, argc));
-	//printf("is_first_bigger_last: %d\n", is_first_bigger_last(&dq_b, argc));
-	//push_asc_a2b(&dq_a, &dq_b, argc, 6); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	//push_asc_a2b(&dq_a, &dq_b, argc, 3);
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//push_desc_a2b(&dq_a, &dq_b, argc, 3);
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//push_desc_a2b(&dq_a, &dq_b, argc, 3);
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//push_desc_b2a(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 내림차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//push_desc_a2b(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 내림차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//push_asc_b2a(&dq_a, &dq_b, argc, 7); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//make_triangles_a2b(&dq_a, &dq_b, argc - 1); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//make_triangles_b2a(&dq_a, &dq_b, argc); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//divide_triangle(&dq_a, &dq_b, argc, 0); //정해진 개수만큼 오름차순으로 push하는 함수 완성!!
-	//watch_dq_a_b_state(&dq_a, &dq_b, argc);
+	make_triangular(&dq_a, &dq_b);
+	watch_dq_a_b_state(&dq_a, &dq_b, argc);
 	return (0);
 }

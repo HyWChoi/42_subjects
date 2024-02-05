@@ -13,6 +13,7 @@ typedef int element;
 typedef struct s_deque
 {
     element *data;
+    size_t size;
     int front;
     int rear;
 }	t_deque;

@@ -43,6 +43,6 @@ void	error_exit(t_deque *dq_a, t_deque *dq_b)
 {
 	free(dq_a->data);
 	free(dq_b->data);
-	ft_printf("Error\n");
+	// ft_printf("Error\n");
 	exit(1);
 }
