@@ -160,18 +160,20 @@ void	make_triangle_desc(t_deque *dq_a, t_deque *dq_b, int amt)
 		{
 			if (!is_first_bigger_second(dq_a, dq_a->size))
 			{
+				int count = count_dq(dq_a, dq_a->size);
 				if (is_first_bigger_last(dq_a, dq_a->size))
 					rra(dq_a, dq_a->size);
-				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size] && count-- > 0)
 					ra(dq_a, dq_a->size);
 				pb(dq_a, dq_b, dq_a->size);
 			}
 			else
 			{
+				int count = count_dq(dq_a, dq_a->size);
 				sa(dq_a, dq_a->size);
 				if (is_first_bigger_last(dq_a, dq_a->size))
 					rra(dq_a, dq_a->size);
-				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
+				while (dq_a->data[(dq_a->front + 1) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size] && count-- > 0)
 					ra(dq_a, dq_a->size);
 				pb(dq_a, dq_b, dq_a->size);
 			}
