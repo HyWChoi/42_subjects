@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 23:50:22 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/05 19:19:05 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:16:21 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	watch_dq_a_state(t_deque *a, size_t size)
 {
-	// ft_printf("dq_a's state: ");
+	ft_printf("dq_a's state: ");
 	print_dq(a, size);
 }
 
 void	watch_dq_b_state(t_deque *b, size_t size)
 {
-	// ft_printf("dq_b's state: ");
+	ft_printf("dq_b's state: ");
 	print_dq(b, size);
 }
 
