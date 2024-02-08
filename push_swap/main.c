@@ -135,15 +135,10 @@ int	get_max_index_index_with_limit(t_deque *dq, int amt, element limit)
 	i = 0;
 	max = dq->data[(dq->front + 1) % dq->size];
 	index = (dq->front + 1) % dq->size;
-	if (max > limit)
-	{
-		i++;
-		max = dq->data[(dq->front + 1 + i) % dq->size];
-		index = (dq->front + 1 + i) % dq->size;
-	}
 	while (i < amt - 1)
 	{
-		if (max < dq->data[(dq->front + 1 + i) % dq->size] && dq->data[(dq->front + 1 + i) % dq->size] < limit)
+		// ft_printf("flag1\n");
+		if (max <= dq->data[(dq->front + 1 + i) % dq->size] && dq->data[(dq->front + 1 + i) % dq->size] < limit)
 		{
 			max = dq->data[(dq->front + 1 + i) % dq->size];
 			index = (dq->front + 1 + i) % dq->size;
@@ -161,12 +156,13 @@ int	get_max_index(t_deque *dq, int amt)
 	element max;
 	size_t index;
 
-	i = 1;
+	i = 0;
 	max = dq->data[(dq->front + 1) % dq->size];
 	index = (dq->front + 1) % dq->size;
 	while (i < amt - 1)
 	{
-		if (max < dq->data[(dq->front + 1 + i) % dq->size])
+		// ft_printf("flag2\n");
+		if (max <= dq->data[(dq->front + 1 + i) % dq->size])
 		{
 			max = dq->data[(dq->front + 1 + i) % dq->size];
 			index = (dq->front + 1 + i) % dq->size;
@@ -175,9 +171,22 @@ int	get_max_index(t_deque *dq, int amt)
 	}
 	if (dq->data[(dq->rear) % dq->size] > max)
 		index = dq->rear % dq->size;
+	// ft_printf("max: %d, index: %d\n", max, index);
 	return (index);
 }
 
+boolean	is_closer_front(t_deque *dq, int value_index)
+{
+	int front_distance, rear_distance;
+
+	front_distance = (value_index - dq->front + dq->size) % dq->size;
+	rear_distance = (dq->rear - value_index + dq->size) % dq->size;
+
+	if (front_distance <= rear_distance)
+		return (TRUE);
+	else
+		return (FALSE);
+}
 
 int	count_moves_with_value(t_deque *dq, int value_index)
 {
@@ -194,9 +203,7 @@ int	count_moves_with_value(t_deque *dq, int value_index)
 		return (pb);
 	else if (value_index == (dq->front + 2) % dq->size)
 		return (sa);
-	else if ((unsigned long)value_index > dq->rear % dq->size)
-		return (rra);
-	else if ((unsigned long)value_index <= ((dq->front) % dq->size + (dq->rear) % dq->size) / 2)
+	else if (is_closer_front(dq, value_index))
 		return (ra);
 	else
 		return (rra);
@@ -207,6 +214,7 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	i;
 	int	move;
 	int	max_index;
+	int max;
 
 	i = 0;
 	if (is_sorted_desc1(dq_a, amt))
@@ -218,11 +226,24 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		{
 			max_index = get_max_index(dq_a, amt);
 			move = count_moves_with_value(dq_a, max_index);
+			max = dq_a->data[max_index];
+
+			// ft_printf("max: %d\n", max);
+			// ft_printf("max_index: %d\n", max_index);
 		}
 		else
 		{
 			max_index = get_max_index_index_with_limit(dq_a, amt, dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, max_index);
+			max = dq_a->data[max_index];
+			if (max > dq_b->data[(dq_b->front + 1) % dq_b->size])
+			{
+				rra(dq_a, dq_a->size);
+				continue ;
+			}
+			// ft_printf("dq_a->front: %d, dq_a->rear: %d\n",dq_a->front % dq_a->size, dq_a->rear % dq_a->size);
+			// ft_printf("max: %d\n", max);
+			// ft_printf("max_index: %d\n", max_index);
 		}
 		if (move == 1) // sa
 		{
@@ -231,13 +252,14 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else if (move == 2) // ra
 		{
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != dq_a->data[max_index])
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
 				ra(dq_a, dq_a->size);
 			pb(dq_a, dq_b, dq_a->size);
 		}
 		else if (move == 3) // rra
 		{
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != dq_a->data[max_index])
+			// ft_printf("FUCK");
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
 				rra(dq_a, dq_a->size);
 			pb(dq_a, dq_b, dq_a->size);
 		}
@@ -258,8 +280,10 @@ int	get_min_index_with_limit(t_deque *dq, int amt, element limit)
 	index = (dq->front + 1) % dq->size;
 	while (i < amt - 1)
 	{
-		if (dq->data[(dq->front + 1 + i) % dq->size] < min && dq->data[(dq->front + 1 + i) % dq->size] > limit)
+		// ft_printf("limit: %d\n", limit);
+		if (min >= dq->data[(dq->front + 1 + i) % dq->size] && dq->data[(dq->front + 1 + i) % dq->size] > limit)
 		{
+			// ft_printf("Tlqkfmin: %d, dq->data[(dq->front + 2 + i) %% dq->size]: %d\n", min, dq->data[(dq->front + 2 + i) % dq->size]);
 			min = dq->data[(dq->front + 1 + i) % dq->size];
 			index = (dq->front + 1 + i) % dq->size;
 		}
@@ -281,7 +305,8 @@ int	get_min_index(t_deque *dq, int amt)
 	index = (dq->front + 1) % dq->size;
 	while (i < amt - 1)
 	{
-		if (min > dq->data[(dq->front + 1 + i) % dq->size])
+		// ft_printf("flag4\n");
+		if (min >= dq->data[(dq->front + 1 + i) % dq->size])
 		{
 			min = dq->data[(dq->front + 1 + i) % dq->size];
 			index = (dq->front + 1 + i) % dq->size;
@@ -298,6 +323,7 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	i;
 	int	move;
 	int	min_index;
+	int min;
 
 	i = 0;
 	if (is_sorted_asc1(dq_a, amt))
@@ -305,15 +331,32 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 			pb(dq_a, dq_b,dq_a->size);
 	while (i < amt)
 	{
+		// ft_printf("i: %d\n", i);
 		if (i == 0)
 		{
 			min_index = get_min_index(dq_a, amt);
 			move = count_moves_with_value(dq_a, min_index);
+			min = dq_a->data[min_index];
+
+			// ft_printf("amt: %d\n", amt);
+			// ft_printf("min: %d\n", min);
+			// ft_printf("min_index: %d\n", min_index);
 		}
 		else
 		{
-			min_index = get_min_index_with_limit(dq_a, amt - i, dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			min_index = get_min_index_with_limit(dq_a, amt, dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, min_index);
+			min = dq_a->data[min_index];
+			if (min < dq_b->data[(dq_b->front + 1) % dq_b->size])
+			{
+				ra(dq_a, dq_a->size);
+				continue ;
+			}
+			// ft_printf("dq_b first element: %d\n", dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			// ft_printf("amt: %d\n", amt);
+			// ft_printf("min: %d\n", min);
+			// ft_printf("min_index: %d\n", min_index);
+			// ft_printf("dq_a->front: %d\n",dq_a->front);
 		}
 		if (move == 1) // sa
 		{
@@ -322,13 +365,13 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else if (move == 2) // ra
 		{
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != dq_a->data[min_index % dq_a->size])
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
 				ra(dq_a, dq_a->size);
 			pb(dq_a, dq_b, dq_a->size);
 		}
 		else if (move == 3) // rra
 		{
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != dq_a->data[min_index % dq_a->size])
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
 				rra(dq_a, dq_a->size);
 			pb(dq_a, dq_b, dq_a->size);
 		}
@@ -359,11 +402,49 @@ void	make_triangular(t_deque *dq_a, t_deque *dq_b)
 			make_asc_2_b(dq_a, dq_b, amt);
 		else
 			make_desc_2_b(dq_a, dq_b, amt);
-		// ft_printf("dir: %d, amt: %d\n", dir, amt);
+		// // ft_printf("depth: %d, dir: %d, amt: %d\n", depth, dir, amt);
 		i++;
 	}
 }
+int	calc_amt(int depth, int i, int n)
+{
+	if (depth == 0)
+		return (n);
+	else if (i < ft_pow(3, depth - 1))
+		return (calc_amt(depth - 1, i, n) / 3);
+	else if (i < ft_pow(3, depth - 1) * 2)
+		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
+	else
+		return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
+}
 
+void	merge_triangle(t_deque *dq_a, t_deque *dq_b, int depth)
+{
+	int i;
+	int amt;
+
+	i = 0;
+	amt = 3;
+	if (is_sorted_asc1(dq_a, dq_a->size))
+	{
+		if (dq_a->data[(dq_a->rear) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
+		{
+			if(!is_first_bigger_last(dq_b, dq_b->size))
+				rrb(dq_b, dq_b->size);
+			pa(dq_a, dq_b, dq_b->size);
+		}
+		else
+		{
+			if(dq_a->data[(dq_a->rear) % dq_a->size] < dq_b->data[(dq_b->rear) % dq_b->size])
+			{
+				 rrb(dq_b, dq_b->size);
+				 pa(dq_a, dq_b, dq_b->size);
+			}
+			else
+				rra(dq_a, dq_a->size);
+		}
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -374,10 +455,26 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	// make_asc_2_b(&dq_a, &dq_b, 3);
-	// make_desc_2_b(&dq_a, &dq_b, 4);
+	//  make_asc_2_b(&dq_a, &dq_b, 3);
+	//  make_desc_2_b(&dq_a, &dq_b, 3);
+	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
 	// make_desc_2_b(&dq_a, &dq_b, 3);
 	make_triangular(&dq_a, &dq_b);
+	pa(&dq_a, &dq_b, dq_b.size);
+	pa(&dq_a, &dq_b, dq_b.size);
+	pa(&dq_a, &dq_b, dq_b.size);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
+	merge_triangle(&dq_a, &dq_b);
 	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
 
 	return (0);

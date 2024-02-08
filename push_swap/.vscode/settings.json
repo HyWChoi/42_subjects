@@ -17,6 +17,7 @@
     "__hash_table": "c",
     "initializer_list": "c",
     "utility": "c",
-    "memory": "c"
+    "memory": "c",
+    "iterator": "c"
   }
 }
