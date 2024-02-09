@@ -406,26 +406,29 @@ void	make_triangular(t_deque *dq_a, t_deque *dq_b)
 		i++;
 	}
 }
-int	calc_amt(int depth, int i, int n)
-{
-	if (depth == 0)
-		return (n);
-	else if (i < ft_pow(3, depth - 1))
-		return (calc_amt(depth - 1, i, n) / 3);
-	else if (i < ft_pow(3, depth - 1) * 2)
-		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
-	else
-		return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
-}
+
+// int	calc_amt(int depth, int i, int n)
+// {
+// 	if (depth == 0)
+// 		return (n);
+// 	else if (i < ft_pow(3, depth - 1))
+// 		return (calc_amt(depth - 1, i, n) / 3);
+// 	else if (i < ft_pow(3, depth - 1) * 2)
+// 		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
+// 	else
+// 		return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
+// }
 
 void	merge_triangle(t_deque *dq_a, t_deque *dq_b, int depth)
 {
-	int i;
-	int amt;
+	int	i;
+	int	a_amt;
 
 	i = 0;
-	amt = 3;
-	if (is_sorted_asc1(dq_a, dq_a->size))
+	a_amt = 0;
+	while (i < ft_pow(3, depth) / 3)
+		a_amt += calc_amt(depth, i++, dq_a->size);
+	if (is_sorted_asc1(dq_a, calc_amt(depth, 0, dq_a->size)))
 	{
 		if (dq_a->data[(dq_a->rear) % dq_a->size] < dq_b->data[(dq_b->front + 1) % dq_b->size])
 		{
@@ -433,15 +436,25 @@ void	merge_triangle(t_deque *dq_a, t_deque *dq_b, int depth)
 				rrb(dq_b, dq_b->size);
 			pa(dq_a, dq_b, dq_b->size);
 		}
-		else
+		else if (dq_a->data[(dq_a->rear) % dq_a->size] > dq_b->data[(dq_b->front + 1) % dq_b->size])
 		{
-			if(dq_a->data[(dq_a->rear) % dq_a->size] < dq_b->data[(dq_b->rear) % dq_b->size])
+			if (dq_a->data[(dq_a->rear) % dq_a->size] < dq_b->data[(dq_b->rear) % dq_b->size])
 			{
 				 rrb(dq_b, dq_b->size);
 				 pa(dq_a, dq_b, dq_b->size);
 			}
-			else
+			else if (dq_a->data[(dq_a->rear) % dq_a->size] > dq_b->data[(dq_b->rear) % dq_b->size] && a_amt > 0)
+			{
 				rra(dq_a, dq_a->size);
+				a_amt--;
+			}
+			else if (dq_b->data[(dq_b->front + 1) % dq_b->size] < dq_b->data[(dq_b->rear) % dq_b->size])
+			{
+				rrb(dq_b, dq_b->size);
+				pa(dq_a, dq_b, dq_b->size);
+			}
+			else
+				pa(dq_a, dq_b, dq_b->size);
 		}
 	}
 }
@@ -451,31 +464,28 @@ int main(int argc, char *argv[])
 	t_deque dq_a;
 	t_deque dq_b;
 	int i;
+	int amt;
+	int depth;
 
 	i = 0;
+	amt = 0;
+	depth = calc_depth((&dq_a)->size - 1);
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
-	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	//  make_asc_2_b(&dq_a, &dq_b, 3);
-	//  make_desc_2_b(&dq_a, &dq_b, 3);
-	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
-	// make_desc_2_b(&dq_a, &dq_b, 3);
 	make_triangular(&dq_a, &dq_b);
-	pa(&dq_a, &dq_b, dq_b.size);
-	pa(&dq_a, &dq_b, dq_b.size);
-	pa(&dq_a, &dq_b, dq_b.size);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	merge_triangle(&dq_a, &dq_b);
-	// watch_dq_a_b_state(&dq_a, &dq_b, argc);
-
+	pa(&dq_a, &dq_b, dq_a.size);
+	pa(&dq_a, &dq_b, dq_a.size);
+	pa(&dq_a, &dq_b, dq_a.size);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
+	merge_triangle(&dq_a, &dq_b, 1);
 	return (0);
 }
