@@ -1,6 +1,6 @@
-#ifndef PUSH_SWAP_MERGE_H
-# define PUSH_SWAP_MERGE_H
-# include "push_swap_devide.h"
+#ifndef PUSH_SWAP_CALCS_H
+# define PUSH_SWAP_CALCS_H
+# include "push_swap_element_status.h"
 
 int ft_pow(int base, int exp);
 int	calc_depth(int i);

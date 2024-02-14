@@ -1,4 +1,4 @@
-#include "push_swap_merge.h"
+#include "push_swap_calcs.h"
 
 int ft_pow(int base, int exp)
 {
