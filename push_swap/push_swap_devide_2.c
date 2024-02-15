@@ -40,7 +40,6 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 			max_index = get_max_index(dq_a, amt);
 			move = count_moves_with_value(dq_a, max_index);
 			max = dq_a->data[max_index];
-
 			// ft_printf("max: %d\n", max);
 			// ft_printf("max_index: %d\n", max_index);
 		}

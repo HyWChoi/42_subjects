@@ -520,15 +520,76 @@ void	merge_triangle_2_b(t_deque *dq_a, t_deque *dq_b, int depth)
 	free(lst);
 }
 
+void	merge_triangle_2_a_even(t_deque *dq_a, t_deque *dq_b, int depth)
+{
+	int	i;
+	int	k;
+	int	dir;
+	int	amt;
+	int	*lst;
+
+	i = 0;
+	k = 0;
+	lst = make_amt_list(dq_a->size - 1, depth);
+	while (k < ft_pow(3, depth) / 3)
+	{
+		while (i++ < calc_amt(depth, k, dq_a->size - 1))
+			pa(dq_a, dq_b, dq_a->size);
+		i = 0;
+		k++;
+	}
+	while (i < ft_pow(3, depth - 1))
+	{
+		dir = !calc_dir(depth - 1, i);
+		amt = calc_amt(depth - 1, i, dq_a->size - 1);
+		ft_printf("dir: %d, amt: %d\n", dir, amt);
+		if (dir == 1)
+			merge_asc_2_a(dq_a, dq_b, depth, amt, lst, i);
+		else
+			merge_desc_2_a(dq_a, dq_b, depth, amt, lst, i);
+		i++;
+	}
+	free(lst);
+}
+
+void	merge_triangle_2_b_even(t_deque *dq_a, t_deque *dq_b, int depth)
+{
+	int	i;
+	int	k;
+	int	dir;
+	int	amt;
+	int	*lst;
+
+	i = 0;
+	k = 0;
+	dir = 0;
+	amt = 0;
+	lst = make_amt_list(dq_a->size - 1, depth);
+	while (k < ft_pow(3, depth) / 3)
+	{
+		while (i++ < calc_amt(depth, k, dq_a->size - 1))
+			pb(dq_a, dq_b, dq_a->size);
+		i = 0;
+		k++;
+	}
+	while (i < ft_pow(3, depth - 1))
+	{
+		dir = !calc_dir(depth - 1, i);
+		amt = calc_amt(depth - 1, i, dq_a->size - 1);
+		if (dir == 1)
+			merge_asc_2_b(dq_a, dq_b, depth, amt, lst, i);
+		else
+			merge_desc_2_b(dq_a, dq_b, depth, amt, lst, i);
+		i++;
+	}
+	free(lst);
+}
+
 void	merge(t_deque *dq_a, t_deque *dq_b, int depth)
 {
 	int	i;
 
 	i = 0;
-	// 전 단계의 설계도대로 만들어야됨 그러면 일단 현재 만들어야하는 곳이 a인지 b인지 먼저 판단해야겠지?
-	//  만들어야 하는 곳의 위치는 현재 depth - 1이 홀/짝인지 먼저 검사해야겠지?
-	//  그 전에 몇개의 삼각형을 만들어야하는지는 어떻게 판단할까?
-	//  3의 현재 depth 승이 몇인지 알아야겠지?
 	if (depth % 2 == 1)
 	{
 		while (depth - i > 0)
@@ -545,12 +606,11 @@ void	merge(t_deque *dq_a, t_deque *dq_b, int depth)
 		while (depth - i > 0)
 		{
 			if ((depth - i) % 2 == 1)
-				merge_triangle_2_b(dq_a, dq_b, depth - i);
+				merge_triangle_2_b_even(dq_a, dq_b, depth - i);
 			else
-				merge_triangle_2_a(dq_a, dq_b, depth - i);
+				merge_triangle_2_a_even(dq_a, dq_b, depth - i);
 			i++;
 		}
-
 	}
 }
 
@@ -558,28 +618,16 @@ int main(int argc, char *argv[])
 {
 	t_deque dq_a;
 	t_deque dq_b;
-	int i;
-	int amt;
+	size_t i;
 	int depth;
+
 	i = 0;
-	amt = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	depth = calc_depth((&dq_a)->size - 1);
-	// make_triangular(&dq_a, &dq_b);
-	// ft_printf("depth: %d\n", depth);
-	// while (i < ft_pow(3, depth))
-	//  ft_printf("%d, ", lst[i++]);
-	// ft_printf("\n");
-	// merge_triangle(&dq_a, &dq_b, depth);
-	// while (i < ft_pow(3, depth))
-	// {
-	//  ft_printf("depth: %d, dir: %d, amt: %d\n", depth , calc_dir(depth , i), calc_amt(depth, i, argc -1));
-	//  i++;
-	// }
 	make_triangular(&dq_a, &dq_b);
-	merge(&dq_a,&dq_b,depth);
-	// while (i < 3)
-	//  pa(&dq_a, &dq_b, dq_a.size);
-	// merge_asc_2_a(&dq_a, &dq_b, depth, lst[0], lst, 0);
+	merge(&dq_a, &dq_b, depth);
+	if (depth % 2 == 0)
+		while (i++ < dq_a.size - 1)
+			pa(&dq_a, &dq_b, dq_a.size);
 	return (0);
 }
