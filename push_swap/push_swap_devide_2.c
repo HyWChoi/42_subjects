@@ -28,8 +28,10 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	move;
 	int	max_index;
 	int max;
+	int	count;
 
 	i = 0;
+	count = 0;
 	if (is_sorted_desc1(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b,dq_a->size);
@@ -37,7 +39,7 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	{
 		if (i == 0)
 		{
-			max_index = get_max_index(dq_a, amt);
+			max_index = get_max_index(dq_a, amt - i);
 			move = count_moves_with_value(dq_a, max_index);
 			max = dq_a->data[max_index];
 			// ft_printf("max: %d\n", max);
@@ -45,14 +47,9 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else
 		{
-			max_index = get_max_index_index_with_limit(dq_a, amt, dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			max_index = get_max_index_index_with_limit(dq_a, amt - i, dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, max_index);
 			max = dq_a->data[max_index];
-			if (max > dq_b->data[(dq_b->front + 1) % dq_b->size])
-			{
-				rra(dq_a, dq_a->size);
-				continue ;
-			}
 			// ft_printf("dq_a->front: %d, dq_a->rear: %d\n",dq_a->front % dq_a->size, dq_a->rear % dq_a->size);
 			// ft_printf("max: %d\n", max);
 			// ft_printf("max_index: %d\n", max_index);
@@ -65,15 +62,31 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		else if (move == 2) // ra
 		{
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
+			{
 				ra(dq_a, dq_a->size);
+				count++;
+			}
 			pb(dq_a, dq_b, dq_a->size);
+			while (count > 0)
+			{
+				rra(dq_a, dq_a->size);
+				count--;
+			}
 		}
 		else if (move == 3) // rra
 		{
 			// ft_printf("FUCK");
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
+			{
 				rra(dq_a, dq_a->size);
+				count++;
+			}
 			pb(dq_a, dq_b, dq_a->size);
+			while (count > 0)
+			{
+				ra(dq_a, dq_a->size);
+				count--;
+			}
 		}
 		else
 			pb(dq_a, dq_b, dq_a->size);
@@ -87,9 +100,11 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	i;
 	int	move;
 	int	min_index;
-	int min;
+	int	min;
+	int	count;
 
 	i = 0;
+	count = 0;
 	if (is_sorted_asc1(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b,dq_a->size);
@@ -98,7 +113,7 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		// ft_printf("i: %d\n", i);
 		if (i == 0)
 		{
-			min_index = get_min_index(dq_a, amt);
+			min_index = get_min_index(dq_a, amt - i);
 			move = count_moves_with_value(dq_a, min_index);
 			min = dq_a->data[min_index];
 
@@ -108,14 +123,9 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else
 		{
-			min_index = get_min_index_with_limit(dq_a, amt, dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			min_index = get_min_index_with_limit(dq_a, amt - i, dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, min_index);
 			min = dq_a->data[min_index];
-			if (min < dq_b->data[(dq_b->front + 1) % dq_b->size])
-			{
-				ra(dq_a, dq_a->size);
-				continue ;
-			}
 			// ft_printf("dq_b first element: %d\n", dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			// ft_printf("amt: %d\n", amt);
 			// ft_printf("min: %d\n", min);
@@ -130,14 +140,30 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		else if (move == 2) // ra
 		{
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
+			{
 				ra(dq_a, dq_a->size);
+				count++;
+			}
 			pb(dq_a, dq_b, dq_a->size);
+			while (count > 0)
+			{
+				rra(dq_a, dq_a->size);
+				count--;
+			}
 		}
 		else if (move == 3) // rra
 		{
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
+			{
 				rra(dq_a, dq_a->size);
+				count++;
+			}
 			pb(dq_a, dq_b, dq_a->size);
+			while (count > 1)
+			{
+				ra(dq_a, dq_a->size);
+				count--;
+			}
 		}
 		else
 			pb(dq_a, dq_b, dq_a->size);
