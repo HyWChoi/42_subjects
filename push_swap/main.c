@@ -59,6 +59,13 @@ int main(int argc, char *argv[])
 	i = 0;
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	fill_dq_a(&dq_a, &dq_b, argc, argv);
+	if (count_dq(&dq_a, dq_a.size) == 2)
+	{
+		if (is_sorted_asc1(&dq_a, dq_a.size))
+			return (0);
+		else
+			sa(&dq_a, dq_a.size);
+	}
 	// watch_dq_a_state(&dq_a, (&dq_a)->size);
 	depth = calc_depth((&dq_a)->size - 1);
 	// // while (i < ft_pow(3, depth))

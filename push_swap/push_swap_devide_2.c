@@ -31,7 +31,6 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	count;
 
 	i = 0;
-	count = 0;
 	if (is_sorted_desc1(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b,dq_a->size);
@@ -61,32 +60,22 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else if (move == 2) // ra
 		{
+			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
-			{
 				ra(dq_a, dq_a->size);
-				count++;
-			}
 			pb(dq_a, dq_b, dq_a->size);
-			while (count > 0)
-			{
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
 				rra(dq_a, dq_a->size);
-				count--;
-			}
 		}
 		else if (move == 3) // rra
 		{
 			// ft_printf("FUCK");
+			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
-			{
 				rra(dq_a, dq_a->size);
-				count++;
-			}
 			pb(dq_a, dq_b, dq_a->size);
-			while (count > 0)
-			{
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
 				ra(dq_a, dq_a->size);
-				count--;
-			}
 		}
 		else
 			pb(dq_a, dq_b, dq_a->size);
@@ -104,7 +93,6 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	count;
 
 	i = 0;
-	count = 0;
 	if (is_sorted_asc1(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b,dq_a->size);
@@ -139,31 +127,22 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 		}
 		else if (move == 2) // ra
 		{
+			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
-			{
 				ra(dq_a, dq_a->size);
-				count++;
-			}
 			pb(dq_a, dq_b, dq_a->size);
-			while (count > 0)
-			{
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
 				rra(dq_a, dq_a->size);
 				count--;
-			}
 		}
 		else if (move == 3) // rra
 		{
+			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
 			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
-			{
 				rra(dq_a, dq_a->size);
-				count++;
-			}
 			pb(dq_a, dq_b, dq_a->size);
-			while (count > 1)
-			{
+			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
 				ra(dq_a, dq_a->size);
-				count--;
-			}
 		}
 		else
 			pb(dq_a, dq_b, dq_a->size);
