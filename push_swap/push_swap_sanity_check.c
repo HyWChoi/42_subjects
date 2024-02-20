@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_sanity_check.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/20 17:56:46 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/02/20 17:56:47 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_sanity_check.h"
 
 int	ft_atoi_push_swap(char *str, t_deque *dq_a, t_deque *dq_b)
@@ -18,7 +30,7 @@ int	ft_atoi_push_swap(char *str, t_deque *dq_a, t_deque *dq_b)
 		result = result * 10 + *str - '0';
 		str++;
 	}
-    result *= sign;
+	result *= sign;
 	if (result > INT_MAX || result < INT_MIN)
 		error_exit(dq_a, dq_b);
 	return (result);
@@ -39,10 +51,10 @@ int	ft_is_number(char *str)
 	}
 	return (TRUE);
 }
+
 void	error_exit(t_deque *dq_a, t_deque *dq_b)
 {
 	free(dq_a->data);
 	free(dq_b->data);
-	// ft_printf("Error\n");
 	exit(1);
 }

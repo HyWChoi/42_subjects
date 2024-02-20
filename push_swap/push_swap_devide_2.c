@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   push_swap_devide_2.c							   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>	 +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/02/20 17:30:36 by hyeonwch		  #+#	#+#			 */
+/*   Updated: 2024/02/20 17:31:17 by hyeonwch		 ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
 #include "push_swap_devide.h"
 
 int	count_moves_with_value(t_deque *dq, int value_index)
 {
-	int ra;
-	int rra;
-	int sa;
-	int pb;
+	int	ra;
+	int	rra;
+	int	sa;
+	int	pb;
 
 	pb = 0;
 	sa = 1;
@@ -21,131 +33,91 @@ int	count_moves_with_value(t_deque *dq, int value_index)
 		return (rra);
 }
 
+void	rotate_and_push(t_deque *dq_a, t_deque *dq_b, int move, int target)
+{
+	int	count;
+
+	count = dq_a->data[(dq_a->front + 1) % dq_a->size];
+	while (dq_a->data[(dq_a->front + 1) % dq_a->size] != target)
+	{
+		if (move == 2)
+			ra(dq_a, dq_a->size);
+		else
+			rra(dq_a, dq_a->size);
+	}
+	pb(dq_a, dq_b, dq_a->size);
+	while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
+	{
+		if (move == 2)
+			rra(dq_a, dq_a->size);
+		else
+			ra(dq_a, dq_a->size);
+	}
+}
+
+void	move_elements(t_deque *dq_a, t_deque *dq_b, int move, int target)
+{
+	if (move == 1)
+	{
+		sa(dq_a, dq_a->size);
+		pb(dq_a, dq_b, dq_a->size);
+	}
+	else if (move == 2 || move == 3)
+		rotate_and_push(dq_a, dq_b, move, target);
+	else
+		pb(dq_a, dq_b, dq_a->size);
+}
 
 void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 {
 	int	i;
-	int	move;
 	int	max_index;
-	int max;
-	int	count;
+	int	move;
 
 	i = 0;
 	if (is_sorted_desc1(dq_a, amt))
 		while (amt-- > 0)
-			pb(dq_a, dq_b,dq_a->size);
+			pb(dq_a, dq_b, dq_a->size);
 	while (i < amt)
 	{
 		if (i == 0)
 		{
-			max_index = get_max_index(dq_a, amt - i);
+			max_index = get_max_index(dq_a, amt - i++);
 			move = count_moves_with_value(dq_a, max_index);
-			max = dq_a->data[max_index];
-			// ft_printf("max: %d\n", max);
-			// ft_printf("max_index: %d\n", max_index);
 		}
 		else
 		{
-			max_index = get_max_index_index_with_limit(dq_a, amt - i, dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			max_index = get_max_index_index_with_limit(dq_a, amt - i++,
+					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, max_index);
-			max = dq_a->data[max_index];
-			// ft_printf("dq_a->front: %d, dq_a->rear: %d\n",dq_a->front % dq_a->size, dq_a->rear % dq_a->size);
-			// ft_printf("max: %d\n", max);
-			// ft_printf("max_index: %d\n", max_index);
 		}
-		if (move == 1) // sa
-		{
-			sa(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-		}
-		else if (move == 2) // ra
-		{
-			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
-				ra(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
-				rra(dq_a, dq_a->size);
-		}
-		else if (move == 3) // rra
-		{
-			// ft_printf("FUCK");
-			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != max)
-				rra(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
-				ra(dq_a, dq_a->size);
-		}
-		else
-			pb(dq_a, dq_b, dq_a->size);
-		i++;
+		move_elements(dq_a, dq_b, move, dq_a->data[max_index]);
 	}
 }
-
 
 void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 {
 	int	i;
-	int	move;
 	int	min_index;
-	int	min;
-	int	count;
+	int	move;
 
 	i = 0;
 	if (is_sorted_asc1(dq_a, amt))
 		while (amt-- > 0)
-			pb(dq_a, dq_b,dq_a->size);
+			pb(dq_a, dq_b, dq_a->size);
 	while (i < amt)
 	{
-		// ft_printf("i: %d\n", i);
 		if (i == 0)
 		{
-			min_index = get_min_index(dq_a, amt - i);
+			min_index = get_min_index(dq_a, amt - i++);
 			move = count_moves_with_value(dq_a, min_index);
-			min = dq_a->data[min_index];
-
-			// ft_printf("amt: %d\n", amt);
-			// ft_printf("min: %d\n", min);
-			// ft_printf("min_index: %d\n", min_index);
 		}
 		else
 		{
-			min_index = get_min_index_with_limit(dq_a, amt - i, dq_b->data[(dq_b->front + 1) % dq_b->size]);
+			min_index = get_min_index_with_limit(dq_a, amt - i++,
+					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, min_index);
-			min = dq_a->data[min_index];
-			// ft_printf("dq_b first element: %d\n", dq_b->data[(dq_b->front + 1) % dq_b->size]);
-			// ft_printf("amt: %d\n", amt);
-			// ft_printf("min: %d\n", min);
-			// ft_printf("min_index: %d\n", min_index);
-			// ft_printf("dq_a->front: %d\n",dq_a->front);
 		}
-		if (move == 1) // sa
-		{
-			sa(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-		}
-		else if (move == 2) // ra
-		{
-			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
-				ra(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
-				rra(dq_a, dq_a->size);
-				count--;
-		}
-		else if (move == 3) // rra
-		{
-			count = dq_a->data[(dq_a->front + 1) % dq_a->size];
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != min)
-				rra(dq_a, dq_a->size);
-			pb(dq_a, dq_b, dq_a->size);
-			while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
-				ra(dq_a, dq_a->size);
-		}
-		else
-			pb(dq_a, dq_b, dq_a->size);
-		i++;
+		move_elements(dq_a, dq_b, move, dq_a->data[min_index]);
 	}
 }

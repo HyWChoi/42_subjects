@@ -19,6 +19,7 @@
     "utility": "c",
     "memory": "c",
     "iterator": "c",
-    "push_swap_calcs.h": "c"
+    "push_swap_calcs.h": "c",
+    "push_swap_devide.h": "c"
   }
 }

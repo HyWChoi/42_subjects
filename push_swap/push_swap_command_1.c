@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_command_1.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/20 17:48:09 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/02/20 17:48:24 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_command.h"
 
 void	sa(t_deque *dq_a, size_t size)
 {
-	element temp;
+	element	temp;
 
 	if (count_dq(dq_a, size) < 2)
 		return ;
@@ -11,9 +23,10 @@ void	sa(t_deque *dq_a, size_t size)
 	dq_a->data[(dq_a->front + 2) % size] = temp;
 	ft_printf("sa\n");
 }
+
 void	sb(t_deque *dq_b, size_t size)
 {
-	element temp;
+	element	temp;
 
 	if (count_dq(dq_b, size) < 2)
 		return ;
@@ -22,12 +35,14 @@ void	sb(t_deque *dq_b, size_t size)
 	dq_b->data[(dq_b->front + 2) % size] = temp;
 	ft_printf("sb\n");
 }
+
 void	ss(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	sa(dq_a, size);
 	sb(dq_b, size);
 	ft_printf("ss\n");
 }
+
 void	pa(t_deque *dq_a, t_deque *dq_b, size_t size)
 {
 	if (is_empty(dq_b))

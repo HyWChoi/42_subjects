@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:13:12 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/05 19:19:05 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:50:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	init_deque(t_deque *dq, size_t size)
 {
-	dq->data = (element*)malloc(sizeof(element) * size);
+	dq->data = (element *)malloc(sizeof(element) * size);
 	dq->size = size;
 	dq->front = 0;
 	dq->rear = 0;
 }
 
-boolean is_empty(t_deque *dq)
+boolean	is_empty(t_deque *dq)
 {
 	return (dq->front == dq->rear);
 }
@@ -33,10 +33,7 @@ boolean	is_full(t_deque *dq, size_t size)
 void	push_front(t_deque *dq, int num, size_t size)
 {
 	if (is_full(dq, size))
-	{
-		// ft_printf("que is full\n");
 		return ;
-	}
 	dq->data[dq->front] = num;
 	dq->front = (dq->front - 1 + size) % size;
 }
@@ -44,10 +41,7 @@ void	push_front(t_deque *dq, int num, size_t size)
 void	push_rear(t_deque *dq, int num, size_t size)
 {
 	if (is_full(dq, size))
-	{
-		// ft_printf("que is full\n");
 		return ;
-	}
 	dq->rear = (dq->rear + 1) % size;
 	dq->data[dq->rear] = num;
 }

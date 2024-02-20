@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_calcs.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/20 17:45:22 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/02/20 17:47:15 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_calcs.h"
 
-int ft_pow(int base, int exp)
+int	ft_pow(int base, int exp)
 {
-	int result;
+	int	result;
 
 	result = 1;
 	if (exp == 0)
@@ -25,8 +37,11 @@ int ft_pow(int base, int exp)
 
 int	calc_depth(int i)
 {
-	int depth = 1;
-	int count = 0;
+	int	depth;
+	int	count;
+
+	depth = 1;
+	count = 0;
 	while (ft_pow(3, depth) <= i)
 	{
 		depth++;
@@ -56,7 +71,8 @@ int	calc_amt(int depth, int i, int n)
 	else if (i < ft_pow(3, depth - 1))
 		return (calc_amt(depth - 1, i, n) / 3);
 	else if (i < ft_pow(3, depth - 1) * 2)
-		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3 + calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
+		return (calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) / 3
+			+ calc_amt(depth - 1, (2 * ft_pow(3, depth - 1)) - 1 - i, n) % 3);
 	else
 		return (calc_amt(depth - 1, (3 * ft_pow(3, depth - 1)) - 1 - i, n) / 3);
 }

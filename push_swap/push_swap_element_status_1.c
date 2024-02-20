@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_element_status_1.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/20 17:53:57 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/02/20 17:55:48 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_element_status.h"
 
 int	is_first_bigger_second(t_deque *dq, size_t size)
@@ -23,8 +35,8 @@ int	is_second_bigger_last(t_deque *dq, size_t size)
 
 boolean	is_sorted_desc1(t_deque *dq, int amt)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = (dq->front + 1) % dq->size;
 	k = 0;
@@ -39,12 +51,12 @@ boolean	is_sorted_desc1(t_deque *dq, int amt)
 
 boolean	is_sorted_asc1(t_deque *dq, int amt)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = (dq->front + 1) % dq->size;
 	k = 0;
-	while ((i != dq->rear % dq->size ) && (k++ < amt - 1))
+	while ((i != dq->rear % dq->size) && (k++ < amt - 1))
 	{
 		if (dq->data[i % dq->size] > dq->data[(i + 1) % dq->size])
 			return (FALSE);
