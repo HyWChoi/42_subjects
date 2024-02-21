@@ -21,9 +21,9 @@ int	check_amt_state(t_amt_count *amt_count)
 
 int	check_amt_state2(t_amt_count_2 *amt_count)
 {
-	element dq_a_rear;
-	element dq_b_front;
-	element dq_b_rear;
+	element	dq_a_rear;
+	element	dq_b_front;
+	element	dq_b_rear;
 
 	dq_a_rear = amt_count->dq_a_rear;
 	dq_b_front = amt_count->dq_b_front;
@@ -47,8 +47,8 @@ int	check_amt_state2(t_amt_count_2 *amt_count)
 
 void	merge_triangle_2_a(t_deque *dq_a, t_deque *dq_b, int depth)
 {
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 	t_merge	merge;
 
 	i = 0;
@@ -76,8 +76,8 @@ void	merge_triangle_2_a(t_deque *dq_a, t_deque *dq_b, int depth)
 
 void	merge_triangle_2_b(t_deque *dq_a, t_deque *dq_b, int depth)
 {
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 	t_merge	merge;
 
 	i = 0;

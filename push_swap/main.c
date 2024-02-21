@@ -66,13 +66,7 @@ int main(int argc, char *argv[])
 		else
 			sa(&dq_a, dq_a.size);
 	}
-	// watch_dq_a_state(&dq_a, (&dq_a)->size);
 	depth = calc_depth((&dq_a)->size - 1);
-	// // while (i < ft_pow(3, depth))
-	// // {
-	// // 	ft_printf("depth:%d dir:%d amt:%d\n", depth, calc_dir(depth, i), calc_amt(depth, i, dq_a.size - 1));
-	// // 	i++;
-	// // }
 	make_triangular(&dq_a, &dq_b);
 	merge_triangle(&dq_a, &dq_b, depth);
 	if (depth % 2 == 0)

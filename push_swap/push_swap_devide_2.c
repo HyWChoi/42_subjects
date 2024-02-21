@@ -82,16 +82,17 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	{
 		if (i == 0)
 		{
-			max_index = get_max_index(dq_a, amt - i++);
+			max_index = get_max_index(dq_a, amt - i);
 			move = count_moves_with_value(dq_a, max_index);
 		}
 		else
 		{
-			max_index = get_max_index_index_with_limit(dq_a, amt - i++,
+			max_index = get_max_index_index_with_limit(dq_a, amt - i,
 					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, max_index);
 		}
 		move_elements(dq_a, dq_b, move, dq_a->data[max_index]);
+		i++;
 	}
 }
 
@@ -109,15 +110,16 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	{
 		if (i == 0)
 		{
-			min_index = get_min_index(dq_a, amt - i++);
+			min_index = get_min_index(dq_a, amt - i);
 			move = count_moves_with_value(dq_a, min_index);
 		}
 		else
 		{
-			min_index = get_min_index_with_limit(dq_a, amt - i++,
+			min_index = get_min_index_with_limit(dq_a, amt - i,
 					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, min_index);
 		}
 		move_elements(dq_a, dq_b, move, dq_a->data[min_index]);
+		i++;
 	}
 }

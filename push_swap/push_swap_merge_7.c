@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_merge_10.c                               :+:      :+:    :+:   */
+/*   push_swap_merge_7.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:00:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 20:36:30 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:51:56 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	merge_triangle_2_a_even(t_deque *dq_a, t_deque *dq_b, int depth)
 {
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 	t_merge	merge;
 
 	i = 0;
@@ -32,17 +32,18 @@ void	merge_triangle_2_a_even(t_deque *dq_a, t_deque *dq_b, int depth)
 		merge.dir = !calc_dir(depth - 1, i);
 		merge.amt = calc_amt(depth - 1, i, dq_a->size - 1);
 		if (merge.dir == 1)
-			merge_asc_2_a(dq_a, dq_b, &merge, i++);
+			merge_asc_2_a(dq_a, dq_b, &merge, i);
 		else
-			merge_desc_2_a(dq_a, dq_b, &merge, i++);
+			merge_desc_2_a(dq_a, dq_b, &merge, i);
+		i++;
 	}
 	free(merge.amt_lst);
 }
 
 void	merge_triangle_2_b_even(t_deque *dq_a, t_deque *dq_b, int depth)
 {
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 	t_merge	merge;
 
 	i = 0;
