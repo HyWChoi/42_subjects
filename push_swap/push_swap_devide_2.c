@@ -55,7 +55,7 @@ void	rotate_and_push(t_deque *dq_a, t_deque *dq_b, int move, int target)
 	}
 }
 
-void	move_elements(t_deque *dq_a, t_deque *dq_b, int move, int target)
+void	move_t_elements(t_deque *dq_a, t_deque *dq_b, int move, int target)
 {
 	if (move == 1)
 	{
@@ -91,7 +91,7 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, max_index);
 		}
-		move_elements(dq_a, dq_b, move, dq_a->data[max_index]);
+		move_t_elements(dq_a, dq_b, move, dq_a->data[max_index]);
 		i++;
 	}
 }
@@ -119,7 +119,7 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 					dq_b->data[(dq_b->front + 1) % dq_b->size]);
 			move = count_moves_with_value(dq_a, min_index);
 		}
-		move_elements(dq_a, dq_b, move, dq_a->data[min_index]);
+		move_t_elements(dq_a, dq_b, move, dq_a->data[min_index]);
 		i++;
 	}
 }

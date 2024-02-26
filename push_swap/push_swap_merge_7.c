@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:00:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/21 15:51:56 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/27 04:05:52 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ void	merge_triangle_2_a_even(t_deque *dq_a, t_deque *dq_b, int depth)
 	i = 0;
 	k = 0;
 	init_merge(&merge, depth, dq_a->size - 1);
-	while (k++ < ft_pow(3, depth) / 3)
+	while (k < ft_pow(3, depth) / 3)
 	{
-		while (i++ < calc_amt(depth, k - 1, dq_a->size - 1))
+		while (i++ < calc_amt(depth, k, dq_a->size - 1))
 			pa(dq_a, dq_b, dq_a->size);
 		i = 0;
+		k++;
 	}
 	while (i < ft_pow(3, depth - 1))
 	{
@@ -49,11 +50,12 @@ void	merge_triangle_2_b_even(t_deque *dq_a, t_deque *dq_b, int depth)
 	i = 0;
 	k = 0;
 	init_merge(&merge, depth, dq_a->size - 1);
-	while (k++ < ft_pow(3, depth) / 3)
+	while (k < ft_pow(3, depth) / 3)
 	{
-		while (i++ < calc_amt(depth, k - 1, dq_a->size - 1))
+		while (i++ < calc_amt(depth, k, dq_a->size - 1))
 			pb(dq_a, dq_b, dq_a->size);
 		i = 0;
+		k++;
 	}
 	while (i < ft_pow(3, depth - 1))
 	{

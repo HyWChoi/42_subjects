@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:48:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 17:48:24 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sa(t_deque *dq_a, size_t size)
 {
-	element	temp;
+	t_element	temp;
 
 	if (count_dq(dq_a, size) < 2)
 		return ;
@@ -26,7 +26,7 @@ void	sa(t_deque *dq_a, size_t size)
 
 void	sb(t_deque *dq_b, size_t size)
 {
-	element	temp;
+	t_element	temp;
 
 	if (count_dq(dq_b, size) < 2)
 		return ;

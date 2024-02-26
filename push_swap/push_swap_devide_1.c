@@ -6,17 +6,17 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:40:55 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 19:20:47 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/27 04:41:07 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_devide.h"
 
-int	get_max_index_index_with_limit(t_deque *dq, int amt, element limit)
+int	get_max_index_index_with_limit(t_deque *dq, int amt, t_element limit)
 {
-	int		i;
-	element	max;
-	size_t	index;
+	int			i;
+	t_element	max;
+	size_t		index;
 
 	i = 0;
 	max = dq->data[(dq->front + 1) % dq->size];
@@ -36,9 +36,9 @@ int	get_max_index_index_with_limit(t_deque *dq, int amt, element limit)
 
 int	get_max_index(t_deque *dq, int amt)
 {
-	int		i;
-	element	max;
-	size_t	index;
+	int			i;
+	t_element	max;
+	size_t		index;
 
 	i = 0;
 	max = dq->data[(dq->front + 1) % dq->size];
@@ -55,11 +55,11 @@ int	get_max_index(t_deque *dq, int amt)
 	return (index);
 }
 
-int	get_min_index_with_limit(t_deque *dq, int amt, element limit)
+int	get_min_index_with_limit(t_deque *dq, int amt, t_element limit)
 {
-	int		i;
-	element	min;
-	size_t	index;
+	int			i;
+	t_element	min;
+	size_t		index;
 
 	i = 0;
 	min = dq->data[(dq->front + 1) % dq->size];
@@ -79,9 +79,9 @@ int	get_min_index_with_limit(t_deque *dq, int amt, element limit)
 
 int	get_min_index(t_deque *dq, int amt)
 {
-	int		i;
-	element	min;
-	size_t	index;
+	int			i;
+	t_element	min;
+	size_t		index;
 
 	i = 0;
 	min = dq->data[(dq->front + 1) % dq->size];
@@ -98,7 +98,7 @@ int	get_min_index(t_deque *dq, int amt)
 	return (index);
 }
 
-boolean	is_closer_front(t_deque *dq, int value_index)
+t_boolean	is_closer_front(t_deque *dq, int value_index)
 {
 	int	front_distance;
 	int	rear_distance;

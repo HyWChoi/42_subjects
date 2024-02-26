@@ -1,29 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_merge_6.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 04:24:52 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_merge.h"
 
 int	check_amt_state(t_amt_count *amt_count)
 {
-	if (amt_count->dq_b_rear > 0 && amt_count->dq_a_front > 0 && amt_count->dq_a_rear > 0)
+	t_element	dq_a_rear;
+	t_element	dq_a_front;
+	t_element	dq_b_rear;
+
+	dq_a_rear = amt_count->dq_a_rear;
+	dq_a_front = amt_count->dq_a_front;
+	dq_b_rear = amt_count->dq_b_rear;
+	if (dq_b_rear > 0 && dq_a_front > 0 && dq_a_rear > 0)
 		return (1);
-	else if (amt_count->dq_b_rear <= 0 && amt_count->dq_a_front > 0 && amt_count->dq_a_rear > 0)
+	else if (dq_b_rear <= 0 && dq_a_front > 0 && dq_a_rear > 0)
 		return (2);
-	else if (amt_count->dq_b_rear > 0 && amt_count->dq_a_front <= 0 && amt_count->dq_a_rear > 0)
+	else if (dq_b_rear > 0 && dq_a_front <= 0 && dq_a_rear > 0)
 		return (3);
-	else if (amt_count->dq_b_rear > 0 && amt_count->dq_a_front > 0 && amt_count->dq_a_rear <= 0)
+	else if (dq_b_rear > 0 && dq_a_front > 0 && dq_a_rear <= 0)
 		return (4);
-	else if (amt_count->dq_b_rear <= 0 && amt_count->dq_a_front <= 0 && amt_count->dq_a_rear > 0)
+	else if (dq_b_rear <= 0 && dq_a_front <= 0 && dq_a_rear > 0)
 		return (5);
-	else if (amt_count->dq_b_rear <= 0 && amt_count->dq_a_front > 0 && amt_count->dq_a_rear <= 0)
+	else if (dq_b_rear <= 0 && dq_a_front > 0 && dq_a_rear <= 0)
 		return (6);
-	else if (amt_count->dq_b_rear > 0 && amt_count->dq_a_front <= 0 && amt_count->dq_a_rear <= 0)
+	else if (dq_b_rear > 0 && dq_a_front <= 0 && dq_a_rear <= 0)
 		return (7);
 	return (0);
 }
 
 int	check_amt_state2(t_amt_count_2 *amt_count)
 {
-	element	dq_a_rear;
-	element	dq_b_front;
-	element	dq_b_rear;
+	t_element	dq_a_rear;
+	t_element	dq_b_front;
+	t_element	dq_b_rear;
 
 	dq_a_rear = amt_count->dq_a_rear;
 	dq_b_front = amt_count->dq_b_front;

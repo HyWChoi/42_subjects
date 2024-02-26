@@ -6,15 +6,15 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:14:20 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 17:51:37 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_deque.h"
 
-element	pop_front(t_deque *dq, size_t size)
+t_element	pop_front(t_deque *dq, size_t size)
 {
-	element	tmp;
+	t_element	tmp;
 
 	if (is_empty(dq))
 		return (ERROR);
@@ -23,9 +23,9 @@ element	pop_front(t_deque *dq, size_t size)
 	return (tmp);
 }
 
-element	pop_rear(t_deque *dq, size_t size)
+t_element	pop_rear(t_deque *dq, size_t size)
 {
-	element	tmp;
+	t_element	tmp;
 
 	if (is_empty(dq))
 		return (ERROR);

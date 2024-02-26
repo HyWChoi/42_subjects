@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:13:12 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 17:50:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	init_deque(t_deque *dq, size_t size)
 {
-	dq->data = (element *)malloc(sizeof(element) * size);
+	dq->data = (t_element *)malloc(sizeof(t_element) * size);
 	dq->size = size;
 	dq->front = 0;
 	dq->rear = 0;
 }
 
-boolean	is_empty(t_deque *dq)
+t_boolean	is_empty(t_deque *dq)
 {
 	return (dq->front == dq->rear);
 }
 
-boolean	is_full(t_deque *dq, size_t size)
+t_boolean	is_full(t_deque *dq, size_t size)
 {
 	return ((dq->rear + 1) % size == dq->front);
 }
