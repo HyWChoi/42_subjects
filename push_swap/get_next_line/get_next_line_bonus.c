@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:23:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2023/11/02 17:14:14 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:50:48 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*chk_saved_buff(char **saved_buff, char **dst)
 	{
 		if (*(*saved_buff + i) == '\n')
 		{
-			*dst = ft_strjoin(0, *saved_buff, i + 1);
+			*dst = ft_gnl_strjoin(0, *saved_buff, i + 1);
 			if (i < BUFFER_SIZE && *(*saved_buff + i + 1))
 				temp = ft_strdup(*saved_buff + i + 1);
 			free(*saved_buff);

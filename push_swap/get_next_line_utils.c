@@ -6,13 +6,13 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 13:26:25 by hyeonwch          #+#    #+#             */
-/*   Updated: 2023/11/02 16:30:46 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:17:25 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_gnl_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	src_len;
 
@@ -35,7 +35,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (src_len);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_gnl_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	src_len;
 	size_t	dst_len;
@@ -64,7 +64,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	return (dst_len + src_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2, size_t limit)
+char	*ft_gnl_strjoin(char const *s1, char const *s2, size_t limit)
 {
 	int		s1_len;
 	char	*result;
@@ -75,12 +75,12 @@ char	*ft_strjoin(char const *s1, char const *s2, size_t limit)
 	result = (char *)malloc(sizeof(char) * (s1_len + limit + 1));
 	if (result == 0)
 		return (0);
-	ft_strlcpy(result, s1, s1_len + limit + 1);
-	ft_strlcat(result, s2, s1_len + limit + 1);
+	ft_gnl_strlcpy(result, s1, s1_len + limit + 1);
+	ft_gnl_strlcat(result, s2, s1_len + limit + 1);
 	return (result);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_gnl_strdup(const char *s1)
 {
 	int		len;
 	int		i;
@@ -103,7 +103,7 @@ char	*ft_strdup(const char *s1)
 
 void	join_and_free(char **saved_buff, char **read_buff, char **dst, int i)
 {
-	*dst = ft_strjoin(*saved_buff, *read_buff, i);
+	*dst = ft_gnl_strjoin(*saved_buff, *read_buff, i);
 	if (*saved_buff)
 		free(*saved_buff);
 	*saved_buff = 0;

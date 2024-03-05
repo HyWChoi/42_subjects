@@ -1,123 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_merge_6.c                                :+:      :+:    :+:   */
+/*   push_swap_merge_4.5.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 04:24:52 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/02/27 04:22:00 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/03/04 18:23:05 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_merge.h"
 
-int	check_amt_state(t_amt_count *amt_count)
+void	decide_and_act_asc_a_3(t_deque *dq_a, t_deque *dq_b,
+								t_amt_count_2 *amt_count, int *flag)
 {
-	t_element	dq_a_rear;
-	t_element	dq_a_front;
-	t_element	dq_b_rear;
-
-	dq_a_rear = amt_count->dq_a_rear;
-	dq_a_front = amt_count->dq_a_front;
-	dq_b_rear = amt_count->dq_b_rear;
-	if (dq_b_rear > 0 && dq_a_front > 0 && dq_a_rear > 0)
-		return (1);
-	else if (dq_b_rear <= 0 && dq_a_front > 0 && dq_a_rear > 0)
-		return (2);
-	else if (dq_b_rear > 0 && dq_a_front <= 0 && dq_a_rear > 0)
-		return (3);
-	else if (dq_b_rear > 0 && dq_a_front > 0 && dq_a_rear <= 0)
-		return (4);
-	else if (dq_b_rear <= 0 && dq_a_front <= 0 && dq_a_rear > 0)
-		return (5);
-	else if (dq_b_rear <= 0 && dq_a_front > 0 && dq_a_rear <= 0)
-		return (6);
-	else if (dq_b_rear > 0 && dq_a_front <= 0 && dq_a_rear <= 0)
-		return (7);
-	return (0);
+	if (is_rear_bigger_opposite_rear(dq_a, dq_b))
+		action_asc_a_1(dq_a, dq_b, &amt_count->dq_a_rear, flag);
+	else
+		action_asc_a_2(dq_a, dq_b, &amt_count->dq_b_rear, flag);
 }
 
-int	check_amt_state2(t_amt_count_2 *amt_count)
+void	decide_and_act_asc_a_4(t_deque *dq_a, t_deque *dq_b,
+								t_amt_count_2 *amt_count, int *flag)
 {
-	t_element	dq_a_rear;
-	t_element	dq_b_front;
-	t_element	dq_b_rear;
-
-	dq_a_rear = amt_count->dq_a_rear;
-	dq_b_front = amt_count->dq_b_front;
-	dq_b_rear = amt_count->dq_b_rear;
-	if (dq_a_rear > 0 && dq_b_front > 0 && dq_b_rear > 0)
-		return (1);
-	else if (dq_a_rear <= 0 && dq_b_front > 0 && dq_b_rear > 0)
-		return (2);
-	else if (dq_a_rear > 0 && dq_b_front <= 0 && dq_b_rear > 0)
-		return (3);
-	else if (dq_a_rear > 0 && dq_b_front > 0 && dq_b_rear <= 0)
-		return (4);
-	else if (dq_a_rear <= 0 && dq_b_front <= 0 && dq_b_rear > 0)
-		return (5);
-	else if (dq_a_rear <= 0 && dq_b_front > 0 && dq_b_rear <= 0)
-		return (6);
-	else if (dq_a_rear > 0 && dq_b_front <= 0 && dq_b_rear <= 0)
-		return (7);
-	return (0);
+	if (is_rear_bigger_opposite_front(dq_a, dq_b))
+		action_asc_a_1(dq_a, dq_b, &amt_count->dq_a_rear, flag);
+	else
+		action_asc_a_3(dq_a, dq_b, &amt_count->dq_b_front, flag);
 }
 
-void	merge_triangle_2_a(t_deque *dq_a, t_deque *dq_b, int depth)
+void	chk_flag_rra(int *flag)
 {
-	int		i;
-	int		k;
-	t_merge	merge;
+	if (*flag == 1)
+		ft_printf("rra\n");
+}
 
-	i = 0;
+void	merge_asc_2_a(t_deque *dq_a, t_deque *dq_b, t_merge *merge, int i)
+{
+	t_amt_count_2	amt_count;
+	int				k;
+	int				flag;
+
 	k = 0;
-	init_merge(&merge, depth, dq_a->size - 1);
-	while (k < ft_pow(3, depth) / 3)
+	flag = 0;
+	init_amt_count_2(&amt_count, merge->depth, merge->amt_lst, i);
+	while (k++ < merge->amt)
 	{
-		while (i++ < calc_amt(depth, k, dq_a->size - 1))
-			pa(dq_a, dq_b, dq_a->size);
-		i = 0;
-		k++;
+		if (check_amt_state2(&amt_count) == 1)
+			decide_and_act_asc_a_1(dq_a, dq_b, &amt_count, &flag);
+		else if (check_amt_state2(&amt_count) == 2)
+			decide_and_act_asc_a_2(dq_a, dq_b, &amt_count, &flag);
+		else if (check_amt_state2(&amt_count) == 3)
+			decide_and_act_asc_a_3(dq_a, dq_b, &amt_count, &flag);
+		else if (check_amt_state2(&amt_count) == 4)
+			decide_and_act_asc_a_4(dq_a, dq_b, &amt_count, &flag);
+		else if (check_amt_state2(&amt_count) == 5)
+			action_asc_a_2(dq_a, dq_b, &amt_count.dq_b_rear, &flag);
+		else if (check_amt_state2(&amt_count) == 6)
+			action_asc_a_3(dq_a, dq_b, &amt_count.dq_b_front, &flag);
+		else if (check_amt_state2(&amt_count) == 7)
+			action_asc_a_1(dq_a, dq_b, &amt_count.dq_a_rear, &flag);
 	}
-	while (i < ft_pow(3, depth - 1))
-	{
-		merge.dir = calc_dir(depth - 1, i);
-		merge.amt = calc_amt(depth - 1, i, dq_a->size - 1);
-		if (merge.dir == 1)
-			merge_asc_2_a(dq_a, dq_b, &merge, i);
-		else
-			merge_desc_2_a(dq_a, dq_b, &merge, i);
-		i++;
-	}
-	free(merge.amt_lst);
-}
-
-void	merge_triangle_2_b(t_deque *dq_a, t_deque *dq_b, int depth)
-{
-	int		i;
-	int		k;
-	t_merge	merge;
-
-	i = 0;
-	k = 0;
-	init_merge(&merge, depth, dq_a->size - 1);
-	while (k < ft_pow(3, depth) / 3)
-	{
-		while (i++ < calc_amt(depth, k, dq_a->size - 1))
-			pb(dq_a, dq_b, dq_a->size);
-		i = 0;
-		k++;
-	}
-	while (i < ft_pow(3, depth - 1))
-	{
-		merge.dir = calc_dir(depth - 1, i);
-		merge.amt = calc_amt(depth - 1, i, dq_a->size - 1);
-		if (merge.dir == 1)
-			merge_asc_2_b(dq_a, dq_b, &merge, i);
-		else
-			merge_desc_2_b(dq_a, dq_b, &merge, i);
-		i++;
-	}
-	free(merge.amt_lst);
+	chk_flag_rra(&flag);
 }

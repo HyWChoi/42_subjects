@@ -6,7 +6,8 @@ SRCS = push_swap_checker.c push_swap_command_1.c push_swap_command_2.c push_swap
 		push_swap_devide_3.c push_swap_element_status_1.c push_swap_element_status_2.c \
 		push_swap_calcs.c push_swap_sanity_check.c watch_deque.c push_swap_merge_1.c push_swap_merge_2.c \
 		push_swap_merge_3.c push_swap_merge_4.c push_swap_merge_5.c push_swap_merge_6.c push_swap_merge_7.c \
-		push_swap_merge_2.5.c push_swap_merge_3.5.c push_swap_merge_4.5.c push_swap_merge_5.5.c
+		push_swap_merge_8.c push_swap_merge_9.c push_swap_merge_10.c push_swap_merge_11.c \
+		get_next_line.c get_next_line_utils.c checker_command_1.c checker_command_2.c
 
 OBJS = $(SRCS:.c=.o)
 

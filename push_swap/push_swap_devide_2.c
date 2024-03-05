@@ -43,13 +43,19 @@ void	rotate_and_push(t_deque *dq_a, t_deque *dq_b, int move, int target)
 		if (move == 2)
 			ra(dq_a, dq_a->size);
 		else
+		{
 			rra(dq_a, dq_a->size);
+			ft_printf("rra\n");
+		}
 	}
 	pb(dq_a, dq_b, dq_a->size);
 	while (dq_a->data[(dq_a->front + 1) % dq_a->size] != count)
 	{
 		if (move == 2)
+		{
 			rra(dq_a, dq_a->size);
+			ft_printf("rra\n");
+		}
 		else
 			ra(dq_a, dq_a->size);
 	}
@@ -75,7 +81,7 @@ void	make_asc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	move;
 
 	i = 0;
-	if (is_sorted_desc1(dq_a, amt))
+	if (is_sorted_desc(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b, dq_a->size);
 	while (i < amt)
@@ -103,7 +109,7 @@ void	make_desc_2_b(t_deque *dq_a, t_deque *dq_b, int amt)
 	int	move;
 
 	i = 0;
-	if (is_sorted_asc1(dq_a, amt))
+	if (is_sorted_asc(dq_a, amt))
 		while (amt-- > 0)
 			pb(dq_a, dq_b, dq_a->size);
 	while (i < amt)

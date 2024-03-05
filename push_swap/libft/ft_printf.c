@@ -6,11 +6,11 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:41:02 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/01/15 20:16:10 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:13:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 static int	is_spec(char c)
 {

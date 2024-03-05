@@ -20,6 +20,11 @@
     "memory": "c",
     "iterator": "c",
     "push_swap_calcs.h": "c",
-    "push_swap_devide.h": "c"
+    "push_swap_devide.h": "c",
+    "push_swap_sanity_check.h": "c",
+    "unistd.h": "c",
+    "get_next_line.h": "c",
+    "checker_command.h": "c",
+    "stdio.h": "c"
   }
 }

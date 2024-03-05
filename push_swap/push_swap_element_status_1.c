@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:53:57 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/27 04:39:56 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:55:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_second_bigger_last(t_deque *dq, size_t size)
 	return (TRUE);
 }
 
-t_boolean	is_sorted_desc1(t_deque *dq, int amt)
+t_boolean	is_sorted_desc(t_deque *dq, int amt)
 {
 	int	i;
 	int	k;
@@ -49,7 +49,7 @@ t_boolean	is_sorted_desc1(t_deque *dq, int amt)
 	return (TRUE);
 }
 
-t_boolean	is_sorted_asc1(t_deque *dq, int amt)
+t_boolean	is_sorted_asc(t_deque *dq, int amt)
 {
 	int	i;
 	int	k;

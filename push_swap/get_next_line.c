@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:23:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2023/11/02 17:10:54 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:19:02 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static char	*chk_saved_buff(char **saved_buff, char **dst)
 	{
 		if (*(*saved_buff + i) == '\n')
 		{
-			*dst = ft_strjoin(0, *saved_buff, i + 1);
+			*dst = ft_gnl_strjoin(0, *saved_buff, i + 1);
 			if (i < BUFFER_SIZE && *(*saved_buff + i + 1))
-				temp = ft_strdup(*saved_buff + i + 1);
+				temp = ft_gnl_strdup(*saved_buff + i + 1);
 			free(*saved_buff);
 			*saved_buff = temp;
 			return (*dst);
@@ -56,7 +56,7 @@ static void	chk_read_buff(t_fd fd, char *r_buff, char **s_buff, char **dst)
 		{
 			join_and_free(s_buff, &r_buff, dst, i + 1);
 			if (i + 1 < fd.rd_size && *(r_buff + i + 1))
-				*s_buff = ft_strdup(r_buff + i + 1);
+				*s_buff = ft_gnl_strdup(r_buff + i + 1);
 			return ;
 		}
 		if (fd.rd_size != BUFFER_SIZE)
@@ -67,14 +67,12 @@ static void	chk_read_buff(t_fd fd, char *r_buff, char **s_buff, char **dst)
 	join_and_free(s_buff, &r_buff, dst, i);
 }
 
-char	*get_next_line(int fd)
+int	get_next_line(int fd, char **line)
 {
 	static char	*saved_buff = 0;
 	char		read_buff[BUFFER_SIZE + 1];
-	char		*dst;
 	t_fd		t_fd;
 
-	dst = 0;
 	t_fd.fd = fd;
 	t_fd.rd_size = BUFFER_SIZE;
 	if (t_fd.fd < 0 || read(t_fd.fd, NULL, 0) < 0)
@@ -84,13 +82,13 @@ char	*get_next_line(int fd)
 		saved_buff = 0;
 		return (0);
 	}
-	if (saved_buff != 0 && chk_saved_buff(&saved_buff, &dst))
-		return (dst);
-	chk_read_buff(t_fd, read_buff, &saved_buff, &dst);
-	if (!*dst)
+	if (saved_buff != 0 && chk_saved_buff(&saved_buff, line))
+		return (0);
+	chk_read_buff(t_fd, read_buff, &saved_buff, line);
+	if (!(**line))
 	{
-		free(dst);
-		dst = 0;
+		free(*line);
+		*line = 0;
 	}
-	return (dst);
+	return (t_fd.fd < 0);
 }

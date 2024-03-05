@@ -6,14 +6,13 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 04:37:05 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/27 04:43:19 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:14:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_DEQUE_H
 # define PUSH_SWAP_DEQUE_H
 # include "./libft/libft.h"
-# include "./ft_printf/ft_printf.h"
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1

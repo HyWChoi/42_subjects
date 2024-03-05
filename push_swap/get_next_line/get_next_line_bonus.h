@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 03:04:33 by hyeonwch          #+#    #+#             */
-/*   Updated: 2023/11/02 17:10:31 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:49:48 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-char	*ft_strjoin(char const *s1, char const *s2, size_t limit);
+size_t	ft_gnl_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_gnl_strlcat(char *dst, const char *src, size_t dstsize);
+char	*ft_gnl_strjoin(char const *s1, char const *s2, size_t limit);
 char	*ft_strdup(const char *s1);
 void	join_and_free(char **saved_buff, char **read_buff, char **dst, int i);
 

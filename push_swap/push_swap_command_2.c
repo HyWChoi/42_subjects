@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:48:29 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/20 17:48:29 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:24:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ void	rr(t_deque *dq_a, t_deque *dq_b, size_t size)
 void	rra(t_deque *dq_a, size_t size)
 {
 	push_front(dq_a, pop_rear(dq_a, size), size);
-	ft_printf("rra\n");
 }
 
 void	rrb(t_deque *dq_b, size_t size)
 {
 	push_front(dq_b, pop_rear(dq_b, size), size);
-	ft_printf("rrb\n");
 }
