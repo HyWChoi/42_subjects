@@ -25,6 +25,7 @@
     "unistd.h": "c",
     "get_next_line.h": "c",
     "checker_command.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "push_swap_under6.h": "c"
   }
 }

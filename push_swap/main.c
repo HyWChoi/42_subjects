@@ -1,16 +1,16 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 04:45:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/05 21:10:35 by hyeonwch         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   main.c											 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>	 +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/02/27 04:45:04 by hyeonwch		  #+#	#+#			 */
+/*   Updated: 2024/03/06 16:56:31 by hyeonwch		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
-#include "push_swap_merge.h"
+#include "push_swap_under6.h"
 
 static void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 {
@@ -61,49 +61,6 @@ static void	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 	}
 }
 
-void	size_2(t_deque *dq_a)
-{
-	if (is_first_bigger_second(dq_a, dq_a->size))
-		sa(dq_a, dq_a->size);
-}
-
-void	size_3(t_deque *dq_a)
-{
-	if (is_first_bigger_second(dq_a, dq_a->size))
-	{
-		if (is_first_bigger_last(dq_a, dq_a->size))
-		{
-			if (is_second_bigger_last(dq_a, dq_a->size))
-			{
-				sa(dq_a, dq_a->size);
-				rra(dq_a, dq_a->size);
-			}
-			else
-				ra(dq_a, dq_a->size);
-		}
-		else
-			sa(dq_a, dq_a->size);
-	}
-	else
-	{
-		if (is_first_bigger_last(dq_a, dq_a->size))
-		{
-			sa(dq_a, dq_a->size);
-			ra(dq_a, dq_a->size);
-		}
-		else
-			rra(dq_a, dq_a->size);
-	}
-}
-
-void	is_argc_under_3(t_deque *dq_a)
-{
-	if (dq_a->size == 2)
-		size_2(dq_a);
-	else if (dq_a->size == 3)
-		size_3(dq_a);
-}
-
 void	push_swap(t_deque *dq_a, t_deque *dq_b)
 {
 	size_t	i;
@@ -111,8 +68,11 @@ void	push_swap(t_deque *dq_a, t_deque *dq_b)
 
 	i = 0;
 	depth = 0;
-	if (count_dq(dq_a, dq_a->size) < 3)
-		is_argc_under_3(dq_a);
+	if (count_dq(dq_a, dq_a->size) < 7)
+	{
+		is_argc_under_6(dq_a, dq_b);
+		return ;
+	}
 	if (is_sorted_asc(dq_a, dq_a->size))
 		return ;
 	else
