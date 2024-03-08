@@ -25,6 +25,10 @@ $> ./pipex file1 cmd1 cmd2 file2
 - perror(const char \*s): 에러 메시지를 출력한다.
 - strerror(int errnum): 에러 번호에 해당하는 에러 메시지를 반환한다.
 - access(const char \*pathname, int mode): 파일에 대한 접근 권한을 확인한다.
+  - R_OK : 파일 존재 여부, 읽기 권한 여부
+  - W_OK : 파일 존재 여부, 쓰기 권한 여부
+  - X_OK : 파일 존재 여부, 실행 권한 여부
+  - F_OK : 파일 존재 여부
 - dup(int oldfd): 파일 디스크립터를 복제한다.
 - dup2(int oldfd, int newfd): 파일 디스크립터를 다른 파일 디스크립터로 복제한다.
 - execve(const char *pathname, char *const argv[], char \*const envp[]): 새로운 프로세스를 실행한다.
