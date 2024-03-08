@@ -68,13 +68,13 @@ void	push_swap(t_deque *dq_a, t_deque *dq_b)
 
 	i = 0;
 	depth = 0;
+	if (is_sorted_asc(dq_a, dq_a->size))
+		return ;
 	if (count_dq(dq_a, dq_a->size) < 7)
 	{
 		is_argc_under_6(dq_a, dq_b);
 		return ;
 	}
-	if (is_sorted_asc(dq_a, dq_a->size))
-		return ;
 	else
 		sa(dq_a, dq_a->size);
 	depth = calc_depth((dq_a)->size - 1);
@@ -83,8 +83,6 @@ void	push_swap(t_deque *dq_a, t_deque *dq_b)
 	if (depth % 2 == 0)
 		while (i++ < dq_a->size - 1)
 			pa(dq_a, dq_b, dq_a->size);
-	free(dq_a->data);
-	free(dq_b->data);
 }
 
 int	main(int argc, char *argv[])
@@ -99,6 +97,13 @@ int	main(int argc, char *argv[])
 	}
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	fill_dq_a(&dq_a, &dq_b, argc, argv);
+	if (check_deq_dup_elem(&dq_a))
+	{
+		error_exit(&dq_a, &dq_b);
+		return (0);
+	}
 	push_swap(&dq_a, &dq_b);
+	free(dq_a.data);
+	free(dq_b.data);
 	return (0);
 }

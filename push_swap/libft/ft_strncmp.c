@@ -6,12 +6,12 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:10:49 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/05 18:58:04 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:03:08 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	if (n == 0)

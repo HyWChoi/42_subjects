@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 18:48:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/06 18:50:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:04:05 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sort_rev_first(t_deque *dq_b);
 void	sort_rev_second(t_deque *dq_b);
 void	size_rev_3(t_deque *dq_b);
 void	decide_move_under_6(size_t *count_a, size_t *count_b,
-						t_deque *dq_a, t_deque *dq_b);
+			t_deque *dq_a, t_deque *dq_b);
 void	merge_under_6(t_deque *dq_a, t_deque *dq_b);
 void	size_4(t_deque *dq_a, t_deque *dq_b);
 void	size_5(t_deque *dq_a, t_deque *dq_b);

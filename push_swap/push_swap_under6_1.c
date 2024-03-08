@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 18:48:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/06 18:48:25 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:03:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,3 @@ void	decide_move_under_6(size_t *count_a, size_t *count_b,
 		(*count_a)--;
 	}
 }
-
-
-
-

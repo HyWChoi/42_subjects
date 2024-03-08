@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:20:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/05 21:01:11 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/08 12:31:20 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	command_cmp(t_deque *dq_a, t_deque *dq_b, char *line)
 		checker_rrr(dq_a, dq_b, dq_a->size);
 }
 
-static void	checker_t(t_deque *dq_a, t_deque *dq_b)
+static void	checker(t_deque *dq_a, t_deque *dq_b)
 {
 	char	*line;
 	int		ret;
@@ -95,7 +95,7 @@ static void	checker_t(t_deque *dq_a, t_deque *dq_b)
 	{
 		ret = get_next_line(0, &line);
 		if (ret == -1)
-			exit(1);
+			return ;
 		if (!line)
 			break ;
 		command_cmp(dq_a, dq_b, line);
@@ -112,6 +112,7 @@ int	main(int argc, char *argv[])
 {
 	t_deque	dq_a;
 	t_deque	dq_b;
+	char	*dummy_line;
 
 	if (argc < 2)
 	{
@@ -120,8 +121,14 @@ int	main(int argc, char *argv[])
 	}
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	fill_dq_a(&dq_a, &dq_b, argc, argv);
-	checker_t(&dq_a, &dq_b);
+	if (check_deq_dup_elem(&dq_a))
+	{
+		error_exit(&dq_a, &dq_b);
+		return (0);
+	}
+	checker(&dq_a, &dq_b);
 	free(dq_a.data);
 	free(dq_b.data);
+	get_next_line(-1, &dummy_line);
 	return (0);
 }

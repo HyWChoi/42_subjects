@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:56:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/06 15:53:13 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:42:18 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,21 @@ void	error_exit(t_deque *dq_a, t_deque *dq_b)
 	ft_printf("Error\n");
 	free(dq_a->data);
 	free(dq_b->data);
-	exit(1);
+	return ;
+}
+
+t_boolean	check_deq_dup_elem(t_deque *dq)
+{
+	size_t	i;
+	size_t	k;
+
+	i = (dq->front + 1) % dq->size;
+	k = 0;
+	while ((i != dq->rear % dq->size) && (k++ < dq->size - 1))
+	{
+		if (dq->data[i % dq->size] == dq->data[(i + 1) % dq->size])
+			return (TRUE);
+		i = (i + 1) % dq->size;
+	}
+	return (FALSE);
 }
