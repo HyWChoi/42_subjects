@@ -1,20 +1,26 @@
-NAME = ft_pipex
+NAME = push_swap
+LIBFT = libft/libft.a
+RM = rm -f
+SRCS = ft_pipex.c ft_pipex_utils.c ft_pipex_utils_2.c
+
+OBJS = $(SRCS:.c=.o)
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = ft_pipex.c
-OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-
+	$(RM) $(OBJS) $(CHECKER_OBJS)
 fclean: clean
-	rm -f $(NAME)
+	$(RM) -f $(NAME) $(CHECKER)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
