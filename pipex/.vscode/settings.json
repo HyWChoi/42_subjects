@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "ft_pipex.h": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "*.a": "c"
   }
 }

@@ -38,3 +38,7 @@ $> ./pipex file1 cmd1 cmd2 file2
 - unlink(const char \*pathname): 파일을 삭제한다.
 - wait(int \*status): 자식 프로세스가 종료될 때까지 대기하고 종료 상태를 받는다.
 - waitpid(pid_t pid, int \*status, int options): 특정 자식 프로세스가 종료될 때까지 대기하고 종료 상태를 받는다.
+
+## 구현
+
+- 파이프의 연결은 `file discriptor`를 통해 구현,

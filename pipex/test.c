@@ -1,80 +1,51 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 
-void execute_command(char *cmd, char *envp[])
-{
-    char *argv[4];
+int main() {
 
-    argv[0] = "/bin/sh";
-    argv[1] = "-c";
-    argv[2] = cmd;
-    argv[3] = NULL;
+    pid_t childPid;
+    int status,i;
 
-    if (execve("/bin/sh", argv, envp) == -1) {
-        perror("execve");
-        exit(EXIT_FAILURE);
+    childPid = fork();
+
+    if(childPid > 0) {  // 부모 프로세스
+        pid_t waitPid;
+        printf("부모 PID : %ld, pid : %d %d \n",(long)getpid(), childPid, errno);
+
+        for(i=0;i<5;i++) {
+            sleep(1);
+        }
+
+        waitPid = wait(&status);
+
+        if(waitPid == -1) {
+            printf("에러 넘버 : %d \n",errno);
+            perror("wait 함수 오류 반환");
+        }
+        else {
+            if(WIFEXITED(status)) {
+                printf("wait : 자식 프로세스 정상 종료 %d\n",WEXITSTATUS(status));
+            }
+            else if(WIFSIGNALED(status)) {
+                printf("wait : 자식 프로세스 비정상 종료 %d\n",WTERMSIG(status));
+            }
+        }
+
+        printf("부모 종료 %d %d\n",waitPid,WTERMSIG(status));
     }
-}
+    else if(childPid == 0){  // 자식 프로세스
+        printf("자식 PID : %ld \n",(long)getpid());
 
-int main(int argc, char *argv[], char *envp[])
-{
-    int pipefd[2];
-    int infile, outfile;
-    pid_t pid1, pid2;
-
-    if (argc != 5) {
-        fprintf(stderr, "Usage: ./pipex infile cmd1 cmd2 outfile\n");
-        return EXIT_FAILURE;
+        printf("자식 종료\n");
+        exit(0);
     }
-
-    infile = open(argv[1], O_RDONLY);
-    outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (infile == -1 || outfile == -1) {
-        perror("open");
-        return EXIT_FAILURE;
-    }
-
-    if (pipe(pipefd) == -1) {
-        perror("pipe");
-        return EXIT_FAILURE;
-    }
-
-    pid1 = fork();
-    if (pid1 == -1) {
-        perror("fork");
-        return EXIT_FAILURE;
-    }
-
-    if (pid1 == 0) { // Child process 1
-        dup2(infile, STDIN_FILENO);
-        dup2(pipefd[1], STDOUT_FILENO);
-        close(pipefd[0]);
-        execute_command(argv[2], envp);
+    else {  // fork 실패
+        perror("fork Fail! \n");
+        return -1;
     }
 
-    pid2 = fork();
-    if (pid2 == -1) {
-        perror("fork");
-        return EXIT_FAILURE;
-    }
-
-    if (pid2 == 0) { // Child process 2
-        dup2(pipefd[0], STDIN_FILENO);
-        dup2(outfile, STDOUT_FILENO);
-        close(pipefd[1]);
-        execute_command(argv[3], envp);
-    }
-
-    close(pipefd[0]);
-    close(pipefd[1]);
-    close(infile);
-    close(outfile);
-
-    waitpid(pid1, NULL, 0);
-    waitpid(pid2, NULL, 0);
-
-    return EXIT_SUCCESS;
+    return 0;
 }
