@@ -1,0 +1,36 @@
+Process:         pipex [21170]
+Path:            /Volumes/VOLUME/*/pipex
+Load Address:    0x10e945000
+Identifier:      pipex
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [2142]
+
+Date/Time:       2024-03-12 19:13:46.265 +0900
+Launch Time:     2024-03-12 19:13:45.943 +0900
+OS Version:      Mac OS X 10.15.7 (19H15)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.3 (12C33)
+
+Physical footprint:         408K
+Physical footprint (peak):  408K
+----
+
+leaks Report Version: 4.0
+Process 21170: 169 nodes malloced for 9 KB
+Process 21170: 11 leaks for 400 total leaked bytes.
+
+    11 (400 bytes) << TOTAL >>
+      1 (80 bytes) ROOT LEAK: 0x7f9523c05c40 [80]  length: 64  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
+      1 (80 bytes) ROOT LEAK: 0x7f9523c05c90 [80]  length: 64  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
+      1 (48 bytes) ROOT LEAK: 0x7f9523c05af0 [48]  length: 33  "/Users/hyeonwch/goinfre/node/bin/"
+      1 (48 bytes) ROOT LEAK: 0x7f9523c05be0 [48]  length: 33  "/Users/hyeonwch/goinfre/node/bin/"
+      1 (32 bytes) ROOT LEAK: 0x7f9523c05b80 [32]  length: 17  "/usr/local/munki/"
+      1 (32 bytes) ROOT LEAK: 0x7f9523c05ba0 [32]  length: 23  "/Library/Apple/usr/bin/"
+      1 (16 bytes) ROOT LEAK: 0x7f9523c05b20 [16]  length: 9  "/usr/bin/"
+      1 (16 bytes) ROOT LEAK: 0x7f9523c05b30 [16]  length: 5  "/bin/"
+      1 (16 bytes) ROOT LEAK: 0x7f9523c05b40 [16]  length: 10  "/usr/sbin/"
+      1 (16 bytes) ROOT LEAK: 0x7f9523c05b50 [16]  length: 15  "/usr/local/bin/"
+      1 (16 bytes) ROOT LEAK: 0x7f9523c05b60 [16]  length: 6  "/sbin/"
+

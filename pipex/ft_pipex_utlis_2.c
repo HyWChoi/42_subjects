@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 22:56:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/12 18:34:46 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:13:50 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	free_split(char **str)
 	char	**tmp;
 
 	tmp = str;
-	while (*tmp)
+	while (*str)
 	{
-		free(*tmp);
-		tmp++;
+		free(*str);
+		str++;
 	}
-	free(str);
+	free(tmp);
 }
 
 char	*find_command_path(char *command, char *envp[])
@@ -54,19 +54,24 @@ char	*find_command_path(char *command, char *envp[])
 	char	*path;
 	char	*full_path;
 	char	**paths;
+	char	**tmp;
 
 	path = find_path(envp);
 	paths = ft_split(path, ':');
+	tmp = paths;
 	while (*paths)
 	{
 		full_path = ft_strjoin(*paths, "/");
 		full_path = ft_strjoin(full_path, command);
 		if (access(full_path, X_OK) == 0)
+		{
+			free_split(tmp);
 			return (full_path);
+		}
 		free(full_path);
 		paths++;
 	}
-	free_split(paths);
+	free_split(tmp);
 	return (NULL);
 }
 
