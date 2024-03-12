@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 04:37:05 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/04 19:14:30 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:44:59 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ t_element	pop_rear(t_deque *dq, size_t size);
 t_element	pop_front(t_deque *dq, size_t size);
 void		print_dq(t_deque *dq, size_t size);
 int			count_dq(t_deque *dq, size_t size);
+void		free_deque_a_b(t_deque *dq_a, t_deque *dq_b);
 
 #endif

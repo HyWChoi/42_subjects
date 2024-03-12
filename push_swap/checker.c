@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:20:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/08 12:31:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:44:31 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ static void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 			count_split++;
 		i++;
 		k = 0;
-		while (split[k])
-			free(split[k++]);
-		free(split);
-		k = 0;
+		free_split(split);
 	}
 	init_deque(dq_a, count_split + 1);
 	init_deque(dq_b, count_split + 1);
 }
 
-static void	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
+static int	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 {
 	int		i;
 	int		k;
+	int		result;
 	char	**split;
 
 	i = 1;
@@ -52,18 +50,23 @@ static void	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 	{
 		split = ft_split(argv[i], ' ');
 		while (split[k])
-			push_rear(dq_a, ft_atoi_push_swap(split[k++], dq_a, dq_b),
-				dq_a->size);
+		{
+			result = ft_atoi_push_swap(split[k++], dq_a, dq_b);
+			if (!dq_a->data || !dq_b->data)
+			{
+				free_split(split);
+				return (ERROR);
+			}
+			push_rear(dq_a, result, dq_a->size);
+		}
 		i++;
 		k = 0;
-		while (split[k])
-			free(split[k++]);
-		free(split);
-		k = 0;
+		free_split(split);
 	}
+	return (0);
 }
 
-static void	command_cmp(t_deque *dq_a, t_deque *dq_b, char *line)
+static int	command_cmp(t_deque *dq_a, t_deque *dq_b, char *line)
 {
 	if (ft_strncmp(line, "sa", 2) == 0)
 		checker_sa(dq_a, dq_a->size);
@@ -83,25 +86,38 @@ static void	command_cmp(t_deque *dq_a, t_deque *dq_b, char *line)
 		checker_rrb(dq_b, dq_b->size);
 	else if (ft_strncmp(line, "rrr", 3) == 0)
 		checker_rrr(dq_a, dq_b, dq_a->size);
+	else if (ft_strncmp(line, "rr", 2) == 0)
+		checker_rr(dq_a, dq_b, dq_a->size);
+	else if (ft_strncmp(line, "ss", 2) == 0)
+		checker_ss(dq_a, dq_b, dq_a->size);
+	else
+		return (free_err(line));
+	return (0);
 }
 
 static void	checker(t_deque *dq_a, t_deque *dq_b)
 {
 	char	*line;
 	int		ret;
+	char	*dummy_line;
 
 	line = 0;
 	while (1)
 	{
 		ret = get_next_line(0, &line);
 		if (ret == -1)
-			return ;
+		{
+			free(line);
+			break ;
+		}
 		if (!line)
 			break ;
-		command_cmp(dq_a, dq_b, line);
+		if (command_cmp(dq_a, dq_b, line) == ERROR)
+			return ;
 		free(line);
 		line = 0;
 	}
+	get_next_line(-1, &dummy_line);
 	if (is_sorted_asc(dq_a, dq_a->size))
 		write(1, "OK\n", 3);
 	else
@@ -112,7 +128,6 @@ int	main(int argc, char *argv[])
 {
 	t_deque	dq_a;
 	t_deque	dq_b;
-	char	*dummy_line;
 
 	if (argc < 2)
 	{
@@ -120,15 +135,17 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
-	fill_dq_a(&dq_a, &dq_b, argc, argv);
+	if (fill_dq_a(&dq_a, &dq_b, argc, argv) == ERROR)
+		return (0);
 	if (check_deq_dup_elem(&dq_a))
 	{
 		error_exit(&dq_a, &dq_b);
 		return (0);
 	}
-	checker(&dq_a, &dq_b);
-	free(dq_a.data);
-	free(dq_b.data);
-	get_next_line(-1, &dummy_line);
+	if (is_sorted_asc(&dq_a, dq_a.size))
+		ft_printf("OK\n");
+	else
+		checker(&dq_a, &dq_b);
+	free_deque_a_b(&dq_a, &dq_b);
 	return (0);
 }

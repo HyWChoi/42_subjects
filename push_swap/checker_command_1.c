@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:48:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/07 20:46:45 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:45:46 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	checker_sb(t_deque *dq_b, size_t size)
 	temp = dq_b->data[(dq_b->front + 1) % size];
 	dq_b->data[(dq_b->front + 1) % size] = dq_b->data[(dq_b->front + 2) % size];
 	dq_b->data[(dq_b->front + 2) % size] = temp;
+}
+
+void	checker_ss(t_deque *dq_a, t_deque *dq_b, size_t size)
+{
+	checker_sa(dq_a, size);
+	checker_sb(dq_b, size);
 }
 
 void	checker_pa(t_deque *dq_a, t_deque *dq_b, size_t size)

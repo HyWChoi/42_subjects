@@ -6,14 +6,14 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 03:04:33 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/06 19:17:45 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:35:37 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
+#  define BUFFER_SIZE 2048
 # endif
 # if BUFFER_SIZE < 1
 #  undef BUFFER_SIZE

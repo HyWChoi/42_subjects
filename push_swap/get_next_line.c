@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:23:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/07 20:53:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:35:13 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	get_next_line(int fd, char **line)
 		if (saved_buff)
 			free(saved_buff);
 		saved_buff = 0;
-		return (0);
+		return (-1);
 	}
 	if (saved_buff != 0 && chk_saved_buff(&saved_buff, line))
 		return (0);

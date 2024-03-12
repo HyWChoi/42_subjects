@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 22:56:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/12 18:29:38 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:34:46 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ char	*find_path(char *envp[])
 	return (NULL);
 }
 
+void	free_split(char **str)
+{
+	char	**tmp;
+
+	tmp = str;
+	while (*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(str);
+}
+
 char	*find_command_path(char *command, char *envp[])
 {
 	char	*path;
@@ -53,6 +66,7 @@ char	*find_command_path(char *command, char *envp[])
 		free(full_path);
 		paths++;
 	}
+	free_split(paths);
 	return (NULL);
 }
 

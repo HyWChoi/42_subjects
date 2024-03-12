@@ -44,4 +44,5 @@ t_boolean	sanity_check(int argc, char *argv[], t_pipex *pipex);
 char		*find_path(char *envp[]);
 char		*find_command_path(char *command, char *envp[]);
 void		execute_cmd(t_pipex *pipex, char **envp);
+void		free_split(char **str);
 #endif

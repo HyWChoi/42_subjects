@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   main.c											 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>	 +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/02/27 04:45:04 by hyeonwch		  #+#	#+#			 */
-/*   Updated: 2024/03/06 16:56:31 by hyeonwch		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/12 18:45:35 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/03/12 18:47:15 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_under6.h"
@@ -29,19 +29,17 @@ static void	init_dq_a_b(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 			count_split++;
 		i++;
 		k = 0;
-		while (split[k])
-			free(split[k++]);
-		free(split);
-		k = 0;
+		free_split(split);
 	}
 	init_deque(dq_a, count_split + 1);
 	init_deque(dq_b, count_split + 1);
 }
 
-static void	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
+static int	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 {
 	int		i;
 	int		k;
+	int		result;
 	char	**split;
 
 	i = 1;
@@ -50,15 +48,20 @@ static void	fill_dq_a(t_deque *dq_a, t_deque *dq_b, int argc, char *argv[])
 	{
 		split = ft_split(argv[i], ' ');
 		while (split[k])
-			push_rear(dq_a, ft_atoi_push_swap(split[k++], dq_a, dq_b),
-				dq_a->size);
+		{
+			result = ft_atoi_push_swap(split[k++], dq_a, dq_b);
+			if (!dq_a->data || !dq_b->data)
+			{
+				free_split(split);
+				return (ERROR);
+			}
+			push_rear(dq_a, result, dq_a->size);
+		}
 		i++;
 		k = 0;
-		while (split[k])
-			free(split[k++]);
-		free(split);
-		k = 0;
+		free_split(split);
 	}
+	return (0);
 }
 
 void	push_swap(t_deque *dq_a, t_deque *dq_b)
@@ -96,14 +99,14 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
-	fill_dq_a(&dq_a, &dq_b, argc, argv);
+	if (fill_dq_a(&dq_a, &dq_b, argc, argv) == ERROR)
+		return (0);
 	if (check_deq_dup_elem(&dq_a))
 	{
 		error_exit(&dq_a, &dq_b);
 		return (0);
 	}
 	push_swap(&dq_a, &dq_b);
-	free(dq_a.data);
-	free(dq_b.data);
+	free_deque_a_b(&dq_a, &dq_b);
 	return (0);
 }

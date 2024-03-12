@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:14:20 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/02/27 04:38:15 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:44:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ int	count_dq(t_deque *dq, size_t size)
 	if (is_empty(dq))
 		return (ERROR);
 	return ((dq->rear - dq->front + size) % size);
+}
+
+void	free_deque_a_b(t_deque *dq_a, t_deque *dq_b)
+{
+	free(dq_a->data);
+	free(dq_b->data);
 }
