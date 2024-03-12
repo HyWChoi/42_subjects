@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_pipex.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 17:41:00 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/09 22:57:10 by hyeonwch         ###   ########.fr       */
-/*                                                                            */
+/*									  */
+/*							:::	 ::::::::   */
+/*   ft_pipex.h		   :+:   :+:	:+:   */
+/*						  +:+ +:+	   +:+	*/
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>  +#+  +:+	   +#+	*/
+/*						+#+#+#+#+#+   +#+	 */
+/*   Created: 2024/03/08 17:41:00 by hyeonwch		#+#  #+#		  */
+/*   Updated: 2024/03/09 22:57:10 by hyeonwch	   ###   ########.fr	*/
+/*									  */
 /* ************************************************************************** */
 
 #ifndef FT_PIPEX_H
@@ -28,11 +28,11 @@
 typedef int	t_boolean;
 typedef struct s_pipex
 {
-    char	**cmd;
-    int 	infile;
-    int     outfile;
-    int		pipefd[2];
-    int		fd;
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	int		pipefd[2];
+	int		fd;
 }	t_pipex;
 
 t_boolean	check_access(char *str[]);
@@ -41,7 +41,7 @@ t_boolean	check_open(int *fd);
 t_boolean	check_pipe(int *pipefd);
 t_boolean	check_fork(pid_t *pid);
 t_boolean	sanity_check(int argc, char *argv[], t_pipex *pipex);
-char	    *find_path(char *envp[]);
-char	    *find_command_path(char *command, char *envp[]);
-void	    execute_cmd(t_pipex *pipex, char **envp);
+char		*find_path(char *envp[]);
+char		*find_command_path(char *command, char *envp[]);
+void		execute_cmd(t_pipex *pipex, char **envp);
 #endif

@@ -1,7 +1,7 @@
-NAME = push_swap
+NAME = pipex
 LIBFT = libft/libft.a
 RM = rm -f
-SRCS = ft_pipex.c ft_pipex_utils.c ft_pipex_utils_2.c
+SRCS = ft_pipex.c ft_pipex_utils.c ft_pipex_utlis_2.c
 
 OBJS = $(SRCS:.c=.o)
 

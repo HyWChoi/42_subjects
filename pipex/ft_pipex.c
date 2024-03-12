@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:53:35 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/09 22:56:01 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:27:57 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	if (pid1 == 0)
 		change_fd_children(&pipex, argv, envp);
-	else 
+	else
 		change_fd_parent(&pipex, argv, envp);
 	close(pipex.infile);
 	close(pipex.outfile);
 	waitpid(pid1, NULL, 0);
-	return 0;
+	return (0);
 }

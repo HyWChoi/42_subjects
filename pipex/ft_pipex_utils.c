@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/09 22:54:33 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/09 23:03:42 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/03/12 18:28:57 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/03/12 18:29:25 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ t_boolean	check_access(char *str[])
 	char	*file1;
 	char	*file2;
 	int		read;
-    int     write;
+	int		write;
 
 	read = R_OK;
-    write = W_OK;
+	write = W_OK;
 	file1 = str[1];
 	file2 = str[4];
-	if (access( file1, read ) == ERROR)
+	if (access(file1, read) == ERROR)
 	{
 		perror("infile is not exist or permission denied.");
 		return (FALSE);
 	}
-    if (access( file2, write ) == ERROR)
-    {
-        perror("outfile is not exist or permission denied.");
-        return (FALSE);
-    }
+	if (access(file2, write) == ERROR)
+	{
+		perror("outfile is not exist or permission denied.");
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
