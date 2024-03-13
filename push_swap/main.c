@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:45:35 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/12 18:47:15 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:32:35 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ int	main(int argc, char *argv[])
 	t_deque	dq_b;
 
 	if (argc < 2)
-	{
-		ft_printf("Error\n");
 		return (0);
-	}
 	init_dq_a_b(&dq_a, &dq_b, argc, argv);
 	if (fill_dq_a(&dq_a, &dq_b, argc, argv) == ERROR)
 		return (0);
