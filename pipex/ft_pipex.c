@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 20:53:35 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/12 19:06:28 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/23 22:27:48 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,17 @@ void	change_fd_parent(t_pipex *pipex, char *argv[], char **envp)
 	pipex->cmd = 0;
 }
 
-void	leaks(void)
-{
-	system("leaks pipex");
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
 	pid_t	pid1;
 
-	atexit(leaks);
 	pipex.infile = open(argv[1], O_RDONLY);
 	pipex.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (!sanity_check(argc, argv, &pipex))
-		return (0);
+		exit(1);
 	if (!check_fork(&pid1))
-		return (0);
+		exit(1);
 	if (pid1 == 0)
 		change_fd_children(&pipex, argv, envp);
 	else

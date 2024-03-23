@@ -32,7 +32,6 @@ typedef struct s_pipex
 	int		infile;
 	int		outfile;
 	int		pipefd[2];
-	int		fd;
 }	t_pipex;
 
 t_boolean	check_access(char *str[]);
