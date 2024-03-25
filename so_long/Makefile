@@ -1,7 +1,7 @@
-NAME = pipex
+NAME = so_long
 LIBFT = libft/libft.a
 RM = rm -f
-SRCS = ft_pipex.c ft_pipex_utils.c ft_pipex_utlis_2.c
+SRCS = so_long.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -12,7 +12,7 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(MLX) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(MLX) $(OBJS) $(LIBFT) libmlx.a -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -lmlx -c $< -o $@
