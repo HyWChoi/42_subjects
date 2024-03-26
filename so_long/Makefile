@@ -1,21 +1,22 @@
 NAME = so_long
 LIBFT = libft/libft.a
+LIBMLX = libmlx.a
 RM = rm -f
-SRCS = so_long.c
+SRCS = so_long.c so_long_init_map.c so_long_valid_check.c main.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX = -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(MLX) $(OBJS) $(LIBFT) libmlx.a -o $(NAME)
+	$(CC) $(CFLAGS) $(MLX) $(OBJS) $(LIBFT) $(LIBMLX) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -lmlx -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS) $(CHECKER_OBJS)

@@ -6,17 +6,24 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:52:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/04 19:12:53 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/27 06:06:10 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 2048
+# endif
+# if BUFFER_SIZE < 1
+#  undef BUFFER_SIZE
+#  define BUFFERSIZE 0
+# endif
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
@@ -24,12 +31,19 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_fd
+{
+	int				fd;
+	ssize_t			rd_size;
+}	t_fd;
+
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 size_t	ft_strlen(const char *str);
+size_t  ft_strslen(char **strs);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -81,5 +95,11 @@ void	spec_u(unsigned int n, ssize_t *total_len);
 void	chk_write(char *c, ssize_t *total_len);
 void	chk_minus(long long *convert_n, ssize_t *total_len);
 int		ft_printf(const char *str, ...);
+char	*get_next_line(int fd);
+size_t	ft_gnl_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_gnl_strlcat(char *dst, const char *src, size_t dstsize);
+char	*ft_gnl_strjoin(char const *s1, char const *s2, size_t limit);
+char	*ft_gnl_strdup(const char *s1);
+void	join_and_free(char **saved_buff, char **read_buff, char **dst, int i);
 
 #endif
