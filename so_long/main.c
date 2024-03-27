@@ -27,10 +27,5 @@ int	main(int argc, char **argv)
 		return (1);
 	set_map(map, read_map(fd));
 	close(fd);
-	// print_map(map);
-	// if (check_wrrapped_by_wall(map) == FALSE)
-	// 	ft_printf("Error: Map is not wrapped by wall\n");
-	// else
-	// 	ft_printf("Map is wrapped by wall\n");
 	return (0);
 }

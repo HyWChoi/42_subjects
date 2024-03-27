@@ -56,7 +56,7 @@ t_coordinate	*init_player_loc(t_map *map, t_coordinate *player_loc)
 void	set_map(t_map *map, char **map_str)
 {
 	map->map = map_str;
-	map->width = ft_strlen(map_str[0]);
+	map->width = ft_strlen(map_str[0]) - 1;
 	map->height = ft_strslen(map_str);
 }
 

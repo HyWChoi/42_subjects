@@ -5,11 +5,9 @@ t_boolean check_rectangular_map(t_map *map)
 	int i;
 
 	i = 0;
-	if (map->width < 4 || map->height < 4)
-		return (FALSE);
 	while (i < map->height)
 	{
-		if (ft_strlen(map->map[i]) != (size_t)map->width)
+		if (ft_strlen(map->map[i]) - 1 != (size_t)map->width)
 			return (FALSE);
 		i++;
 	}
@@ -21,16 +19,16 @@ t_boolean check_wrrapped_by_wall(t_map *map)
 	int	i;
 
 	i = 0;
-	while (i < map->width)
+	while (i < map->width - 1)
 	{
-		if (map->map[0][i] != '1' || map->map[map->height - 1][i] != '1')
+		if (map->map[0][i] != MAP_WALL || map->map[map->height - 1][i] != MAP_WALL)
 			return (FALSE);
 		i++;
 	}
 	i = 0;
-	while (i < map->height)
+	while (i < map->height - 1)
 	{
-		if (map->map[i][0] != '1' || map->map[i][map->width - 1] != '1')
+		if (map->map[i][0] != MAP_WALL || map->map[i][map->width - 1] != MAP_WALL)
 			return (FALSE);
 		i++;
 	}
@@ -48,13 +46,13 @@ t_boolean check_vaild_elem_in_map(t_map *map)
 	{
 		while (x < map->width - 1)
 		{
-			if (map->map[y][x] == 'C')
+			if (map->map[y][x] == MAP_COLLECTIBLE)
 				map->map_elem->collectible++;
-			else if (map->map[y][x] == 'E')
+			else if (map->map[y][x] == MAP_EXIT)
 				map->map_elem->exit++;
-			else if (map->map[y][x] == 'P')
+			else if (map->map[y][x] == MAP_PLAYER)
 				map->map_elem->player++;
-			else if (map->map[y][x] != '0' && map->map[y][x] != '1')
+			else if (map->map[y][x] != MAP_EMPTY && map->map[y][x] != MAP_WALL)
 				return (FALSE);
 			x++;
 		}
@@ -71,20 +69,7 @@ t_boolean	is_possible_to_go(t_map *map, t_coordinate *loc)
 	char	status;
 
 	status = map->map[loc->y][loc->x];
-	if (status == '1' || status == 'P')
+	if (status == MAP_WALL || status == MAP_PLAYER)
 		return (FALSE);
 	return (TRUE);
 }
-
-// void	find_path(t_map *map, t_coordinate *loc)
-// {
-// 	if (map->map_elem->collectible == 0 && map->map[loc->x][loc->y] == 'E')
-// 		return ;
-// 	else
-// 	{
-// 		if (map->map[loc->x][loc->y] == 'C')
-// 			map->map_elem->collectible--;
-// 		if (map->map[loc->x + 1][loc->y] != '1')
-
-// 	}
-// }

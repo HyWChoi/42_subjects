@@ -4,6 +4,11 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
+#define MAP_WALL '1'
+#define MAP_COLLECTIBLE 'C'
+#define MAP_EXIT 'E'
+#define MAP_PLAYER 'P'
+#define MAP_EMPTY '0'
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
@@ -25,8 +30,6 @@ typedef struct s_map
 	char			**map;
 	int				width;
 	int				height;
-	int				player;
-	int				collectible;
 	int				exit;
 }	t_map;
 char	**read_map(int fd);
