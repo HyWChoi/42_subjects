@@ -10,9 +10,6 @@ t_map	*init_map(void)
 	map->map = NULL;
 	map->width = 0;
 	map->height = 0;
-	map->player = 0;
-	map->collectible = 0;
-	map->exit = 0;
 	map->map_elem = init_map_element();
 	return (map);
 }
@@ -28,7 +25,7 @@ t_map_element	*init_map_element(void)
 	return (map_elem);
 }
 
-t_coordinate	*init_player_loc(t_map *map, t_coordinate *player_loc)
+void	init_player_loc(t_map *map, t_coordinate *player_loc)
 {
 	int				x;
 	int				y;
@@ -43,14 +40,13 @@ t_coordinate	*init_player_loc(t_map *map, t_coordinate *player_loc)
 			{
 				player_loc->x = x;
 				player_loc->y = y;
-				break ;
+				return ;
 			}
 			x++;
 		}
 		x = 1;
 		y++;
 	}
-	return (player_loc);
 }
 
 void	set_map(t_map *map, char **map_str)
@@ -58,6 +54,7 @@ void	set_map(t_map *map, char **map_str)
 	map->map = map_str;
 	map->width = ft_strlen(map_str[0]) - 1;
 	map->height = ft_strslen(map_str);
+	count_map_element(map);
 }
 
 void	free_map(t_map *map)
@@ -73,3 +70,4 @@ void	free_map(t_map *map)
 	free(map->map);
 	free(map);
 }
+

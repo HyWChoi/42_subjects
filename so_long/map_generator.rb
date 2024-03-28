@@ -52,4 +52,4 @@ def mapgen(x, y)
   }
 end
 
-mapgen(10, 20)
+mapgen(10, 10)

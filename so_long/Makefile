@@ -2,7 +2,7 @@ NAME = so_long
 LIBFT = libft/libft.a
 LIBMLX = libmlx.a
 RM = rm -f
-SRCS = so_long.c so_long_init_map.c so_long_valid_check.c main.c
+SRCS = so_long_utils.c so_long_init_map.c so_long_valid_check.c so_long_find_path_BFS.c main.c
 
 OBJS = $(SRCS:.c=.o)
 

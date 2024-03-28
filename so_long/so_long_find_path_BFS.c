@@ -1,76 +1,82 @@
 #include "so_long_find_path_BFS.h"
 
-t_queue *createQueue() {
-    t_queue *q;
+t_queue	*createQueue() {
+	t_queue	*q;
 
-    q->front = NULL;
-    q->rear = NULL;
-    return (q);
+	q = (t_queue *)malloc(sizeof(t_queue));
+	q->front = NULL;
+	q->rear = NULL;
+	return (q);
 }
 
-void enqueue(t_queue *q, t_coordinate loc) {
-    t_queue_node *newNode;
+void	enqueue(t_queue *q, t_coordinate loc) {
+	t_queue_node	*newNode;
 
-    newNode = malloc(sizeof(t_queue_node));
-    if (newNode == NULL) {
-        exit(1); // 메모리 할당 실패
-    }
-    newNode->loc = loc;
-    newNode->next = NULL;
-    if (q->rear == NULL) {
-        q->front = q->rear = newNode;
-        return;
-    }
-    q->rear->next = newNode;
-    q->rear = newNode;
+	newNode = (t_queue_node *)malloc(sizeof(t_queue_node));
+	if (newNode == NULL)
+		exit(1);
+	newNode->loc = loc;
+	newNode->next = NULL;
+	if (is_queue_empty(q)) {
+		q->front = newNode;
+		q->rear = newNode;
+		return ;
+	}
+	q->rear->next = newNode;
+	q->rear = newNode;
 }
 
-t_coordinate dequeue(t_queue *q) {
-    t_queue_node *temp;
-    t_coordinate loc;
+t_coordinate	dequeue(t_queue *q) {
+	t_queue_node	*temp;
+	t_coordinate	loc;
 
-    if (q->front == NULL) {
-        exit(EXIT_FAILURE); 
-    }
-    temp = q->front;
-    loc = temp->loc;
-    q->front = q->front->next;
-    if (q->front == NULL) {
-        q->rear = NULL;
-    }
-    free(temp);
-    return loc;
+	if (is_queue_empty(q))
+		exit(1);
+	temp = q->front;
+	loc = temp->loc;
+	q->front = q->front->next;
+	if (is_queue_empty(q))
+		q->rear = NULL;
+	free(temp);
+	return (loc);
 }
 
-int is_queue_empty(t_queue *q) {
-    return q->front == NULL;
+int	is_queue_empty(t_queue *q) {
+	return q->front == NULL;
 }
 
-void bfs_find_path(t_map *map, t_coordinate start) {
-    t_queue *queue;
-    t_coordinate current;
+t_boolean	bfs_find_path(char **copid_map, t_coordinate start, int collectible_count, int exit_count) {
+	t_queue			*queue;
+	t_coordinate	current;
+	t_coordinate	next;
+	int				direction[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+	int				i;
 
-    queue = createQueue();
-    enqueue(queue, start);
-    while (!isEmpty(queue)) {
-        current = dequeue(queue);
-
-        // collectible을 찾았으면 수집
-        if (map->map[current.y][current.x] == MAP_COLLECTIBLE) {
-            map->map_elem->collectible--;
-            // 모든 collectible을 수집했는지 확인
-            if (map->map_elem->collectible == 0) {
-                // 이후 로직 구현...
-            }
-        }
-
-        // exit에 도달했는지 확인
-        if (map->map[current.y][current.x] == MAP_EXIT && map->map_elem->collectible == 0) {
-            // 경로 찾음
-            break;
-        }
-
-        // 상하좌우 이동 가능 여부 확인 및 큐에 추가
-        // 이 부분에서 MAP_WALL이 아니고 방문하지 않은 위치를 큐에 추가
-    }
+	queue = createQueue();
+	enqueue(queue, start);
+	while (!is_queue_empty(queue)) {
+		current = dequeue(queue);
+		i = 0;
+		while (i < 4) {
+			next.x = current.x + direction[i][0];
+			next.y = current.y + direction[i][1];
+			if (is_possible_to_go(copid_map, &next))
+			{
+				if (copid_map[next.y][next.x] == MAP_EXIT)
+					exit_count--;
+				if (copid_map[next.y][next.x] == MAP_COLLECTIBLE)
+					collectible_count--;
+				copid_map[next.y][next.x] = MAP_VISITED;
+				enqueue(queue, next);
+			}
+			i++;
+		}
+		if (!collectible_count && !exit_count)
+		{
+			free(queue);
+			return (TRUE);
+		}
+	}
+	free(queue);
+	return (FALSE);
 }
