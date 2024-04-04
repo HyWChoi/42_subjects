@@ -7,7 +7,7 @@ SRCS = so_long_utils.c so_long_init_map.c so_long_valid_check.c so_long_find_pat
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLX = -framework OpenGL -framework AppKit
 
 all: $(NAME)

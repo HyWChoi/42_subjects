@@ -1,5 +1,19 @@
 #include "so_long_utils.h"
 
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_MAP_SIZE)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	free(map);
+}
+
 char	**read_map(int fd)
 {
 	char	*line;
@@ -7,15 +21,15 @@ char	**read_map(int fd)
 	int		i;
 
 	i = 0;
-	map = (char **)malloc(sizeof(char *) * 101);
+	map = (char **)malloc(sizeof(char *) * MAX_MAP_SIZE);
 	if (map == NULL)
 		return (NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (i == 101)
+		if (i == MAX_MAP_SIZE)
 		{
-			free_map(map, i);
+			free_map(map);
 			return (NULL);
 		}
 		map[i] = line;
@@ -75,19 +89,4 @@ void	count_map_element(t_map *map)
 		x = 1;
 		y++;
 	}
-}
-
-void	free_map(t_map *map, int height)
-{
-	int	i;
-
-	i = 0;
-	while (i < height)
-	{
-		free(map->map[i]);
-		i++;
-	}
-	free(map->map);
-	free(map->map_elem);
-	free(map);
 }

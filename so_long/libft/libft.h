@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:52:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/03/27 06:06:10 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:23:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ size_t	ft_gnl_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_gnl_strjoin(char const *s1, char const *s2, size_t limit);
 char	*ft_gnl_strdup(const char *s1);
 void	join_and_free(char **saved_buff, char **read_buff, char **dst, int i);
+void	ft_free_split(char **split);
 
 #endif

@@ -57,17 +57,10 @@ void	set_map(t_map *map, char **map_str)
 	count_map_element(map);
 }
 
-void	free_map(t_map *map)
+void	free_t_map(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	while (i < map->height)
-	{
-		free(map->map[i]);
-		i++;
-	}
-	free(map->map);
+	free_map(map->map);
+	free(map->map_elem);
 	free(map);
 }
 
