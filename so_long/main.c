@@ -20,17 +20,11 @@ void	repaint_area(t_game_info *game_info, int x, int y)
 	t_map	*map;
 
 	map = game_info->map;
-	ft_printf("x, y: %d, %d\n", x, y);
-	ft_printf("map->map[y][x]: %c\n", map->map[y][x]);
-	if (map->map[y][x] == MAP_COLLECTIBLE_COLLECTED)
-	{
-		mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.tile[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
-		mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.collectible[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
-	}
-	else if (map->map[y][x] == MAP_EXIT)
+	mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.tile[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
+	if (map->map[y][x] == MAP_EXIT)
 		mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.exit_imgs[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
-	else
-		mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.tile[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
+	else if (map->map[y][x] == MAP_COLLECTIBLE_COLLECTED)
+		mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->imgs.collectible[0].img_ptr, x * IMG_SIZE, y * IMG_SIZE);
 }
 
 t_game_img	*init_img_info_arr(t_game_info *game_info, char *path)
