@@ -1,5 +1,17 @@
-#ifndef SO_LONG_INIT_MAPH
-# define SO_LONG_INIT_MAPH
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_init_map.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 23:07:29 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/04/08 23:11:18 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SO_LONG_INIT_MAP_H
+# define SO_LONG_INIT_MAP_H
 # include "so_long_utils.h"
 
 t_map			*init_map(void);

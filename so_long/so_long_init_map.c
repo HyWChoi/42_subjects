@@ -1,4 +1,16 @@
-# include "so_long_init_map.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_init_map.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 18:13:47 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/04/08 18:13:56 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long_init_map.h"
 
 t_map	*init_map(void)
 {
@@ -63,4 +75,3 @@ void	free_t_map(t_map *map)
 	free(map->map_elem);
 	free(map);
 }
-

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strslen.c                                       :+:      :+:    :+:   */
+/*   so_long_init_game_graphics.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 23:04:39 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/04/08 23:05:24 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/04/08 23:11:25 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/04/08 23:12:14 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef SO_LONG_INIT_GAME_GRAPHICS_H
+# define SO_LONG_INIT_GAME_GRAPHICS_H
+# include "so_long_valid_check.h"
 
-size_t	ft_strslen(char **strs)
-{
-	size_t	count;
+void		init_img_info(t_game_info *game_info,
+				t_game_img *img_info, char *path);
+t_game_img	*init_img_info_arr(t_game_info *game_info, char *path);
+t_game_imgs	init_imgs(t_game_info *game_info);
+void		init_game_info(t_game_info **game_info, t_map *map);
 
-	count = 0;
-	while (strs[count])
-		count++;
-	return (count);
-}
+#endif

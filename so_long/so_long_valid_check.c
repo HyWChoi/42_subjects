@@ -1,6 +1,18 @@
-# include "so_long_valid_check.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_valid_check.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 21:10:17 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/04/08 22:56:16 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_boolean check_file_ext(char *file_name)
+#include "so_long_valid_check.h"
+
+t_boolean	check_file_ext(char *file_name)
 {
 	int	len;
 
@@ -12,9 +24,9 @@ t_boolean check_file_ext(char *file_name)
 	return (TRUE);
 }
 
-t_boolean check_rectangular_map(t_map *map)
+t_boolean	check_rectangular_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < map->height)
@@ -26,28 +38,30 @@ t_boolean check_rectangular_map(t_map *map)
 	return (TRUE);
 }
 
-t_boolean check_wrrapped_by_wall(t_map *map)
+t_boolean	check_wrrapped_by_wall(t_map *map)
 {
 	int	i;
 
 	i = 0;
 	while (i < map->width)
 	{
-		if (map->map[0][i] != MAP_WALL || map->map[map->height - 1][i] != MAP_WALL)
+		if (map->map[0][i] != MAP_WALL
+			|| map->map[map->height - 1][i] != MAP_WALL)
 			return (FALSE);
 		i++;
 	}
 	i = 0;
 	while (i < map->height)
 	{
-		if (map->map[i][0] != MAP_WALL || map->map[i][map->width - 1] != MAP_WALL)
+		if (map->map[i][0] != MAP_WALL
+			|| map->map[i][map->width - 1] != MAP_WALL)
 			return (FALSE);
 		i++;
 	}
 	return (TRUE);
 }
 
-t_boolean check_vaild_elem_in_map(t_map *map)
+t_boolean	check_vaild_elem_in_map(t_map *map)
 {
 	if (map->map_elem->player != 1 || map->map_elem->exit != 1)
 		return (FALSE);
@@ -57,21 +71,26 @@ t_boolean check_vaild_elem_in_map(t_map *map)
 t_boolean	map_validation_check(t_map *map, char *file_name)
 {
 	t_coordinate	player_loc;
-	int				collectible_count;
-	int				exit_count;
+	int				*counts;
+	t_boolean		flag;
 
-	collectible_count = map->map_elem->collectible;
-	exit_count = map->map_elem->exit;
+	counts = (int *)malloc(sizeof(int) * 2);
+	counts[0] = map->map_elem->collectible;
+	counts[1] = map->map_elem->exit;
+	flag = TRUE;
+	if (counts == NULL)
+		flag = FALSE;
 	init_player_loc(map, &player_loc);
-	if (!check_file_ext(file_name))
-		return (FALSE);
-	if (!check_rectangular_map(map))
-		return (FALSE);
-	if (!check_wrrapped_by_wall(map))
-		return (FALSE);
-	if (!check_vaild_elem_in_map(map))
-		return (FALSE);
-	if (!bfs_find_path(copy_map(map), player_loc, collectible_count, exit_count))
-		return (FALSE);
-	return (TRUE);
+	if (flag && !check_file_ext(file_name))
+		flag = FALSE;
+	if (flag && !check_rectangular_map(map))
+		flag = FALSE;
+	if (flag && !check_wrrapped_by_wall(map))
+		flag = FALSE;
+	if (flag && !check_vaild_elem_in_map(map))
+		flag = FALSE;
+	if (flag && !bfs_find_path(copy_map(map),
+			player_loc, counts))
+		flag = FALSE;
+	return (flag);
 }

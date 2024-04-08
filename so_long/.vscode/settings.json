@@ -1,5 +1,9 @@
 {
   "files.associations": {
-    "ios": "c"
+    "ios": "c",
+    "so_long_init_map.h": "c",
+    "iterator": "c",
+    "so_long_key_hooks.h": "c",
+    "libft.h": "c"
   }
 }
