@@ -1,25 +1,25 @@
 #include "philosophers.h"
 
-int	ph_init_mutex_info(t_info *info)
+t_mutex	*ph_init_mutex_info(int num_of_philosophers)
 {
+	t_mutex	*mutex;
 	int	i;
 
-	if (pthread_mutex_init(&info->print_mutex, NULL))
-		return (1);
-	info->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* info->num_of_philosophers);
-	if (!info->fork_mutex)
-		return (1);
+	mutex = (t_mutex *)malloc(sizeof(t_mutex));
+	if (pthread_mutex_init(&mutex->print_mutex, NULL))
+		return (NULL);
+	mutex->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* num_of_philosophers);
+	if (!mutex->fork_mutex)
+		return (NULL);
 	i = 0;
-	while (i < info->num_of_philosophers)
+	while (i < num_of_philosophers)
 	{
-		if (pthread_mutex_init(&info->fork_mutex[i], NULL))
-			return (1);
+		if (pthread_mutex_init(&mutex->fork_mutex[i], NULL))
+			return (NULL);
 		i++;
 	}
-	if (pthread_mutex_init(&info->finish_mutex, NULL))
-		return (1);
-	return (0);
+	return (mutex);
 }
 
 t_info	*ph_init_info(int argc, char *argv[])
@@ -39,15 +39,10 @@ t_info	*ph_init_info(int argc, char *argv[])
 	else
 		info->time_to_must_eat = -1;
 	info->start_time = ph_get_time();
-	if (ph_init_mutex_info(info))
-	{
-		free(info);
-		return (NULL);
-	}
 	return (info);
 }
 
-t_philo	*ph_init_philo(t_info *info)
+t_philo	*ph_init_philo(t_info *info, t_mutex *mutex)
 {
 	t_philo	*philo;
 	int		i;
@@ -65,9 +60,8 @@ t_philo	*ph_init_philo(t_info *info)
 		philo[i].left_fork = i;
 		philo[i].right_fork = (i + 1) % info->num_of_philosophers;
 		philo[i].last_eat = 0;
-		philo[i].info = info;
-		philo[i].start = (void *)philo;
-		pthread_mutex_init(&philo[i].eating_mutex, NULL);
+		philo[i].info = ph_copy_info(info);
+		philo[i].mutex = mutex;
 		i++;
 	}
 	return (philo);
