@@ -2,12 +2,31 @@
 
 void	dbg_print_info(t_info *info)
 {
+	int	i;
+
+	i = 0;
 	printf("info->num_of_philosophers = %d\n", info->num_of_philosophers);
 	printf("info->time_to_die = %d\n", info->time_to_die);
 	printf("info->time_to_eat = %d\n", info->time_to_eat);
 	printf("info->time_to_sleep = %d\n", info->time_to_sleep);
 	printf("info->time_to_must_eat = %d\n", info->time_to_must_eat);
-	printf("info->finish = %d\n", info->finish);
+}
+
+void	dbg_print_mutex(t_philo *philo)
+{
+	t_mutex	*mutex;
+	int		i;
+
+	i = 0;
+	mutex = philo->mutex;
+	printf("mutex->print_mutex = %p\n", &mutex->print_mutex);
+	printf("mutex->fork_mutex = %p\n", mutex->fork_mutex);
+	while (i < philo->info->num_of_philosophers)
+	{
+		printf("mutex->fork[%d] = %d\n", i, mutex->fork[i]);
+		i++;
+	}
+	printf("mutex->finish = %d\n", mutex->finish);
 }
 
 void	dbg_print_philos(t_info *info, t_philo *philo)
@@ -23,8 +42,8 @@ void	dbg_print_philos(t_info *info, t_philo *philo)
 		printf("philo[%d].last_eat = %ld\n", i, philo[i].last_eat);
 		printf("philo[%d].eat_count = %d\n", i, philo[i].eat_count);
 		printf("philo[%d].sleep_count = %d\n", i, philo[i].sleep_count);
-		printf("philo[%d].thread = %p\n", i, philo[i].thread);
-		printf("philo[%d].info = %p\n", i, philo[i].info);
+		dbg_print_info(philo[i].info);
+		dbg_print_mutex(philo + i);
 		i++;
 	}
 }

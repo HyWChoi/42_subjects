@@ -7,6 +7,11 @@
 #include <pthread.h>
 #include <sys/time.h>
 
+# define TRUE 1
+# define FALSE 0
+
+typedef int t_bool;
+
 typedef struct	s_info
 {
 	int		num_of_philosophers;
@@ -15,13 +20,17 @@ typedef struct	s_info
 	int		time_to_sleep;
 	int		time_to_must_eat;
 	long	start_time;
-	int		finish;
 }			t_info;
 
 typedef struct 	s_mutex
 {
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	finish_mutex;
+	t_bool			finish;
 	pthread_mutex_t	*fork_mutex;
+	t_bool			*fork;
+	pthread_mutex_t	*death_mutex;
+	t_bool			*death;
 }					t_mutex;
 
 typedef struct	s_philo
@@ -32,7 +41,6 @@ typedef struct	s_philo
 	long		last_eat;
 	int			eat_count;
 	int			sleep_count;
-	int			death;
 	t_info		*info;
 	t_mutex		*mutex;
 	pthread_t	thread;
@@ -42,6 +50,8 @@ int		ph_eat(t_philo *philo);
 int		ph_sleep(t_philo *philo);
 int		ph_think(t_philo *philo);
 int		ph_die(t_philo *philo);
+int		ph_put_up_fork(t_philo *philo, int fork_num);
+int		ph_put_down_fork(t_philo *philo, int fork_num);
 void	*ph_do(void *arg);
 int		ph_check_finish(t_philo *philo);
 int		ph_philo_start(t_philo *philo);
@@ -64,4 +74,5 @@ void	free_all(t_philo *philo);
 
 void	dbg_print_philos(t_info *info, t_philo *philo);
 void	dbg_print_info(t_info *info);
+void	dbg_print_mutex(t_philo *philo);
 #endif

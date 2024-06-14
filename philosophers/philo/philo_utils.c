@@ -76,6 +76,5 @@ t_info	*ph_copy_info(t_info *info)
 	new_info->time_to_sleep = info->time_to_sleep;
 	new_info->time_to_must_eat = info->time_to_must_eat;
 	new_info->start_time = info->start_time;
-	new_info->finish = info->finish;
 	return (new_info);
 }

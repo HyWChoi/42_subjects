@@ -7,30 +7,14 @@ int	ph_eat(t_philo *philo)
 
 	info = philo->info;
 	mutex = philo->mutex;
-	// if (philo->id % 2 == 0)
-	// {
-	// pthread_mutex_lock(&mutex->fork_mutex[philo->left_fork]);
-	// ph_print(philo, "has taken a fork");
-	// pthread_mutex_lock(&mutex->fork_mutex[philo->right_fork]);
-	// ph_print(philo, "has taken a fork");
-	// }
-	// else
-	// {
-	// pthread_mutex_lock(&mutex->fork_mutex[philo->right_fork]);
-	// ph_print(philo, "has taken a fork");
-	// pthread_mutex_lock(&mutex->fork_mutex[philo->left_fork]);
-	// ph_print(philo, "has taken a fork");
-	// }
-	pthread_mutex_lock(&mutex->fork_mutex[philo->left_fork]);
-	ph_print(philo, "has taken a fork");
-	pthread_mutex_lock(&mutex->fork_mutex[philo->right_fork]);
-	ph_print(philo, "has taken a fork");
+	ph_put_up_fork(philo, philo->left_fork);
+	ph_put_up_fork(philo, philo->right_fork);
 	ph_print(philo, "is eating");
-	philo->last_eat = ph_get_time();
 	philo->eat_count++;
+	philo->last_eat = ph_get_time();
 	ph_flow_time(info->time_to_eat);
-	pthread_mutex_unlock(&mutex->fork_mutex[philo->right_fork]);
-	pthread_mutex_unlock(&mutex->fork_mutex[philo->left_fork]);
+	ph_put_down_fork(philo, philo->right_fork);
+	ph_put_down_fork(philo, philo->left_fork);
 	return (0);
 }
 
@@ -50,8 +34,34 @@ int	ph_think(t_philo *philo)
 
 int	ph_die(t_philo *philo)
 {
+	t_mutex	*mutex;
+
+	mutex = philo->mutex;
+	pthread_mutex_lock(&mutex->death_mutex[philo->id - 1]);
+	mutex->death[philo->id - 1] = TRUE;
 	ph_print(philo, "died");
-	philo->death = 1;
+	pthread_mutex_unlock(&mutex->death_mutex[philo->id - 1]);
+	return (0);
+}
+
+int	ph_put_up_fork(t_philo *philo, int fork_num)
+{
+	t_mutex	*mutex;
+
+	mutex = philo->mutex;
+	pthread_mutex_lock(&mutex->fork_mutex[fork_num]);
+	ph_print(philo, "has taken a fork");
+	mutex->fork[fork_num] = FALSE;
+	return (0);
+}
+
+int	ph_put_down_fork(t_philo *philo, int fork_num)
+{
+	t_mutex	*mutex;
+
+	mutex = philo->mutex;
+	mutex->fork[fork_num] = TRUE;
+	pthread_mutex_unlock(&mutex->fork_mutex[fork_num]);
 	return (0);
 }
 
@@ -66,6 +76,11 @@ void	*ph_do(void *arg)
 		ph_flow_time(100);
 	while (1)
 	{
+		if ((ph_get_time() - philo->last_eat) >= info->time_to_die)
+		{
+			ph_die(philo);
+			break ;
+		}
 		if (info->time_to_must_eat != -1 && philo->eat_count >= info->time_to_must_eat)
 			break ;
 		ph_eat(philo);
