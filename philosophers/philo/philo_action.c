@@ -1,5 +1,16 @@
 #include "philosophers.h"
 
+t_bool	ph_is_dead(t_philo *philo)
+{
+	printf("ph %d how much time has passed since the last meal: %ld\n", philo->id,ph_get_time() - philo->last_eat);
+	if ((ph_get_time() - philo->last_eat) >= philo->info->time_to_die)
+	{
+		ph_die(philo);
+		return (1);
+	}
+	return (0);
+}
+
 int	ph_eat(t_philo *philo)
 {
 	t_info	*info;
@@ -7,7 +18,30 @@ int	ph_eat(t_philo *philo)
 
 	info = philo->info;
 	mutex = philo->mutex;
+	if (ph_is_dead(philo))
+		return (1);
+	pthread_mutex_lock(&mutex->fork_mutex[philo->left_fork]);
+	while (mutex->fork[philo->left_fork] == FALSE)
+	{
+		pthread_mutex_unlock(&mutex->fork_mutex[philo->left_fork]);
+		if (ph_is_dead(philo))
+			return (1);
+		usleep(300);
+	}
+	pthread_mutex_unlock(&mutex->fork_mutex[philo->left_fork]);
 	ph_put_up_fork(philo, philo->left_fork);
+	pthread_mutex_lock(&mutex->fork_mutex[philo->right_fork]);
+	while (mutex->fork[philo->right_fork] == FALSE)
+	{
+		pthread_mutex_unlock(&mutex->fork_mutex[philo->right_fork]);
+		if (ph_is_dead(philo))
+		{
+			ph_put_down_fork(philo, philo->left_fork);
+			return (1);
+		}
+		usleep(300);
+	}
+	pthread_mutex_unlock(&mutex->fork_mutex[philo->right_fork]);
 	ph_put_up_fork(philo, philo->right_fork);
 	ph_print(philo, "is eating");
 	philo->eat_count++;
@@ -37,10 +71,13 @@ int	ph_die(t_philo *philo)
 	t_mutex	*mutex;
 
 	mutex = philo->mutex;
+	printf("Attempting to lock death mutex for philo %d\n", philo->id);
 	pthread_mutex_lock(&mutex->death_mutex[philo->id - 1]);
+	printf("Successfully locked death mutex for philo %d\n", philo->id);
 	mutex->death[philo->id - 1] = TRUE;
 	ph_print(philo, "died");
 	pthread_mutex_unlock(&mutex->death_mutex[philo->id - 1]);
+	printf("Unlocked death mutex for philo %d\n", philo->id);
 	return (0);
 }
 
@@ -76,15 +113,16 @@ void	*ph_do(void *arg)
 		ph_flow_time(100);
 	while (1)
 	{
-		if ((ph_get_time() - philo->last_eat) >= info->time_to_die)
-		{
-			ph_die(philo);
+		if (ph_is_dead(philo))
 			break ;
-		}
 		if (info->time_to_must_eat != -1 && philo->eat_count >= info->time_to_must_eat)
 			break ;
 		ph_eat(philo);
+		if (ph_is_dead(philo))
+			break ;
 		ph_sleep(philo);
+		if (ph_is_dead(philo))
+			break ;
 		ph_think(philo);
 	}
 	return (0);

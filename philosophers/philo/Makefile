@@ -1,6 +1,6 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror
 
 srcs = $(shell find . -name "*.c")
 OBJS := $(srcs:.c=.o)

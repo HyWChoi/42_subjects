@@ -12,18 +12,26 @@ int	ph_check_finish(t_philo *philo)
 	while (i < info->num_of_philosophers)
 	{
 		pthread_mutex_lock(&mutex->death_mutex[i]);
-		if (mutex->death[i] == TRUE)
+		if (mutex->death[i] == FALSE)
 		{
+			pthread_mutex_unlock(&mutex->death_mutex[i]);
+			return (FALSE);
+		}
+		if (ph_get_time() - philo[i].last_eat >= info->time_to_die)
+		{
+			printf("is here>? %d\n", i);
+			ph_die(&philo[i]);
+			printf("is here>2? %d\n", i);
 			pthread_mutex_unlock(&mutex->death_mutex[i]);
 			pthread_mutex_lock(&mutex->finish_mutex);
 			mutex->finish = TRUE;
 			pthread_mutex_unlock(&mutex->finish_mutex);
-			return (1);
+			return (TRUE);
 		}
 		pthread_mutex_unlock(&mutex->death_mutex[i]);
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 int	ph_philo_start(t_philo *philo)
@@ -43,6 +51,7 @@ int	ph_philo_start(t_philo *philo)
 	{
 		if (ph_check_finish(philo))
 			break ;
+		usleep(60);
 	}
 	i = 0;
 	while (i < info->num_of_philosophers)
