@@ -64,7 +64,7 @@ int	ph_try_fork(t_philo *philo, int fork_num)
 	{
 		if (!ph_is_available_execute(philo))
 			return (1);
-		usleep(300);
+		usleep(50);
 	}
 	if (!ph_is_available_execute(philo))
 		return (1);

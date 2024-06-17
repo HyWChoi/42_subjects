@@ -57,29 +57,14 @@ int	ph_print(t_philo *philo, char *status)
 
 	info = philo->info;
 	mutex = philo->mutex;
-	if (mutex->finish)
-		return (0);
-	if (ph_is_lock_print(philo))
-		return (0);
-	if (ph_str_cmp(status, "died"))
-	{
-		pthread_mutex_lock(&mutex->print_mutex);
-		if (ph_is_lock_print(philo))
-		{
-			pthread_mutex_unlock(&mutex->print_mutex);
-			return (0);
-		}
-		ph_lock_print(philo);
-		printf("%ld %d %s\n", ph_get_time() - info->start_time, philo->id, status);
-		pthread_mutex_unlock(&mutex->print_mutex);
-		return (0);
-	}
 	pthread_mutex_lock(&mutex->print_mutex);
 	if (ph_is_lock_print(philo))
 	{
 		pthread_mutex_unlock(&mutex->print_mutex);
-		return (0);
+		return (1);
 	}
+	if (ph_str_cmp(status, "died"))
+		ph_lock_print(philo);
 	printf("%ld %d %s\n", ph_get_time() - info->start_time, philo->id, status);
 	pthread_mutex_unlock(&mutex->print_mutex);
 	return (0);

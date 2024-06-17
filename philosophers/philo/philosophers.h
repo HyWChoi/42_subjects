@@ -71,6 +71,7 @@ int	ph_lock_print(t_philo *philo);
 t_info	*ph_init_info(int argc, char *argv[]);
 t_mutex	*ph_init_mutex_info(int num_of_philosophers);
 t_philo	*ph_init_philo(t_info *info, t_mutex *mutex);
+t_bool	ph_vaild_info(t_info *info);
 
 int		print_err(char *str, int exit_num);
 

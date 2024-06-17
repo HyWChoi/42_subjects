@@ -76,7 +76,7 @@ t_bool	ph_check_done_eating(t_philo *philo)
 	return (TRUE);
 }
 
-int	ph_philo_start(t_philo *philo)
+int	ph_thread_create(t_philo *philo)
 {
 	int	i;
 	t_info	*info;
@@ -89,23 +89,41 @@ int	ph_philo_start(t_philo *philo)
 			return (1);
 		i++;
 	}
+	return (0);
+}
+
+void	ph_watcher(t_philo *philo)
+{
 	while (1)
 	{
-		// printf("is here?\n");
 		if (ph_is_exist_die(philo) || ph_check_done_eating(philo))
 		{
-			// print_err("Error: a philosopher died", 1);
 			ph_force_quit(philo);
 			break ;
 		}
-		usleep(300);
+		usleep(50);
 	}
+}
+
+void	ph_thread_join(t_philo *philo)
+{
+	int	i;
+	t_info	*info;
+
 	i = 0;
+	info = philo[0].info;
 	while (i < info->num_of_philosophers)
 	{
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
-	// free_all(info, philo);
+}
+
+int	ph_philo_start(t_philo *philo)
+{
+	if (ph_thread_create(philo))
+		return (1);
+	ph_watcher(philo);
+	ph_thread_join(philo);
 	return (0);
 }
