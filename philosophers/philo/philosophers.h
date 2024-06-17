@@ -25,12 +25,16 @@ typedef struct	s_info
 typedef struct 	s_mutex
 {
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	print_lock_flag_mutex;
+	t_bool			print_lock_flag;
 	pthread_mutex_t	finish_mutex;
 	t_bool			finish;
 	pthread_mutex_t	*fork_mutex;
 	t_bool			*fork;
 	pthread_mutex_t	*death_mutex;
 	t_bool			*death;
+	pthread_mutex_t	*finish_eat_mutex;
+	t_bool			*finish_eat;
 }					t_mutex;
 
 typedef struct	s_philo
@@ -55,13 +59,15 @@ int		ph_put_down_fork(t_philo *philo, int fork_num);
 void	*ph_do(void *arg);
 int		ph_check_finish(t_philo *philo);
 int		ph_philo_start(t_philo *philo);
+int	ph_force_quit(t_philo *philo);
 
 int		ph_atoi(const char *str);
 long	ph_get_time(void);
 int		ph_print(t_philo *philo, char *status);
 int		ph_flow_time(long long time);
 t_info	*ph_copy_info(t_info *info);
-
+int	ph_is_lock_print(t_philo *philo);
+int	ph_lock_print(t_philo *philo);
 t_info	*ph_init_info(int argc, char *argv[]);
 t_mutex	*ph_init_mutex_info(int num_of_philosophers);
 t_philo	*ph_init_philo(t_info *info, t_mutex *mutex);

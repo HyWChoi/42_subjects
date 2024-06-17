@@ -40,7 +40,6 @@ void	dbg_print_philos(t_info *info, t_philo *philo)
 		printf("philo[%d].left_fork = %d\n", i, philo[i].left_fork);
 		printf("philo[%d].right_fork = %d\n", i, philo[i].right_fork);
 		printf("philo[%d].last_eat = %ld\n", i, philo[i].last_eat);
-		printf("philo[%d].eat_count = %d\n", i, philo[i].eat_count);
 		printf("philo[%d].sleep_count = %d\n", i, philo[i].sleep_count);
 		dbg_print_info(philo[i].info);
 		dbg_print_mutex(philo + i);
