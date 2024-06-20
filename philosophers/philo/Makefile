@@ -1,8 +1,10 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
-srcs = $(shell find . -name "*.c")
+srcs = ph_forks.c ph_eating.c ph_life.c ph_print.c ph_excute_check.c \
+		ph_mutex.c ph_clean.c ph_init.c ph_setup.c ph_utils.c ph_thread.c \
+		ph_misc.c dbg_philo.c main.c
 OBJS := $(srcs:.c=.o)
 NAME = philo
 
