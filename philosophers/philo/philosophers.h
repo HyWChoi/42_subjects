@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:31 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 15:43:55 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:57:27 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define TRUE 1
 # define FALSE 0
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 typedef int	t_bool;
 
@@ -110,13 +112,19 @@ void	ph_free_mutex(t_mutex *mutex);
 // ph_init.c
 int		ph_init_array_mutex(t_mutex	*mutex, int num_of_philosophers);
 void	*ph_mutex_init(t_mutex **mutex, int num_of_philosophers);
-t_info	*ph_init_info(int argc, char *argv[]);
 t_philo	*ph_init_philo(t_info *info, t_mutex *mutex);
 
 // ph_setup.c
 void	ph_set_mutexed_value(t_mutex *mutex, int num_of_philosophers);
 void	*ph_set_start(t_info *info, t_mutex **mutex, t_philo **philo);
+void	*ph_memset(void *b, int c, size_t len);
 t_info	*ph_set_info(t_info **info, int argc, char *argv[]);
+
+// ph_parse.c
+void	ph_set_value_with_index(t_info *info, char *str, int count);
+void	ph_set_input_to_info(t_info *info, int argc, char *argv[]);
+void	ph_free_split(char **split);
+size_t	ph_strlen(const char *str);
 
 // ph_utils.c
 t_bool	ph_vaild_info(t_info *info, int argc);
@@ -132,10 +140,14 @@ void	ph_thread_join(t_philo *philo);
 int		ph_philo_start(t_philo *philo);
 
 // ph_misc.c
+int		ph_skip_spaces(const char *str);
 int		ph_atoi(const char *str);
 t_bool	ph_str_cmp(char *s1, char *s2);
 int		ph_flow_time(long long time);
 t_info	*ph_copy_info(t_info *info);
+
+// ph_split.c
+char	**ph_split(char const *s, char c);
 
 // dbg_philo.c
 void	dbg_print_info(t_info *info);

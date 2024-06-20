@@ -6,11 +6,24 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:37:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 15:39:07 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:46:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	ph_skip_spaces(const char *str)
+{
+	int	i;
+
+	if (!str || !*str)
+		return (0);
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	return (i);
+}
 
 int	ph_atoi(const char *str)
 {
@@ -19,9 +32,7 @@ int	ph_atoi(const char *str)
 
 	i = 0;
 	nbr = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
+	i += ph_skip_spaces(str);
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -33,7 +44,8 @@ int	ph_atoi(const char *str)
 		nbr = nbr * 10 + str[i] - '0';
 		i++;
 	}
-	if (str[i] != '\0')
+	i += ph_skip_spaces(str + i);
+	if (str[i] != '\0' || nbr > INT_MAX || nbr < INT_MIN)
 		return (-1);
 	return ((int)(nbr));
 }

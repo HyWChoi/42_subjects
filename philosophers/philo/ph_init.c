@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:37:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 15:37:55 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:51:12 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,6 @@ void	*ph_mutex_init(t_mutex **mutex, int num_of_philosophers)
 		return (NULL);
 	}
 	return (mutex);
-}
-
-t_info	*ph_init_info(int argc, char *argv[])
-{
-	t_info	*info;
-	int		i;
-
-	i = 0;
-	info = (t_info *)malloc(sizeof(t_info));
-	if (!info)
-		return (NULL);
-	info->num_of_philosophers = ph_atoi(argv[1]);
-	info->time_to_die = ph_atoi(argv[2]);
-	info->time_to_eat = ph_atoi(argv[3]);
-	info->time_to_sleep = ph_atoi(argv[4]);
-	if (argc == 6)
-		info->time_to_must_eat = ph_atoi(argv[5]);
-	else
-		info->time_to_must_eat = -1;
-	info->start_time = ph_get_time();
-	return (info);
 }
 
 t_philo	*ph_init_philo(t_info *info, t_mutex *mutex)

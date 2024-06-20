@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 15:41:16 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:57:17 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_bool	ph_vaild_info(t_info *info, int argc)
 {
-	if (info->num_of_philosophers < 2)
+	if (info->num_of_philosophers < 1)
 		return (FALSE);
-	if (info->time_to_die < 60)
+	if (info->time_to_die < 0)
 		return (FALSE);
-	if (info->time_to_eat < 60)
+	if (info->time_to_eat < 0)
 		return (FALSE);
-	if (info->time_to_sleep < 60)
+	if (info->time_to_sleep < 0)
 		return (FALSE);
 	if (argc == 6 && info->time_to_must_eat < 0)
 		return (FALSE);

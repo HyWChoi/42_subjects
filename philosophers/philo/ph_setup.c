@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 15:40:58 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:53:36 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,28 @@ void	*ph_set_start(t_info *info, t_mutex **mutex, t_philo **philo)
 	return (philo);
 }
 
+void	*ph_memset(void *b, int c, size_t len)
+{
+	int	i;
+
+	i = 0;
+	while (len-- != 0)
+		*((unsigned char *)b + i++) = (unsigned char)c;
+	return (b);
+}
+
 t_info	*ph_set_info(t_info **info, int argc, char *argv[])
 {
-	(*info) = ph_init_info(argc, argv);
+	*info = (t_info *)malloc(sizeof(t_info));
 	if (!*info)
 		return (NULL);
+	ph_memset(*info, 0, sizeof(t_info));
+	ph_set_input_to_info(*info, argc, argv);
+	if (!*info)
+	{
+		free(*info);
+		return (NULL);
+	}
 	if (!ph_vaild_info(*info, argc))
 	{
 		free(*info);
