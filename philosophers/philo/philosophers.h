@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:31 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 16:57:27 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:50:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_info
 	int		time_to_sleep;
 	int		time_to_must_eat;
 	long	start_time;
+	t_bool	is_have_must_eat;
 }	t_info;
 
 typedef struct s_mutex
@@ -122,12 +123,12 @@ t_info	*ph_set_info(t_info **info, int argc, char *argv[]);
 
 // ph_parse.c
 void	ph_set_value_with_index(t_info *info, char *str, int count);
-void	ph_set_input_to_info(t_info *info, int argc, char *argv[]);
+t_info	*ph_set_input_to_info(t_info *info, int argc, char *argv[]);
 void	ph_free_split(char **split);
 size_t	ph_strlen(const char *str);
 
 // ph_utils.c
-t_bool	ph_vaild_info(t_info *info, int argc);
+t_bool	ph_vaild_info(t_info *info);
 t_bool	ph_is_exist_die(t_philo *philo);
 int		ph_check_finish(t_philo *philo);
 int		ph_force_quit(t_philo *philo);

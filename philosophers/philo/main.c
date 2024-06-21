@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:37:16 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 22:49:40 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:55:01 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	main(int argc, char *argv[])
 
 	philo = NULL;
 	mutex = NULL;
-	if (argc != 5 && argc != 6)
-		return (ph_print_err("Error: Invalid arguments", 1));
 	if (!ph_set_info(&info, argc, argv))
 		return (ph_print_err("Error: Invalid arguments", 1));
 	if (!ph_set_start(info, &mutex, &philo))

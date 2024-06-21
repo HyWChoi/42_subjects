@@ -6,13 +6,13 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 16:57:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:49:57 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_bool	ph_vaild_info(t_info *info, int argc)
+t_bool	ph_vaild_info(t_info *info)
 {
 	if (info->num_of_philosophers < 1)
 		return (FALSE);
@@ -22,7 +22,7 @@ t_bool	ph_vaild_info(t_info *info, int argc)
 		return (FALSE);
 	if (info->time_to_sleep < 0)
 		return (FALSE);
-	if (argc == 6 && info->time_to_must_eat < 0)
+	if (info->is_have_must_eat && info->time_to_must_eat < 0)
 		return (FALSE);
 	return (TRUE);
 }

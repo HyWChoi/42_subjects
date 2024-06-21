@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:37:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 22:46:44 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:52:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ph_atoi(const char *str)
 		i++;
 	}
 	i += ph_skip_spaces(str + i);
-	if (str[i] != '\0' || nbr > INT_MAX || nbr < INT_MIN)
+	if (str[i] || nbr > INT_MAX || nbr < INT_MIN)
 		return (-1);
 	return ((int)(nbr));
 }
@@ -89,5 +89,6 @@ t_info	*ph_copy_info(t_info *info)
 	new_info->time_to_sleep = info->time_to_sleep;
 	new_info->time_to_must_eat = info->time_to_must_eat;
 	new_info->start_time = info->start_time;
+	new_info->is_have_must_eat = info->is_have_must_eat;
 	return (new_info);
 }

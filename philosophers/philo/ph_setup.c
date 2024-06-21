@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/20 16:53:36 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:51:37 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ t_info	*ph_set_info(t_info **info, int argc, char *argv[])
 	if (!*info)
 		return (NULL);
 	ph_memset(*info, 0, sizeof(t_info));
-	ph_set_input_to_info(*info, argc, argv);
-	if (!*info)
+	(*info)->is_have_must_eat = FALSE;
+	if (!ph_set_input_to_info(*info, argc, argv))
 	{
 		free(*info);
 		return (NULL);
 	}
-	if (!ph_vaild_info(*info, argc))
+	if (!ph_vaild_info(*info))
 	{
 		free(*info);
 		return (NULL);
