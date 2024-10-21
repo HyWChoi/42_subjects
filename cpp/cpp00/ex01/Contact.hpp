@@ -1,5 +1,5 @@
-#ifndef EX01_HPP
-# define EX01_HPP
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
 
 # include <iostream>
 # include <string>
@@ -11,19 +11,20 @@ class Contact {
 		std::string nickName;
 		std::string phoneNumber;
 		std::string darkestSecret;
+	
 	public:
-		void	setFirstName(std::string firstName);
-		void	setLastName(std::string lastName);
-		void	setNickName(std::string nickName);
-		void	setPhoneNumber(std::string phoneNumber);
-		void	setDarkestSecret(std::string darkestSecret);
-		std::string	getFirstName();
-		std::string	getLastName();
-		std::string	getNickName();
-		std::string	getPhoneNumber();
-		std::string	getDarkestSecret();
-	Contact();
-	~Contact();
+		Contact();
+		~Contact();
+		std::string	getFirstName(void);
+		std::string	getLastName(void);
+		std::string	getNickName(void);
+		std::string	getPhoneNumber(void);
+		std::string	getDarkestSecret(void);
+		void	setFirstName(std::string str);
+		void	setLastName(std::string str);
+		void	setNickName(std::string str);
+		bool	setPhoneNumber(std::string str);
+		void	setDarkestSecret(std::string str);
 };
 
 #endif

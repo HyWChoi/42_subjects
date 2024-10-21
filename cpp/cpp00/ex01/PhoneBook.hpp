@@ -1,27 +1,25 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-# include <iostream>
-# include <string>
+# include <iomanip>
 # include "Contact.hpp"
 
 class PhoneBook {
+
 	private:
-		Contact _contacts[8];
-		int _nbContacts;
-		void setNbContacts(int nbContacts);
-		void setContact(Contact contact, int index);
+	    static const std::string PHONEBOOKHEADER[3];
+	    static const std::string PHONEBOOKFOOTER[1];
+		Contact contactList[8];
+		int		index;
+
 	public:
-		void printUnder10(std::string str);
-		bool isNonePrintable(std::string str);
-		bool isOnlyWhitespace(std::string str);
-		void safetyCin(std::string &string, std::string target);
-		int getNbContacts();
-		void addContact();
-		void searchContact();
-		void printContact();
 		PhoneBook();
 		~PhoneBook();
+		int		getIndex();
+		void	setIndex(int idx);
+		Contact getContact(int idx);
+		void	add();
+		void	search();
 };
 
 #endif
