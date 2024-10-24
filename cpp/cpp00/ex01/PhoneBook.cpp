@@ -68,7 +68,7 @@ void PhoneBook::add() {
 				std::cout << "Wrong format" << std::endl;
 				str = "";
 			}
-		}	
+		}
 	}
 	str = "";
 	while (!std::cin.eof() && str == "")
@@ -78,6 +78,25 @@ void PhoneBook::add() {
 			this->contactList[index].setDarkestSecret(str);
 	}
 	this->setIndex(++index);
+}
+
+bool PhoneBook::isValidInput(std::string userInput) {
+    if (userInput.empty())
+        return false;
+
+    for (size_t i = 0; i < userInput.size(); i++) {
+        if (!isprint(userInput.at(i))) {
+            return false;
+        }
+    }
+
+    for (size_t i = 0; i < userInput.size(); i++) {
+        if (!isdigit(userInput.at(i))) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void PhoneBook::search() {
@@ -114,20 +133,16 @@ void PhoneBook::search() {
     std::cout << "Enter an index which you want to see: ";
     std::getline(std::cin, userInput);
 
-    // Check if the input is a valid number
-    bool isValid = !userInput.empty() && std::all_of(userInput.begin(), userInput.end(), ::isdigit);
+	if (!this->isValidInput(userInput)) {
+		std::cout << "invalid input1" << std::endl;
+		return ;
+	}
 
-    if (!isValid) {
-        std::cout << "Invalid input. Please enter a valid number." << std::endl;
-        return;
-    }
-
-    int index = std::stoi(userInput);  // Convert the valid string to integer
-
-    if (index < 0 || index >= this->index) {
-        std::cout << "Wrong index" << std::endl;
-        return;
-    }
+	int index = atoi(userInput.c_str());
+	if (index < 0 || index > 7) {
+		std::cout << "invalid input" << std::endl;
+		return ;
+	}
 
     std::cout << "Index: " << index << std::endl;
     std::cout << "FirstName: " << this->contactList[index].getFirstName() << std::endl;

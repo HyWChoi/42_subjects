@@ -7,8 +7,8 @@
 class PhoneBook {
 
 	private:
-	    static const std::string PHONEBOOKHEADER[3];
-	    static const std::string PHONEBOOKFOOTER[1];
+		static const std::string PHONEBOOKHEADER[3];
+		static const std::string PHONEBOOKFOOTER[1];
 		Contact contactList[8];
 		int		index;
 
@@ -20,6 +20,8 @@ class PhoneBook {
 		Contact getContact(int idx);
 		void	add();
 		void	search();
+		bool	isValidInput(std::string userInput);
+
 };
 
 #endif
