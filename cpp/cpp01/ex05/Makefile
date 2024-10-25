@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = SedIsForLosers
-SRCS = main.cpp Sed.cpp
+NAME = Harl
+SRCS = main.cpp Harl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의
