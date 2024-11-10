@@ -30,6 +30,10 @@ Contact PhoneBook::getContact(int idx) {
 	return this->contactList[idx % 8];
 }
 
+int PhoneBook::stringToInt(const std::string& str) {
+    return std::strtol(str.c_str(), NULL, 10);
+}
+
 void PhoneBook::add() {
 	std::string str;
 	int index = this->getIndex();
@@ -138,7 +142,7 @@ void PhoneBook::search() {
 		return ;
 	}
 
-	int index = atoi(userInput.c_str());
+	int index = stringToInt(userInput);
 	if (index < 0 || index > 7) {
 		std::cout << "invalid input" << std::endl;
 		return ;

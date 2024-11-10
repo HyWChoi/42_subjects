@@ -2,6 +2,7 @@
 # define PHONEBOOK_HPP
 
 # include <iomanip>
+# include <cstdlib>
 # include "Contact.hpp"
 
 class PhoneBook {
@@ -21,7 +22,7 @@ class PhoneBook {
 		void	add();
 		void	search();
 		bool	isValidInput(std::string userInput);
-
+		int 	stringToInt(const std::string& str);
 };
 
 #endif
