@@ -1,21 +1,49 @@
 #include "ClapTrap.hpp"
 
-std::string ClapTrap::getName(){
+ClapTrap::ClapTrap():name(""), hitPoint(10), energyPoint(10), attackDamage(0) {
+	std::cout << "no arg ClapTrap constructor called" << std::endl;
+};
+
+ClapTrap::ClapTrap(std::string name):name(name), hitPoint(10), energyPoint(10), attackDamage(0) {
+	std::cout << "ClapTrap constructor called" << std::endl;
+};
+
+ClapTrap::~ClapTrap(){
+	std::cout << "ClapTrap deconstructor called" << std::endl;
+};
+
+ClapTrap::ClapTrap(const ClapTrap& other){
+	*this = other;
+	std::cout << "ClapTrap copy constructor called" << std::endl;
+};
+
+ClapTrap& ClapTrap::operator=(const ClapTrap& other){
+	if (this != &other) {
+		this->name = other.name;
+		this->hitPoint = other.hitPoint;
+		this->energyPoint = other.energyPoint;
+		this->attackDamage = other.attackDamage;
+		std::cout << "ClapTrap assignment operator called" << std::endl;
+	}
+	return *this;
+};
+
+std::string ClapTrap::getName() const{
 	if (this->name.size() == 0)
 		return "";
 
 	return this->name;
 };
 
-ssize_t ClapTrap::getHitPoint(){
+ssize_t ClapTrap::getHitPoint() const{
 	return this->hitPoint;
 };
 
-ssize_t ClapTrap::getEnergyPoint(){
+ssize_t ClapTrap::getEnergyPoint() const{
 	return this->energyPoint;
 };
 
-ssize_t ClapTrap::getAttackDamage(){
+ssize_t ClapTrap::getAttackDamage() const{
 	return this->attackDamage;
 };
 
@@ -44,9 +72,9 @@ void ClapTrap::attack(const std::string& target){
 	else
 	{
 		this->setEnergyPoint(this->getEnergyPoint() - 1);
-		std::cout << "ClapTrap " << this->getName() << " attacks " << target 
-            << " causing " << this->getAttackDamage() << " points of damage!" 
-            << std::endl;
+		std::cout << "ClapTrap " << this->getName() << " attacks " << target
+			<< " causing " << this->getAttackDamage() << " points of damage!"
+			<< std::endl;
 	}
 };
 
@@ -78,6 +106,10 @@ void ClapTrap::beRepaired(unsigned int amount){
 		std::cout << "ClapTrap " << this->getName() << "'s repairing is not working!" << std::endl;
 	else
 	{
+		if (amount > 0 && this->getHitPoint() > INT_MAX - amount) {
+			std::cout << "ClapTrap " << this->getName() << "'s repair would exceed maximum hit points!" << std::endl;
+			return ;
+		}
 		this->setEnergyPoint(this->getEnergyPoint() - 1);
 		this->setHitPoint(this->getHitPoint() + amount);
 		std::cout << "ClapTrap " << this->getName() << " repaired itself for " << amount << " points of hit!" << std::endl;
@@ -85,6 +117,3 @@ void ClapTrap::beRepaired(unsigned int amount){
 		std::cout << "ClapTrap " << this->getName() << " has " << this->getHitPoint() << " points of hit!" << std::endl;
 	}
 };
-
-
-
