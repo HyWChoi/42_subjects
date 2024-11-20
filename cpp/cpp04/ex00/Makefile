@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = megaphone
-SRCS = main.cpp
+NAME = Animal
+SRCS = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의

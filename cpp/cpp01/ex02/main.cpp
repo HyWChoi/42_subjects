@@ -9,6 +9,7 @@ int	main(){
 	std::cout << "Address in memory of the string: " << &str << std::endl;
 	std::cout << "Address in memory of the stringPTR: " << stringPTR << std::endl;
 	std::cout << "Address in memory of the stringREF: " << &stringREF << std::endl;
+	std::cout << "String: " << str << std::endl;
 	std::cout << "StringPTR: " << *stringPTR << std::endl;
 	std::cout << "StringREF: " << stringREF << std::endl;
 	return (0);
