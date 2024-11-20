@@ -31,7 +31,10 @@ Contact PhoneBook::getContact(int idx) {
 }
 
 int PhoneBook::stringToInt(const std::string& str) {
-    return std::strtol(str.c_str(), NULL, 10);
+	std::stringstream ss(str);
+	int result;
+	ss >> result;
+	return result;
 }
 
 void PhoneBook::add() {
