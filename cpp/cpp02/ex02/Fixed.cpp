@@ -116,6 +116,7 @@ const Fixed& Fixed::max(const Fixed& a, const Fixed& b) {
     return (a > b) ? a : b;
 }
 
+// 출력 스트림 연산자 구현 추가
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed) {
     out << fixed.toFloat();
     return out;
