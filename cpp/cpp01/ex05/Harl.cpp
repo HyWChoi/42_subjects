@@ -46,4 +46,5 @@ void Harl::complain(std::string level){
 			return ;
 		}
 	}
+	std::cout << "Invalid input" << std::endl;
 }
