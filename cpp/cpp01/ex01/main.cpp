@@ -2,10 +2,8 @@
 #include "Zombie.hpp"
 
 int	main(){
-	int	numOfZombies = 0;
+	int	numOfZombies = 10;
 	std::cout << "Creating new ZombieHorde" << std::endl;
-	std::cout << "Input the number of Zombies you want to create: ";
-	std::cin >> numOfZombies;
 
 	Zombie *zombies = zombieHorde(numOfZombies, "Zombie");
 	for (int i = 0; i < numOfZombies; i++){
