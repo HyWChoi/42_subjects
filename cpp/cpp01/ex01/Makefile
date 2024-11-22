@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = megaphone
-SRCS = main.cpp
+NAME = zombieHorde
+SRCS = main.cpp Zombie.cpp zombieHorde.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의

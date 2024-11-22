@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Fixed
-SRCS = main.cpp Fixed.cpp
+NAME = Weapon
+SRCS = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의

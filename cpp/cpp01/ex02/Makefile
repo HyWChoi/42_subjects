@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Fixed
-SRCS = main.cpp Fixed.cpp
+NAME = HI_THIS_IS_BRAIN
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의

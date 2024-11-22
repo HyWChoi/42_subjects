@@ -28,6 +28,7 @@ void Sed::sed() {
 	std::ifstream inFile(fileName.c_str());
 	if (!inFile.is_open()) {
 		throw std::runtime_error("Error: could not open input file");
+		return ;
 	}
 
 	std::string outFileName = fileName + ".replace";
