@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <fstream>
+# include <stdexcept>
+# include <sstream>
 
 class Sed {
 	private:

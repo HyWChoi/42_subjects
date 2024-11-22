@@ -1,5 +1,4 @@
 #include "Sed.hpp"
-#include <sstream>
 
 Sed::Sed(const std::string &fileName, const std::string &s1, const std::string &s2) 
     : fileName(fileName), originString(s1), replaceString(s2) {};
