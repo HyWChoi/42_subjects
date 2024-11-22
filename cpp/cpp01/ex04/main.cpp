@@ -3,8 +3,11 @@
 int	main(int argc, char* argv[]){
 	if (argc != 4){
 		std::cout << "TOO LESS ARGUMENTS" << std::endl;
-		return 0;
+		return 1;
 	}
+
+	if (*argv[2] == '\0')
+		return 1;
 
 	Sed sed = Sed(argv[1], argv[2], argv[3]);
 	try {

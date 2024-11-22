@@ -1,4 +1,4 @@
-CC = g++
+CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = HI_THIS_IS_BRAIN
 SRCS = main.cpp
