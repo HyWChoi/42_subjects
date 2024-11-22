@@ -1,7 +1,7 @@
 CC = g++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = ScavTrap
-SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp
+NAME = Fixed
+SRCS = main.cpp Fixed.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의
