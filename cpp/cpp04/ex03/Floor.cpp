@@ -33,7 +33,7 @@ void Floor::removeItem(AMateria* item) {
 	for (int i = 0; i < MAX_FLOOR_ITEMS; ++i) {
 		if (items[i] == item) {
 			delete items[i];
-			items[i] = nullptr;
+			items[i] = NULL;
 			itemCount--;
 			return;
 		}
@@ -43,9 +43,9 @@ void Floor::removeItem(AMateria* item) {
 void Floor::cleanFloor() {
 	std::cout << "Cleaning the floor..." << std::endl;
 	for (int i = 0; i < MAX_FLOOR_ITEMS; ++i) {
-		if (items[i] != nullptr) {
+		if (items[i] != NULL) {
 			delete items[i];
-			items[i] = nullptr;
+			items[i] = NULL;
 		}
 	}
 	itemCount = 0;
@@ -56,7 +56,7 @@ void Floor::displayFloor() const {
 	std::cout << "Floor status:" << std::endl;
 	int itemsFound = 0;
 	for (int i = 0; i < MAX_FLOOR_ITEMS; ++i) {
-		if (items[i] != nullptr) {
+		if (items[i] != NULL) {
 			std::cout << "Position " << i << ": " << items[i]->getType() << std::endl;
 			itemsFound++;
 		}

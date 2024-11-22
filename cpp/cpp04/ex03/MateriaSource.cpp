@@ -21,6 +21,8 @@ MateriaSource::~MateriaSource() {
 
 MateriaSource::MateriaSource(const MateriaSource& other) : learnedCount(0) {
 	for (int i = 0; i < 4; i++) {
+		if(templates[i])
+			delete templates[i];
 		templates[i] = NULL;
 		if (other.templates[i]) {
 			templates[i] = other.templates[i]->clone();

@@ -24,7 +24,10 @@ Character::~Character() {
 Character::Character(const Character& other) :
 	name(other.name),
 	presentEquipIndex(other.presentEquipIndex) {
+
 	for (int i = 0; i < 4; i++) {
+		if(inventory[i])
+			delete inventory[i];
 		if (other.inventory[i])
 			inventory[i] = other.inventory[i]->clone();
 		else
