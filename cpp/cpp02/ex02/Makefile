@@ -4,7 +4,6 @@ NAME = Fixed
 SRCS = main.cpp Fixed.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-# 규칙 정의
 all: $(NAME)
 
 $(NAME): $(OBJS)
