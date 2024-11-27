@@ -1,10 +1,9 @@
-CC = g++
+CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = ClapTrap
 SRCS = main.cpp ClapTrap.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-# 규칙 정의
 all: $(NAME)
 
 $(NAME): $(OBJS)
