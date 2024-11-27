@@ -26,12 +26,12 @@ Character::Character(const Character& other) :
 	presentEquipIndex(other.presentEquipIndex) {
 
 	for (int i = 0; i < 4; i++) {
-		if(inventory[i])
-			delete inventory[i];
+		inventory[i] = NULL;
+	}
+
+	for (int i = 0; i < 4; i++) {
 		if (other.inventory[i])
 			inventory[i] = other.inventory[i]->clone();
-		else
-			inventory[i] = NULL;
 	}
 }
 
@@ -75,7 +75,6 @@ void Character::equip(AMateria* m) {
 	}
 	else if (m == NULL) {
 		std::cout << "cant find inventory" << std::endl;
-		delete m;
 		return;
 	}
 
@@ -95,7 +94,7 @@ void Character::unequip(int idx) {
 		return;
 	}
 
-	inventory[idx] = nullptr;
+	inventory[idx] = NULL;
 	std::cout << name << " unequipped item at position " << idx << std::endl;
 }
 
