@@ -14,7 +14,6 @@ void leaks()
 int main() {
     std::cout << "\n=== Testing Animal Hierarchy ===\n" << std::endl;
     
-    // Test 1: Basic animal creation and sounds
     std::cout << "Test 1: Basic animal creation and sounds" << std::endl;
     const Animal* meta = new Animal();
     const Animal* dog = new Dog();
@@ -30,12 +29,10 @@ int main() {
     dog->makeSound();
     cat->makeSound();
     
-    // Cleanup
     delete meta;
     delete dog;
     delete cat;
     
-    // Test 2: WrongAnimal hierarchy
     std::cout << "\nTest 2: WrongAnimal hierarchy" << std::endl;
     const WrongAnimal* wrongAnimal = new WrongAnimal();
     const WrongAnimal* wrongCat = new WrongCat();
@@ -46,13 +43,11 @@ int main() {
     
     std::cout << "\nSounds:" << std::endl;
     wrongAnimal->makeSound();
-    wrongCat->makeSound();  // Will make wrong animal sound!
+    wrongCat->makeSound();
     
-    // Cleanup
     delete wrongAnimal;
     delete wrongCat;
     
-    // Test 3: Direct object creation
     std::cout << "\nTest 3: Direct object creation" << std::endl;
     {
         Dog directDog;
