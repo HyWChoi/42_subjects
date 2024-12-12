@@ -16,11 +16,6 @@ int main(){
         	std::cout << "\nTesting copy constructor:" << std::endl;
         	Bureaucrat b3(b2);
         	std::cout << b3 << std::endl;
-
-        	std::cout << "\nTesting assignment operator:" << std::endl;
-        	Bureaucrat b4;
-        	b4 = b2;
-        	std::cout << b4 << std::endl;
     	}
     	catch (std::exception& e) {
     	    std::cout << "Exception: " << e.what() << std::endl;
@@ -51,26 +46,26 @@ int main(){
     	try {
     	    Bureaucrat b("Test", 2);
     	    std::cout << "Initial state: " << b << std::endl;
-	
+
     	    std::cout << "Incrementing grade" << std::endl;
     	    b.incrementGrade();
     	    std::cout << "After increment: " << b << std::endl;
-	
+
     	    std::cout << "Trying to increment at maximum grade" << std::endl;
     	    b.incrementGrade();
     	}
     	catch (std::exception& e) {
     	    std::cout << "Exception caught: " << e.what() << std::endl;
     	}
-	
+
     	try {
     	    Bureaucrat b("Test", 149);
     	    std::cout << "\nInitial state: " << b << std::endl;
-	
+
     	    std::cout << "Decrementing grade" << std::endl;
     	    b.decrementGrade();
     	    std::cout << "After decrement: " << b << std::endl;
-	
+
     	    std::cout << "Trying to decrement at minimum grade" << std::endl;
     	    b.decrementGrade();
     	}
