@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 # include <string>
 # include <exception>
@@ -8,12 +8,12 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 	public:
-		Form();
-		Form(const std::string& name, int gradeToExecute, int gradeToSign);
-		Form(const Form& other);
-		~Form();
+		AForm();
+		AForm(const std::string& name, int gradeToExecute, int gradeToSign);
+		AForm(const AForm& other);
+		virtual ~AForm();
 
 		const std::string &getName() const;
 		bool getIsSigned() const;
@@ -33,7 +33,12 @@ class Form {
 				virtual const char *what() const throw();
 		};
 
-		class AlreadySignedException : public std::exception {
+		class NotSignedException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class NotExecutedException : public std::exception {
 			public:
 				virtual const char *what() const throw();
 		};
@@ -44,9 +49,9 @@ class Form {
 		int const gradeToExecute;
 		int const gradeToSign;
 
-		Form& operator=(const Form& other);
+		AForm& operator=(const AForm& other);
 };
 
-std::ostream &operator<<(std::ostream &out, const Form &Form);
+std::ostream &operator<<(std::ostream &out, const AForm &AForm);
 
 #endif
