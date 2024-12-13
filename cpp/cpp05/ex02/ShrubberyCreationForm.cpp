@@ -1,6 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
-const static const std::string TREE = "\
+const std::string ShrubberyCreationForm::TREE = "\
       ###\n\
      #####\n\
     #######\n\
@@ -15,8 +15,8 @@ ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 
 	std::cout << "ShrubberyCreationForm default constructor" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& name, int gradeToExecute, int gradeToSign)
-	: AForm(name, gradeToExecute, gradeToSign){
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
+	: AForm(target, 137, 145){
 	std::cout << "ShrubberyCreationForm all arg constructor" << std::endl;
 }
 
@@ -30,7 +30,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm(){
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 	if (!this->getIsSigned()) throw AForm::NotSignedException();
-	if (executor.getGrade() > this->getGradeToExecute()) throw AForm::NotExecutedException();
+	if (executor.getGrade() > this->getGradeToExecute()) throw AForm::GradeTooLowException();
 
 	std::string filename = this->getName() + "_shrubbery";
 	std::ofstream file(filename);

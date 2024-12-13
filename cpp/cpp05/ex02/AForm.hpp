@@ -11,6 +11,7 @@ class Bureaucrat;
 class AForm {
 	public:
 		AForm();
+		AForm(const std::string& name);
 		AForm(const std::string& name, int gradeToExecute, int gradeToSign);
 		AForm(const AForm& other);
 		virtual ~AForm();

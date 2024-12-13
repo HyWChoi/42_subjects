@@ -4,6 +4,10 @@ AForm::AForm() : name("default"), isSigned(false), gradeToExecute(1), gradeToSig
 	std::cout << "AForm default constructor" << std::endl;
 }
 
+AForm::AForm(const std::string& target) : name(target), isSigned(false), gradeToExecute(1), gradeToSign(1){
+    std::cout << "AForm name constructor" << std::endl;
+}
+
 AForm::AForm(const std::string& name, int gradeToExecute, int gradeToSign)
 			: name(name), isSigned(false), gradeToExecute(gradeToExecute), gradeToSign(gradeToSign){
 	if (gradeToExecute < 1 || gradeToSign < 1)

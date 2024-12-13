@@ -1,7 +1,14 @@
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Form
-SRCS = main.cpp Bureaucrat.cpp Form.cpp
+NAME = AForm
+SRCS = \
+AForm.cpp \
+Bureaucrat.cpp \
+PresidentialPardonForm.cpp \
+RobotomyRequestForm.cpp \
+ShrubberyCreationForm.cpp \
+main.cpp \
+
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의

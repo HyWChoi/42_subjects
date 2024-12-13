@@ -16,7 +16,7 @@ class ShrubberyCreationForm : public AForm {
 
 	public:
 		ShrubberyCreationForm();
-		ShrubberyCreationForm(const std::string& name, int gradeToExecute, int gradeToSign);
+		ShrubberyCreationForm(const std::string& target);
 		ShrubberyCreationForm(const ShrubberyCreationForm& other);
 		~ShrubberyCreationForm();
 
