@@ -15,7 +15,7 @@ int main() {
 		b.incrementGrade();
 		std::cout << "After increment: " << b << std::endl;
 
-		b.incrementGrade(); // Should throw exception
+		b.incrementGrade();
 	} catch (std::exception& e) {
 		std::cout << "Exception: " << e.what() << std::endl;
 	}
@@ -26,19 +26,19 @@ int main() {
 		b.decrementGrade();
 		std::cout << "After decrement: " << b << std::endl;
 
-		b.decrementGrade(); // Should throw exception
+		b.decrementGrade();
 	} catch (std::exception& e) {
 		std::cout << "Exception: " << e.what() << std::endl;
 	}
 
 	std::cout << "\n=== Testing Invalid Grades ===\n" << std::endl;
 	try {
-		Bureaucrat tooHigh("Too High", 0);	// Should throw exception
+		Bureaucrat tooHigh("Too High", 0);
 	} catch (std::exception& e) {
 		std::cout << "Creating bureaucrat with grade 0: " << e.what() << std::endl;
 	}
 	try {
-		Bureaucrat tooLow("Too Low", 151);	// Should throw exception
+		Bureaucrat tooLow("Too Low", 151);
 	} catch (std::exception& e) {
 		std::cout << "Creating bureaucrat with grade 151: " << e.what() << std::endl;
 	}
@@ -51,15 +51,12 @@ int main() {
 
 		ShrubberyCreationForm form("garden");
 
-		// Test signing with different bureaucrats
 		std::cout << "Testing signing..." << std::endl;
-		low.signForm(form); // Should fail
-		mid.signForm(form); // Should succeed
-
-		// Test execution with different bureaucrats
+		low.signForm(form);
+		mid.signForm(form);
 		std::cout << "\nTesting execution..." << std::endl;
-		low.executeForm(form);  // Should fail (grade too low)
-		high.executeForm(form); // Should succeed
+		low.executeForm(form);
+		high.executeForm(form);
 
 	} catch (std::exception& e) {
 		std::cout << "Exception: " << e.what() << std::endl;
@@ -73,12 +70,10 @@ int main() {
 
 		RobotomyRequestForm form("RobotomyRequestForm");
 
-		// Test signing
 		std::cout << "Testing signing..." << std::endl;
-		low.signForm(form); // Should fail
-		mid.signForm(form); // Should succeed
+		low.signForm(form);
+		mid.signForm(form);
 
-		// Test multiple executions to see success/failure rate
 		std::cout << "\nTesting multiple executions..." << std::endl;
 		for (int i = 0; i < 5; i++) {
 			high.executeForm(form);
@@ -95,15 +90,13 @@ int main() {
 
 		PresidentialPardonForm form("Criminal");
 
-		// Test signing
 		std::cout << "Testing signing..." << std::endl;
-		intern.signForm(form);	  // Should fail
-		minister.signForm(form);	// Should succeed
+		intern.signForm(form);
+		minister.signForm(form);
 
-		// Test execution
 		std::cout << "\nTesting execution..." << std::endl;
-		minister.executeForm(form); // Should fail (grade too low)
-		president.executeForm(form); // Should succeed=
+		minister.executeForm(form);
+		president.executeForm(form);
 	} catch (std::exception& e) {
 		std::cout << "Exception: " << e.what() << std::endl;
 	}
