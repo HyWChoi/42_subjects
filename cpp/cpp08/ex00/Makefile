@@ -1,7 +1,7 @@
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME =
-SRCS =
+NAME = easyfind
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의
