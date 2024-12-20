@@ -1,7 +1,7 @@
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME =
-SRCS =
+NAME = span
+SRCS = main.cpp Span.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # 규칙 정의
