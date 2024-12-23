@@ -1,7 +1,14 @@
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = ex03
-SRCS = main.cpp
+NAME = Intern
+SRCS = \
+AForm.cpp \
+Bureaucrat.cpp \
+PresidentialPardonForm.cpp \
+RobotomyRequestForm.cpp \
+ShrubberyCreationForm.cpp \
+main.cpp \
+Intern.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
