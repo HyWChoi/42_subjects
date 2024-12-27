@@ -2,18 +2,52 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
+# include <string>
+# include <exception>
+# include <climits>
+# include <cfloat>
 
 class ScalarConverter {
 	public:
+		static void convert(const std::string &input);
 		ScalarConverter();
 		~ScalarConverter();
 
-		void convert(const std::string &input);
+		class NonDisplayableException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class CharImpossibleException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class IntImpossibleException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class FloatImpossibleException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class DoubleImpossibleException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class InvalidInputException : public std::exception {
+			public:
+				virtual const char *what() const throw();
+		};
+
 	private:
-		void printChar(char c);
-		void printInt(int i);
-		void printFloat(float f);
-		void printDouble(double d);
+		static void printChar(double c);
+		static void printInt(double i);
+		static void printFloat(double f);
+		static void printDouble(double d);
 		ScalarConverter(const ScalarConverter &other);
 		ScalarConverter &operator=(const ScalarConverter &other);
 };
