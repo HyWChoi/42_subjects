@@ -12,7 +12,6 @@
 
 class BitcoinExchange {
 	public:
-		BitcoinExchange();
 		BitcoinExchange(const std::string &inputFileName);
 		~BitcoinExchange();
 
@@ -68,6 +67,7 @@ class BitcoinExchange {
 		bool parsingInputFile(const std::string &rowLine);
 		void printData();
 
+		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& other);
 		BitcoinExchange &operator=(const BitcoinExchange& other);
 
