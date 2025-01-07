@@ -1,4 +1,5 @@
 #include "PmergeMeDeq.hpp"
+#include "isSorted.hpp"
 
 void PmergeMeDeq::makeOriginDeque(int argc, char *argv[]) {
 	for (int i = 1; i < argc; i++) {
@@ -87,12 +88,12 @@ void PmergeMeDeq::makeFanningGroup(const std::deque<Node> &nodeDeque) {
 	for (std::deque<unsigned int>::const_iterator it = resultDeque.begin(); it != resultDeque.end(); ++it) {
 		for (std::deque<Node>::const_iterator nodeIt = nodeDeque.begin(); nodeIt != nodeDeque.end(); ++nodeIt) {
 			if (*it == nodeIt->max) {
-				tmpDeq.push_back(nodeIt->min);
-				break;
+				if (nodeIt->min != 0)
+					tmpDeq.push_back(nodeIt->min);
+				break ;
 			}
 		}
 	}
-
 	std::deque<unsigned int> JacobsthalNumbs = generateJacobsthalNumbers(tmpDeq.size());
 	int i = 0;
 	for (std::deque<unsigned int>::const_iterator it = tmpDeq.begin(); it != tmpDeq.end() && tmpDeq.size(); ++it) {
@@ -105,10 +106,11 @@ void PmergeMeDeq::mergeDequeIntoResult() {
 		unsigned int value = fanningDeque.front();
 		fanningDeque.pop_front();
 
-		// if (value != 0 && value <= resultDeque[0]) {
-		// 	resultDeque.push_front(value);
-		// 	return ;
-		// }
+		if (value != 0 && value <= resultDeque[0]) {
+			resultDeque.push_front(value);
+			continue ;
+		}
+
 		std::deque<unsigned int>::iterator insertPos = std::lower_bound(
 			resultDeque.begin(),
 			resultDeque.end(),
@@ -116,8 +118,8 @@ void PmergeMeDeq::mergeDequeIntoResult() {
 		);
 
 		if (value != 0) {
+			// std::cout << "inserted" << value << std::endl;
 			resultDeque.insert(insertPos, value);
-			std::cout << "inserted value : " << value << std::endl;
 		}
 	}
 }

@@ -114,7 +114,6 @@ void PmergeMe::mergeVectorIntoResult() {
 
 		if (value != 0) {
 			resultVector.insert(insertPos, value);
-			std::cout << "inserted value : " << value << std::endl;
 		};
 	}
 }

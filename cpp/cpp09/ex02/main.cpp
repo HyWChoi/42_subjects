@@ -30,6 +30,15 @@ int main(int argc, char *argv[]){
 	std::cout << "Before: ";
 	print(pm.getOriginVector());
 
+	struct timeval startDeq, endDeq;
+	gettimeofday(&startDeq, NULL);
+	pmDeq.devide(pmDeq.getOriginDeque());
+	gettimeofday(&endDeq, NULL);
+	std::cout << "After(deque): " ;
+	print(pmDeq.getResultDeque());
+
+	double durationDeq = calculateTimeDiff(startDeq, endDeq);
+
 	// Vector timing
 	struct timeval startVec, endVec;
 	gettimeofday(&startVec, NULL);
@@ -40,22 +49,16 @@ int main(int argc, char *argv[]){
 
 	double durationVec = calculateTimeDiff(startVec, endVec);
 
-	struct timeval startDeq, endDeq;
-	gettimeofday(&startDeq, NULL);
-	pmDeq.devide(pmDeq.getOriginDeque());
-	gettimeofday(&endDeq, NULL);
-	std::cout << "After(deque): " ;
-	print(pmDeq.getResultDeque());
 
-	double durationDeq = calculateTimeDiff(startDeq, endDeq);
+	std::cout << "Time to process a range of " << argc - 1
+			<< " elements with std::deque : "
+			<< std::fixed << durationDeq << " us" << std::endl;
+
 
 	std::cout << "Time to process a range of " << argc - 1
 			<< " elements with std::vector : "
 			<< std::fixed << durationVec << " us" << std::endl;
 
-	std::cout << "Time to process a range of " << argc - 1
-			<< " elements with std::deque : "
-			<< std::fixed << durationDeq << " us" << std::endl;
 
 	if (isSorted(pm.getResultVector()))
 		std::cout << "Result Vector is sorted.\n";
