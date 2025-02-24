@@ -1,16 +1,23 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y niginx openssl
+RUN apt-get update && apt-get install -y nginx openssl tini
 
-# SSL 설정
-RUN mkdir -p /etc/niginx/ssl
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout /etc/niginx/ssl/nginx.key \
-    -out /etc/niginx/ssl/nginx.crt \
-    -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=42/CN=login.42.fr"
+RUN mkdir -p /etc/nginx/ssl && \
+    openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
+    -keyout /etc/nginx/ssl/hyeonwch.key \
+    -out /etc/nginx/ssl/hyeonwch.crt \
+    -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=42/CN=login.42.fr" && \
+    chown www-data:www-data \
+    /etc/nginx/ssl/hyeonwch.key \
+    /etc/nginx/ssl/hyeonwch.crt
 
-COPY conf/niginx.conf /etc/niginx/conf.d/default/conf
+COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+RUN mkdir -p /run/nginx
 
 EXPOSE 443
+
+# tini를 컨테이너의 시작점으로 설정 (좀비 프로세스 방지)
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 CMD ["nginx", "-g", "daemon off;"]
