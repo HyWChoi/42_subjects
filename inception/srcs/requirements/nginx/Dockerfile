@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y nginx openssl tini
 
@@ -11,7 +11,7 @@ RUN mkdir -p /etc/nginx/ssl && \
     /etc/nginx/ssl/hyeonwch.key \
     /etc/nginx/ssl/hyeonwch.crt
 
-COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./conf/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /run/nginx
 
