@@ -1,7 +1,6 @@
-version: '3'
-
 services:
   nginx:
+    container_name: nginx
     build: 
       context: ./requirements/nginx
     ports:
@@ -15,6 +14,7 @@ services:
       - inception
 
   mariadb:
+    container_name: mariadb
     build: 
       context: ./requirements/mariadb
     volumes:
@@ -26,6 +26,7 @@ services:
       - inception
 
   wordpress:
+    container_name: wordpress
     build:
       context: ./requirements/wordpress
     volumes:
@@ -43,15 +44,16 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/wordpress
+      device: /home/hyeonwch/data/wordpress
       o: bind
   db:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mariadb
+      device: /home/hyeonwch/data/mariadb
       o: bind
 
 networks:
   inception:
+    name: inception
     driver: bridge
