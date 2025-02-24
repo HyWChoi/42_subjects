@@ -16,7 +16,7 @@ RUN apt update -yq && \
 
 # WordPress 설치
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
-COPY tools/wp-setup.sh /usr/local/bin/wp-setup.sh
+COPY ./tools/wp-setup.sh /usr/local/bin/wp-setup.sh
 RUN chmod +x /usr/local/bin/wp-setup.sh
 
 ENTRYPOINT ["wp-setup.sh"]
